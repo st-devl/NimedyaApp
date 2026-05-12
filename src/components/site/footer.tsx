@@ -102,8 +102,8 @@ export async function Footer({ locale }: { locale: Locale }) {
           <p>© {new Date().getFullYear()} {settings.siteName}. {t.rights}</p>
           <div className="flex items-center gap-4">
             <span>{t.legal}</span>
-            <a className="hover:opacity-80" href="#">{t.policy}</a>
-            <a className="hover:opacity-80" href="#">{t.terms}</a>
+            <a className="hover:opacity-80" href="#" rel="nofollow">{t.policy}</a>
+            <a className="hover:opacity-80" href="#" rel="nofollow">{t.terms}</a>
           </div>
         </div>
       </div>
