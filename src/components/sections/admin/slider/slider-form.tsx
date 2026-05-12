@@ -9,6 +9,7 @@ type SliderFormProps = {
   translatingLabel: string;
   translateButtonLabel: string;
   loading: boolean;
+  saving: boolean;
   form: SliderFormState;
   protectManualEnFields: boolean;
   status: TranslateStatus;
@@ -17,6 +18,8 @@ type SliderFormProps = {
   onRetry: () => void;
   onTranslate: () => void;
   onChange: (field: keyof SliderFormState, value: string) => void;
+  onSave: () => void;
+  onCancel: () => void;
 };
 
 export function SliderForm({
@@ -25,6 +28,7 @@ export function SliderForm({
   translatingLabel,
   translateButtonLabel,
   loading,
+  saving,
   form,
   protectManualEnFields,
   status,
@@ -33,6 +37,8 @@ export function SliderForm({
   onRetry,
   onTranslate,
   onChange,
+  onSave,
+  onCancel,
 }: SliderFormProps) {
   return (
     <Card className="p-6">
@@ -75,6 +81,32 @@ export function SliderForm({
 
         <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="en-description">Description (EN)</label>
         <TextArea className="h-28" id="en-description" placeholder="Description (EN)" value={form.enDescription} onChange={(e) => onChange("enDescription", e.target.value)} />
+
+        <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="image-url">Gorsel URL (opsiyonel)</label>
+        <TextInput id="image-url" placeholder="https://..." value={form.imageUrl} onChange={(e) => onChange("imageUrl", e.target.value)} />
+
+        <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="link-url">Link URL (opsiyonel)</label>
+        <TextInput id="link-url" placeholder="https://..." value={form.linkUrl} onChange={(e) => onChange("linkUrl", e.target.value)} />
+
+        <div>
+          <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="status">Durum</label>
+          <select
+            className="mt-1 w-full rounded-lg border border-[color:var(--app-border)]/40 bg-[color:var(--surface-container-low)] px-3 py-2 text-sm"
+            id="status"
+            onChange={(e) => onChange("status", e.target.value)}
+            value={form.status}
+          >
+            <option value="DRAFT">Taslak</option>
+            <option value="ACTIVE">Aktif</option>
+          </select>
+        </div>
+
+        <div className="flex gap-3 pt-2">
+          <Button disabled={saving} onClick={onSave}>
+            {saving ? "Kaydediliyor..." : "Kaydet"}
+          </Button>
+          <Button onClick={onCancel} variant="secondary">Iptal</Button>
+        </div>
       </div>
     </Card>
   );

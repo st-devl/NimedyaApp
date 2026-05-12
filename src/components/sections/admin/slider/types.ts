@@ -1,8 +1,17 @@
-export type SliderRow = {
-  id: string;
-  title: string;
-  status: "Aktif" | "Taslak";
-  url: string;
+export type SliderStatus = "ACTIVE" | "DRAFT";
+
+export type SliderItem = {
+  id: number;
+  trTitle: string;
+  trDescription: string;
+  enTitle: string;
+  enDescription: string;
+  imageUrl: string | null;
+  linkUrl: string | null;
+  status: SliderStatus;
+  sortOrder: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type SliderFormState = {
@@ -10,6 +19,9 @@ export type SliderFormState = {
   trDescription: string;
   enTitle: string;
   enDescription: string;
+  imageUrl: string;
+  linkUrl: string;
+  status: SliderStatus;
 };
 
 export type TranslateStatus =

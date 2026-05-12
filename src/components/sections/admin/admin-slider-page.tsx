@@ -8,44 +8,90 @@ import { Button } from "@/components/ui/button";
 import { SliderTable } from "@/components/sections/admin/slider/slider-table";
 import { SliderForm } from "@/components/sections/admin/slider/slider-form";
 import { SliderPreview } from "@/components/sections/admin/slider/slider-preview";
-import { sliderRows } from "@/components/sections/admin/slider/constants";
-import type { SliderFormState, TranslateStatus } from "@/components/sections/admin/slider/types";
+import type { SliderItem, SliderFormState, TranslateStatus } from "@/components/sections/admin/slider/types";
+
+const EMPTY_FORM: SliderFormState = {
+  trTitle: "",
+  trDescription: "",
+  enTitle: "",
+  enDescription: "",
+  imageUrl: "",
+  linkUrl: "",
+  status: "DRAFT",
+};
 
 type AdminSliderPageSectionsProps = {
   locale: Locale;
+  initialItems: SliderItem[];
 };
 
-export function AdminSliderPageSections({ locale }: AdminSliderPageSectionsProps) {
+export function AdminSliderPageSections({ locale, initialItems }: AdminSliderPageSectionsProps) {
   const t = getAdminSliderContent(locale);
 
+  const [items, setItems] = useState<SliderItem[]>(initialItems);
+  const [editingItem, setEditingItem] = useState<SliderItem | null>(null);
+  const [showForm, setShowForm] = useState(false);
+
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState<SliderFormState>({ trTitle: "", trDescription: "", enTitle: "", enDescription: "" });
-  const [status, setStatus] = useState<TranslateStatus>({ type: "idle" });
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState<SliderFormState>(EMPTY_FORM);
+  const [translateStatus, setTranslateStatus] = useState<TranslateStatus>({ type: "idle" });
   const [lastPayload, setLastPayload] = useState<{ title: string; description: string } | null>(null);
   const [protectManualEnFields, setProtectManualEnFields] = useState(true);
   const [enTouched, setEnTouched] = useState({ enTitle: false, enDescription: false });
+  const [apiError, setApiError] = useState<string | null>(null);
+
+  const openCreate = () => {
+    setEditingItem(null);
+    setForm(EMPTY_FORM);
+    setTranslateStatus({ type: "idle" });
+    setEnTouched({ enTitle: false, enDescription: false });
+    setApiError(null);
+    setShowForm(true);
+  };
+
+  const openEdit = (item: SliderItem) => {
+    setEditingItem(item);
+    setForm({
+      trTitle: item.trTitle,
+      trDescription: item.trDescription,
+      enTitle: item.enTitle,
+      enDescription: item.enDescription,
+      imageUrl: item.imageUrl ?? "",
+      linkUrl: item.linkUrl ?? "",
+      status: item.status,
+    });
+    setTranslateStatus({ type: "idle" });
+    setEnTouched({ enTitle: false, enDescription: false });
+    setApiError(null);
+    setShowForm(true);
+  };
+
+  const cancelForm = () => {
+    setShowForm(false);
+    setEditingItem(null);
+  };
 
   const requestTranslate = async (payload?: { title: string; description: string }) => {
-    const requestPayload = payload ?? { title: form.trTitle, description: form.trDescription };
-    if (!requestPayload.title.trim() || !requestPayload.description.trim()) {
-      setStatus({ type: "error", message: "TR baslik ve aciklama zorunludur." });
+    const req = payload ?? { title: form.trTitle, description: form.trDescription };
+    if (!req.title.trim() || !req.description.trim()) {
+      setTranslateStatus({ type: "error", message: "TR baslik ve aciklama zorunludur." });
       return;
     }
 
     setLoading(true);
-    setStatus({ type: "idle" });
-
+    setTranslateStatus({ type: "idle" });
     try {
-      setLastPayload(requestPayload);
-      const response = await fetch("/api/admin/translate", {
+      setLastPayload(req);
+      const res = await fetch("/api/admin/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestPayload),
+        body: JSON.stringify(req),
       });
 
-      const data = (await response.json()) as TranslateResponse;
-      if (!response.ok || !data.ok) {
-        setStatus({ type: "error", message: data.ok ? "Ceviri istegi basarisiz oldu." : data.error.message });
+      const data = (await res.json()) as TranslateResponse;
+      if (!res.ok || !data.ok) {
+        setTranslateStatus({ type: "error", message: data.ok ? "Ceviri istegi basarisiz oldu." : data.error.message });
         return;
       }
 
@@ -55,7 +101,7 @@ export function AdminSliderPageSections({ locale }: AdminSliderPageSectionsProps
         enDescription: protectManualEnFields && enTouched.enDescription ? prev.enDescription : (data.data.description || prev.enDescription),
       }));
 
-      setStatus({
+      setTranslateStatus({
         type: "success",
         message: "Ingilizce alanlar guncellendi.",
         at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
@@ -69,9 +115,75 @@ export function AdminSliderPageSections({ locale }: AdminSliderPageSectionsProps
     if (field === "enTitle" || field === "enDescription") {
       setEnTouched((prev) => ({ ...prev, [field]: true }));
     }
-
     setForm((prev) => ({ ...prev, [field]: value }));
   };
+
+  const handleSave = async () => {
+    if (!form.trTitle.trim() || !form.trDescription.trim() || !form.enTitle.trim() || !form.enDescription.trim()) {
+      setApiError("TR ve EN baslik/aciklama alanları zorunludur.");
+      return;
+    }
+
+    setSaving(true);
+    setApiError(null);
+    try {
+      const body = {
+        ...form,
+        imageUrl: form.imageUrl || undefined,
+        linkUrl: form.linkUrl || undefined,
+      };
+
+      const res = editingItem
+        ? await fetch(`/api/admin/slider/${editingItem.id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          })
+        : await fetch("/api/admin/slider", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setApiError(data.error?.message ?? "Kaydetme basarisiz.");
+        return;
+      }
+
+      const saved = data.data.item as SliderItem;
+      setItems((prev) =>
+        editingItem ? prev.map((x) => (x.id === saved.id ? saved : x)) : [...prev, saved],
+      );
+      cancelForm();
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async (item: SliderItem) => {
+    if (!confirm(`"${item.trTitle}" silinsin mi?`)) return;
+
+    const res = await fetch(`/api/admin/slider/${item.id}`, { method: "DELETE" });
+    if (res.ok) {
+      setItems((prev) => prev.filter((x) => x.id !== item.id));
+    }
+  };
+
+  const handleToggleStatus = async (item: SliderItem) => {
+    const newStatus = item.status === "ACTIVE" ? "DRAFT" : "ACTIVE";
+    const res = await fetch(`/api/admin/slider/${item.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: newStatus }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      setItems((prev) => prev.map((x) => (x.id === item.id ? data.data.item : x)));
+    }
+  };
+
+  const activeCount = items.filter((x) => x.status === "ACTIVE").length;
 
   return (
     <main className="nmd-container nmd-page-x py-12">
@@ -85,39 +197,55 @@ export function AdminSliderPageSections({ locale }: AdminSliderPageSectionsProps
           <h1 className="nmd-headline-xl text-[color:var(--primary)]">{t.title}</h1>
           <p className="mt-2 nmd-body-md max-w-2xl text-[color:var(--app-muted)]">{t.subtitle}</p>
         </div>
-        <Button className="hover:-translate-y-1" size="lg" variant="secondary">{t.addNew}</Button>
+        {!showForm && (
+          <Button className="hover:-translate-y-1" onClick={openCreate} size="lg" variant="secondary">{t.addNew}</Button>
+        )}
       </header>
 
+      {apiError && (
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{apiError}</div>
+      )}
+
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-        <SliderTable activeCount={t.activeCount} rows={sliderRows} title={t.activeSliders} />
+        <SliderTable
+          activeCount={`${activeCount} ${t.activeCount}`}
+          items={items}
+          onDelete={handleDelete}
+          onEdit={openEdit}
+          onToggleStatus={handleToggleStatus}
+          title={t.activeSliders}
+        />
 
-        <section className="space-y-6 lg:col-span-5">
-          <SliderForm
-            form={form}
-            formSubtitle={t.formSubtitle}
-            formTitle={t.formTitle}
-            hasRetryPayload={Boolean(lastPayload)}
-            loading={loading}
-            onChange={onChange}
-            onRetry={() => {
-              if (lastPayload) requestTranslate(lastPayload);
-            }}
-            onToggleProtect={setProtectManualEnFields}
-            onTranslate={() => requestTranslate()}
-            protectManualEnFields={protectManualEnFields}
-            status={status}
-            translateButtonLabel={t.translateButton}
-            translatingLabel={t.translating}
-          />
+        {showForm && (
+          <section className="space-y-6 lg:col-span-5">
+            <SliderForm
+              form={form}
+              formSubtitle={editingItem ? "Slider icerigini guncelle." : t.formSubtitle}
+              formTitle={editingItem ? "Slider Duzenle" : t.formTitle}
+              hasRetryPayload={Boolean(lastPayload)}
+              loading={loading}
+              onChange={onChange}
+              onCancel={cancelForm}
+              onRetry={() => { if (lastPayload) requestTranslate(lastPayload); }}
+              onSave={handleSave}
+              onToggleProtect={setProtectManualEnFields}
+              onTranslate={() => requestTranslate()}
+              protectManualEnFields={protectManualEnFields}
+              saving={saving}
+              status={translateStatus}
+              translateButtonLabel={t.translateButton}
+              translatingLabel={t.translating}
+            />
 
-          <SliderPreview
-            enDescription={form.enDescription}
-            enTitle={form.enTitle}
-            title={t.previewTitle}
-            trDescription={form.trDescription}
-            trTitle={form.trTitle}
-          />
-        </section>
+            <SliderPreview
+              enDescription={form.enDescription}
+              enTitle={form.enTitle}
+              title={t.previewTitle}
+              trDescription={form.trDescription}
+              trTitle={form.trTitle}
+            />
+          </section>
+        )}
       </div>
     </main>
   );

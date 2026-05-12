@@ -37,7 +37,7 @@ Kaynak: `AUDIT_REPORT.md` — 2026-05-12
 
 ## D) Uzun Vadeli İyileştirmeler
 
-- [ ] **D-1** — Slider modülünü tamamla: Prisma `Slider` modeli + migration + `/api/admin/slider` CRUD route'ları + form submit handler + sidebar entegrasyonu
+- [x] **D-1** — Slider modülünü tamamla: Prisma `Slider` modeli + migration + `/api/admin/slider` CRUD route'ları + form submit handler + sidebar entegrasyonu
 - [x] **D-2** — KVKK / Gizlilik Politikası sayfası oluştur (`/[locale]/gizlilik` ve `/[locale]/privacy`)
 - [x] **D-3** — Kullanım Koşulları sayfası oluştur (`/[locale]/kullanim-kosullari` ve `/[locale]/terms`)
 - [ ] **D-4** — Vitest kurulumu + auth (session encode/decode, password hash) unit testleri

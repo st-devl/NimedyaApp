@@ -1,6 +1,11 @@
-import { notFound, redirect } from "next/navigation";
-import { hasAdminSession } from "@/lib/auth/admin-session";
+import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/lib/i18n/config";
+import { requireAdminSession } from "@/lib/auth/admin-guard";
+import { prisma } from "@/lib/db/prisma";
+import { AdminSliderPageSections } from "@/components/sections/admin/admin-slider-page";
+import { buildManagedMetadata } from "@/lib/cms/seo";
+import type { Metadata } from "next";
+import type { SliderItem } from "@/components/sections/admin/slider/types";
 
 export default async function AdminSliderPage({
   params,
@@ -10,28 +15,27 @@ export default async function AdminSliderPage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
-  const isAuthenticated = await hasAdminSession();
-  if (!isAuthenticated) {
-    redirect(`/${locale}/admin/login`);
-  }
+  const session = await requireAdminSession();
+  if (!session) notFound();
 
-  return (
-    <div className="flex min-h-screen bg-[color:var(--app-bg)]">
-      <main className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
-        <div className="rounded-xl border border-yellow-300 bg-yellow-50 px-8 py-6 dark:border-yellow-700 dark:bg-yellow-950">
-          <p className="text-sm font-semibold uppercase tracking-widest text-yellow-700 dark:text-yellow-400">Yapım Aşamasında</p>
-          <h1 className="mt-2 text-2xl font-bold text-[color:var(--primary)]">Slider Yönetimi</h1>
-          <p className="mt-2 max-w-sm text-sm text-[color:var(--app-muted)]">
-            Bu özellik henüz tamamlanmadı. Yakında kullanıma açılacak.
-          </p>
-        </div>
-        <a
-          className="mt-2 text-sm font-semibold text-[color:var(--secondary)] underline underline-offset-4"
-          href={`/${locale as Locale}/admin`}
-        >
-          Dashboard&apos;a dön
-        </a>
-      </main>
-    </div>
-  );
+  const rows = await prisma.sliderItem.findMany({
+    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+  });
+
+  const items: SliderItem[] = rows.map((r) => ({
+    ...r,
+    createdAt: r.createdAt.toISOString(),
+    updatedAt: r.updatedAt.toISOString(),
+  }));
+
+  return <AdminSliderPageSections initialItems={items} locale={locale as Locale} />;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildManagedMetadata(locale as Locale, "adminSlider");
 }
