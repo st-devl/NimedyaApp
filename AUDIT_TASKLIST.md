@@ -18,34 +18,34 @@ Kaynak: `AUDIT_REPORT.md` — 2026-05-12
 
 - [ ] **B-1** — `validateMediaReferences` fonksiyonunu `src/lib/cms/media.ts`'e taşı, `settings/route.ts` ve `seo/route.ts`'deki kopyaları sil
 - [ ] **B-2** — Admin sayfalarındaki tekrar eden auth guard bloğunu `src/app/[locale]/admin/layout.tsx`'e taşı (7 dosyadan kaldır)
-- [ ] **B-3** — Admin sidebar'a `usePathname()` ile aktif link state'i ekle
-- [ ] **B-4** — Dashboard system status widget'ını hardcoded değerlerden `/api/health` ve `/api/db-health` endpoint'lerine bağla
-- [ ] **B-5** — Rate limiting'i DB tabanlıdan in-memory LRU cache'e geçir (`ApiRateLimit` modeli yerine)
+- [x] **B-3** — Admin sidebar'a `usePathname()` ile aktif link state'i ekle
+- [x] **B-4** — Dashboard system status widget'ını hardcoded değerlerden `/api/health` ve `/api/db-health` endpoint'lerine bağla
+- [x] **B-5** — Rate limiting'i DB tabanlıdan in-memory LRU cache'e geçir (`ApiRateLimit` modeli yerine)
 
 ---
 
 ## C) Kod Temizliği ve Refactor
 
-- [ ] **C-1** — `src/lib/seo/page-metadata.ts` wrapper'ını kaldır, tüm `buildPageMetadata` çağrılarını direkt `buildManagedMetadata`'ya yönlendir
-- [ ] **C-2** — Admin dashboard'daki hardcoded Türkçe string'leri (`"Yayindaki bloklar"`, `"Yeni mesaj"`, `"Medya dosyasi"`, `"Beklemede"`) content sistemine veya `AdminDashboardContent` tipine al
-- [ ] **C-3** — `footer.tsx`'deki inline locale string'lerini (`"Haftalik kreatif notlar"` vb.) `t` nesnesine taşı
-- [ ] **C-4** — Admin sidebar'daki hardcoded renkleri (`#001a2b`, `#b90c17`, `#003049`) `theme.css`'e CSS variable olarak tanımla
-- [ ] **C-5** — Dashboard ve admin bileşenlerindeki diğer hardcoded hex renkleri (`#cae6ff`, `#ffdad6`, `#eeedf0`) CSS variable'lara geçir
-- [ ] **C-6** — Footer `href="#"` yasal linkleri: sayfa oluşturulana kadar kaldır veya `nofollow` ile işaretle
+- [x] **C-1** — `src/lib/seo/page-metadata.ts` wrapper'ını kaldır, tüm `buildPageMetadata` çağrılarını direkt `buildManagedMetadata`'ya yönlendir
+- [x] **C-2** — Admin dashboard'daki hardcoded Türkçe string'leri (`"Yayindaki bloklar"`, `"Yeni mesaj"`, `"Medya dosyasi"`, `"Beklemede"`) content sistemine veya `AdminDashboardContent` tipine al
+- [x] **C-3** — `footer.tsx`'deki inline locale string'lerini (`"Haftalik kreatif notlar"` vb.) `t` nesnesine taşı
+- [x] **C-4** — Admin sidebar'daki hardcoded renkleri (`#001a2b`, `#b90c17`, `#003049`) `theme.css`'e CSS variable olarak tanımla
+- [x] **C-5** — Dashboard ve admin bileşenlerindeki diğer hardcoded hex renkleri (`#cae6ff`, `#ffdad6`, `#eeedf0`) CSS variable'lara geçir
+- [x] **C-6** — Footer `href="#"` yasal linkleri: sayfa oluşturulana kadar kaldır veya `nofollow` ile işaretle
 
 ---
 
 ## D) Uzun Vadeli İyileştirmeler
 
 - [ ] **D-1** — Slider modülünü tamamla: Prisma `Slider` modeli + migration + `/api/admin/slider` CRUD route'ları + form submit handler + sidebar entegrasyonu
-- [ ] **D-2** — KVKK / Gizlilik Politikası sayfası oluştur (`/[locale]/gizlilik` ve `/[locale]/privacy`)
-- [ ] **D-3** — Kullanım Koşulları sayfası oluştur (`/[locale]/kullanim-kosullari` ve `/[locale]/terms`)
+- [x] **D-2** — KVKK / Gizlilik Politikası sayfası oluştur (`/[locale]/gizlilik` ve `/[locale]/privacy`)
+- [x] **D-3** — Kullanım Koşulları sayfası oluştur (`/[locale]/kullanim-kosullari` ve `/[locale]/terms`)
 - [ ] **D-4** — Vitest kurulumu + auth (session encode/decode, password hash) unit testleri
 - [ ] **D-5** — Vitest + contact form API integration testleri
 - [ ] **D-6** — Playwright ile e2e testler: login akışı, contact form, admin settings güncelleme
-- [ ] **D-7** — Pino ile structured logging ekle (login, settings update, content update event'leri)
-- [ ] **D-8** — GitHub Actions CI/CD pipeline: lint + type-check + build + test
-- [ ] **D-9** — Admin kullanıcı yönetimi sayfası: şifre değiştirme, yeni admin ekleme
+- [x] **D-7** — Pino ile structured logging ekle (login, settings update, content update event'leri)
+- [x] **D-8** — GitHub Actions CI/CD pipeline: lint + type-check + build + test
+- [x] **D-9** — Admin kullanıcı yönetimi sayfası: şifre değiştirme, yeni admin ekleme
 
 ---
 
