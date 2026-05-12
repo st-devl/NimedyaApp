@@ -5,6 +5,7 @@ export default defineConfig({
   test: {
     environment: "node",
     globals: true,
+    exclude: ["**/node_modules/**", "e2e/**"],
     env: {
       NODE_ENV: "test",
       DATABASE_URL: "mysql://test:test@localhost:3306/testdb",
