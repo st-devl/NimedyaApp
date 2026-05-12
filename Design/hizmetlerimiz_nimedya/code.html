@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#c2c7cd",
+                        "surface-container-high": "#e8e8ea",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e2e2e4",
+                        "surface-container-highest": "#e2e2e4",
+                        "surface": "#f9f9fb",
+                        "primary-fixed": "#cae6ff",
+                        "outline": "#72787e",
+                        "on-tertiary-fixed-variant": "#673c1d",
+                        "on-primary-fixed-variant": "#244a64",
+                        "on-secondary-container": "#fffbff",
+                        "background": "#f9f9fb",
+                        "on-tertiary-fixed": "#311300",
+                        "tertiary-container": "#482306",
+                        "on-tertiary-container": "#c08863",
+                        "on-secondary-fixed-variant": "#93000d",
+                        "secondary-fixed-dim": "#ffb4ab",
+                        "tertiary": "#2c1100",
+                        "error": "#ba1a1a",
+                        "on-background": "#1a1c1d",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f4f3f5",
+                        "secondary-container": "#de2e2c",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#b90c17",
+                        "tertiary-fixed": "#ffdcc7",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeedf0",
+                        "on-primary-fixed": "#001e2f",
+                        "surface-dim": "#dadadc",
+                        "on-surface": "#1a1c1d",
+                        "primary": "#001a2b",
+                        "inverse-on-surface": "#f1f0f2",
+                        "primary-container": "#003049",
+                        "surface-tint": "#3d627d",
+                        "inverse-surface": "#2f3132",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#a5cbea",
+                        "on-secondary-fixed": "#410002",
+                        "surface-bright": "#f9f9fb",
+                        "on-surface-variant": "#42474d",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#ffdad6",
+                        "on-primary-container": "#7398b6",
+                        "inverse-primary": "#a5cbea",
+                        "tertiary-fixed-dim": "#f8b991"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-padding": "120px",
+                        "gutter": "32px",
+                        "margin-desktop": "80px",
+                        "margin-tablet": "40px",
+                        "unit": "8px",
+                        "container-max": "1440px",
+                        "margin-mobile": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Plus Jakarta Sans"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["80px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl-mobile": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-sm": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="sticky top-0 w-full z-50 bg-white/70 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-bold text-primary" href="#">Nimedya</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Work</a>
+<a class="font-body-md text-body-md text-secondary font-bold border-b-2 border-secondary pb-1" href="#">Services</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">About</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors duration-300" href="#">Contact</a>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined cursor-pointer text-on-surface-variant hover:text-secondary transition-colors">language</span>
+<span class="material-symbols-outlined cursor-pointer text-on-surface-variant hover:text-secondary transition-colors">dark_mode</span>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-label-sm hover:bg-secondary transition-all duration-300 ease-in-out shadow-sm hover:-translate-y-1">
+                    Let's Talk
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative h-[716px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A high-end, contemporary corporate office workspace with floor-to-ceiling windows overlooking a soft-focus urban skyline at dawn. The interior features minimalist furniture in deep primary blues and neutral grays, reflecting a professional and elite consulting environment. The lighting is soft and natural, creating a bright, spacious atmosphere consistent with a clean modern aesthetic and a sophisticated brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWDTFsYl5TWNpL-khmlZ7kv6uMFWBfTKvIdApUl0pqHCI6x1xZrq0JnjoqBEc4_dPQqV7h1xMN-Xje0_29IxJVHHYX07VnKoUs__R1DXqsYTOuOXM6GhEB-xil01VrYsjcjJSh2Tka4KkJQ53hCzLkgRetltDyftR8zlI9-p6us6K21GKBA_YLif-Kv3b1_hRf1zrOyD7YODo4tLgvpz-GA8AykQd0BfjuoYpLBNwItYtAgBT8attvrDMSMr-WMSye5keioVsxJEk3"/>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/20"></div>
+</div>
+<div class="relative z-10 px-margin-desktop max-w-container-max mx-auto w-full">
+<h1 class="font-display-lg text-display-lg text-white mb-6">Hizmetlerimiz</h1>
+<p class="font-body-lg text-body-lg text-white/80 max-w-2xl">Markanızın dijital dünyadaki hikayesini, yaratıcı vizyonumuz ve teknik hassasiyetimizle birleştirerek geleceğe taşıyoruz.</p>
+</div>
+</header>
+<!-- Services Section -->
+<main class="py-section-padding px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter">
+<!-- Photography - Large Bento Card -->
+<div class="lg:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+<div class="flex flex-col md:flex-row h-full">
+<div class="md:w-1/2 p-10 flex flex-col justify-center">
+<span class="text-secondary font-label-sm mb-4">VISUAL ART</span>
+<h2 class="font-headline-xl text-headline-xl mb-6 text-primary">Fotoğrafçılık</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Ürün ve moda çekimlerinde markanızın özgün karakterini ortaya çıkaran, profesyonel ışıklandırma ve kompozisyon teknikleriyle dondurulmuş anlar yaratıyoruz.</p>
+<div>
+<button class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-label-sm hover:bg-primary hover:text-white transition-all duration-300">Detaylı İncele</button>
+</div>
+</div>
+<div class="md:w-1/2 relative h-80 md:h-auto">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Close-up of a high-end professional camera lens on a gimbal, set against a blurred studio background with soft dramatic lighting. The atmosphere is artistic and focused, featuring deep shadows and crisp highlights that suggest premium photography services. The overall color tone is cool and professional, emphasizing precision and creative excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-BQ-7YgwW48aOPVUSL11angIh-9Ps1NeKI7IG5fZlorZgD5FK7vQtJyzEZM8QnJibFH0cBN7FJuEYVH0Mn4rk0KwZ2HRioq-TvoE3vbdZXmM2ivZrN9hCKCXlKOEFKXrhD6swucZ7VVQIxQjKUkZsfQh6USE8Dw7x3URzT5eLc2-86cTScddC6KO3SY_iK0Y0ukEE8vWC8Xr_Iu6QOEScy-Sp7mwYAvIxF1AbYFBiu_NZewkoaay2cqIDqjBpYpfPpr5kxetqjYOt"/>
+</div>
+</div>
+</div>
+<!-- Promotion Film - Tall Bento Card -->
+<div class="lg:col-span-4 group relative overflow-hidden rounded-xl bg-primary text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+<div class="absolute inset-0 opacity-40">
+<img class="w-full h-full object-cover" data-alt="A cinematic production set with high-end digital film cameras and studio lighting equipment. The scene is bathed in a professional, moody blue light with hints of warm amber glows. The visual style is polished and high-fidelity, conveying a sense of top-tier cinematic storytelling and corporate video production expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ-21JMp0Uz40svxcySFEIHrHdY_HpIuvgvLQNHcItUhuZ56jbs0SllWJA3_hMhp2M-KzJjff4UmjOJldi-WaJ-IbXsaKO3rO-lnKrW2SmPipZATEjRkbL_X14vLMHqDy3adVXrxmc4UEtI-OAzOlhzthM1wK3v8lXD7F076E5XLIy2-nDBbY2tv8qHocO3iGf7Gt7f-o138VewlY-0CUkJJZY6bh7cdqcRTxWrKn3Y38vO2FIozJWkb0qR7J2mP5uWF6uGJG8MUWK"/>
+</div>
+<div class="relative z-10 p-10 h-full flex flex-col justify-end">
+<span class="text-primary-fixed font-label-sm mb-4">CINEMATIC</span>
+<h2 class="font-headline-md text-headline-md mb-4">Tanıtım Filmi</h2>
+<p class="font-body-md text-body-md text-white/80 mb-8">Etkileyici görsel anlatım ve kurgu teknikleriyle markanızı hikayeleştiriyoruz. Duyguya hitap eden, akılda kalıcı prodüksiyonlar.</p>
+<div>
+<button class="bg-white text-primary px-8 py-3 rounded-lg font-label-sm hover:bg-secondary hover:text-white transition-all duration-300">Detaylı İncele</button>
+</div>
+</div>
+</div>
+<!-- Web Design - Split Image/Content -->
+<div class="lg:col-span-6 group relative overflow-hidden rounded-xl bg-surface-container shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+<div class="h-64 relative">
+<img class="w-full h-full object-cover" data-alt="A sleek, modern web design workspace featuring a large retina display showing a minimalist, responsive user interface. The UI on screen uses deep blues and crisp whites, matching the agency's brand colors. The setting is a clean, white marble desk with a single minimalist lamp, emphasizing clarity, structural precision, and high-end digital design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7VtCKv5_eL4uGNw1gB0lmeySAjdPRDiFa3cJMcgeeoXuJgP3WeXzPYgdQCiWBR6kpHDXrVehO-Q-hRFSMLbXxAJUYYiIXegRmqZEp5NOAKIYU_pWARPsZHkU7i-_KBIWJxdV71RPkxmO_zzK__FAWWCleS_5mUoNGnEo4i0XH7MfwmVGfAWqBFLZv5Yyc1ZhbhVsFjxkprcIAyF8zqo85TkeTmeV1qUKhnszohaoz9zAODzIacCvhJ0TirMlQmVdzsscHeSx8CHgD"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-500"></div>
+</div>
+<div class="p-10">
+<span class="text-secondary font-label-sm mb-4">DIGITAL EXPERIENCE</span>
+<h2 class="font-headline-md text-headline-md mb-4 text-primary">Web Tasarım</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Kullanıcı odaklı, estetik ve yüksek performanslı dijital platformlar tasarlıyoruz. Dönüşüm odaklı arayüzler ve kusursuz deneyimler.</p>
+<button class="text-primary font-label-sm flex items-center group/btn">
+                        Detaylı İncele 
+                        <span class="material-symbols-outlined ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- SEO - Icon Focus Card -->
+<div class="lg:col-span-6 group relative overflow-hidden rounded-xl bg-white border border-outline-variant shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-10 flex flex-col justify-center">
+<div class="mb-8">
+<span class="material-symbols-outlined text-secondary text-5xl">trending_up</span>
+</div>
+<h2 class="font-headline-md text-headline-md mb-4 text-primary">Arama Motoru Optimizasyonu (SEO)</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">Veri analitiği ve stratejik anahtar kelime yönetimi ile markanızı Google'da ilk sıralara taşıyoruz. Organik büyüme için sürdürülebilir çözümler.</p>
+<div>
+<button class="bg-secondary text-white px-8 py-3 rounded-lg font-label-sm hover:bg-primary transition-all duration-300">Hemen Yükselin</button>
+</div>
+</div>
+<!-- Logo Design - Aesthetic Centered -->
+<div class="lg:col-span-7 group relative overflow-hidden rounded-xl bg-surface-container-highest shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+<div class="flex flex-col h-full">
+<div class="p-10">
+<span class="text-secondary font-label-sm mb-4">IDENTITY</span>
+<h2 class="font-headline-md text-headline-md mb-4 text-primary">Logo Tasarımı</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Markanızın ruhunu tek bir simgeye sığdıran, zamansız ve ikonik kurumsal kimlik tasarımları oluşturuyoruz.</p>
+<button class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-label-sm hover:bg-primary hover:text-white transition-all duration-300">Portfolyoyu Gör</button>
+</div>
+<div class="flex-grow relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A collection of minimalist, high-contrast black and white logo sketches and brand marks displayed on a premium textured paper. The composition is artistic and clean, with soft directional lighting that highlights the precision of the vector-like curves. The aesthetic is elite and professional, conveying the essence of timeless identity design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpwrschY9ENaKf0OHQut-wSQY_lHz4gWo7thT7ph4UJ9oYvK1QYrY3YUZCrO3gynuv8UINxm8XoiYS41cCfpOtylhY1K_3qcLz7hdeGm-f65LgEwW7EoFOgTxWlHWhxN7HNiKmI4lwGS3EW9lqrlh9URrcp9A7uZBd2_B8GPLIrCr9oe5sC6eeSeYVV8-Y94lvlouvS6zr8eRkMqFuAE8NxvTY4f6WPU8_t7a5pDVTZ7wfLwNMoLAivZqDappWN4EE28nN0XKoaJa2"/>
+</div>
+</div>
+</div>
+<!-- Social Media - Social Grid Card -->
+<div class="lg:col-span-5 group relative overflow-hidden rounded-xl bg-white border border-outline-variant shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-10 flex flex-col justify-between">
+<div>
+<div class="flex space-x-2 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">share</span></div>
+<div class="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center"><span class="material-symbols-outlined text-secondary">favorite</span></div>
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">chat_bubble</span></div>
+</div>
+<h2 class="font-headline-md text-headline-md mb-4 text-primary">Sosyal Medya Yönetimi</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Topluluğunuzla bağ kuran, etkileşimi yüksek içerik stratejileri ve reklam yönetimi ile dijital varlığınızı güçlendiriyoruz.</p>
+</div>
+<div class="mt-12">
+<div class="bg-surface p-6 rounded-lg border border-outline-variant/30 flex items-center space-x-4">
+<div class="w-12 h-12 rounded-full bg-secondary"></div>
+<div>
+<div class="h-2 w-24 bg-outline-variant rounded-full mb-2"></div>
+<div class="h-2 w-16 bg-outline-variant/50 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-section-padding max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<a class="font-headline-md text-headline-md font-bold text-primary mb-6 block" href="#">Nimedya</a>
+<p class="font-body-md text-body-md text-on-surface-variant">Dijitalde iz bırakan markalar için modern çözümler üreten yaratıcı ajans.</p>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-sm text-primary mb-6 uppercase">Hizmetler</h4>
+<ul class="space-y-4 font-body-md text-body-md">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Fotoğrafçılık</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Tanıtım Filmi</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Web Tasarım</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">SEO</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-sm text-primary mb-6 uppercase">Şirket</h4>
+<ul class="space-y-4 font-body-md text-body-md">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">About</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-sm text-primary mb-6 uppercase">Sosyal Medya</h4>
+<ul class="space-y-4 font-body-md text-body-md">
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">LinkedIn</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Behance</a></li>
+<li><a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Instagram</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-desktop py-8 border-t border-outline-variant/30 max-w-container-max mx-auto flex flex-col md:row justify-between items-center space-y-4 md:space-y-0 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant/80">© 2024 Nimedya Digital Agency. All rights reserved.</p>
+<div class="flex space-x-6 text-on-surface-variant/60 font-label-sm">
+<span>Cookies</span>
+<span>Security</span>
+</div>
+</div>
+</footer>
+</body></html>

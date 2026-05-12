@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nimedya | Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "outline-variant": "#c2c7cd",
+                "surface-container-high": "#e8e8ea",
+                "surface-container-lowest": "#ffffff",
+                "surface-variant": "#e2e2e4",
+                "surface-container-highest": "#e2e2e4",
+                "surface": "#f9f9fb",
+                "primary-fixed": "#cae6ff",
+                "outline": "#72787e",
+                "on-tertiary-fixed-variant": "#673c1d",
+                "on-primary-fixed-variant": "#244a64",
+                "on-secondary-container": "#fffbff",
+                "background": "#f9f9fb",
+                "on-tertiary-fixed": "#311300",
+                "tertiary-container": "#482306",
+                "on-tertiary-container": "#c08863",
+                "on-secondary-fixed-variant": "#93000d",
+                "secondary-fixed-dim": "#ffb4ab",
+                "tertiary": "#2c1100",
+                "error": "#ba1a1a",
+                "on-background": "#1a1c1d",
+                "error-container": "#ffdad6",
+                "on-primary": "#ffffff",
+                "surface-container-low": "#f4f3f5",
+                "secondary-container": "#de2e2c",
+                "on-secondary": "#ffffff",
+                "secondary": "#b90c17",
+                "tertiary-fixed": "#ffdcc7",
+                "on-error-container": "#93000a",
+                "surface-container": "#eeedf0",
+                "on-primary-fixed": "#001e2f",
+                "surface-dim": "#dadadc",
+                "on-surface": "#1a1c1d",
+                "primary": "#001a2b",
+                "inverse-on-surface": "#f1f0f2",
+                "primary-container": "#003049",
+                "surface-tint": "#3d627d",
+                "inverse-surface": "#2f3132",
+                "on-error": "#ffffff",
+                "primary-fixed-dim": "#a5cbea",
+                "on-secondary-fixed": "#410002",
+                "surface-bright": "#f9f9fb",
+                "on-surface-variant": "#42474d",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed": "#ffdad6",
+                "on-primary-container": "#7398b6",
+                "inverse-primary": "#a5cbea",
+                "tertiary-fixed-dim": "#f8b991"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "section-padding": "120px",
+                "gutter": "32px",
+                "margin-desktop": "80px",
+                "margin-tablet": "40px",
+                "unit": "8px",
+                "container-max": "1440px",
+                "margin-mobile": "24px"
+            },
+            "fontFamily": {
+                "body-lg": ["Inter"],
+                "headline-md": ["Plus Jakarta Sans"],
+                "body-md": ["Inter"],
+                "display-lg": ["Plus Jakarta Sans"],
+                "headline-xl": ["Plus Jakarta Sans"],
+                "label-sm": ["Inter"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9fb;
+            color: #1a1c1d;
+        }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-72 bg-primary text-white flex flex-col fixed inset-y-0 left-0 z-50 shadow-2xl">
+<div class="p-8">
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-white">Nimedya</h1>
+<p class="text-on-primary-container text-xs mt-1 opacity-70">Admin Control Panel</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl bg-primary-container text-on-primary-container border-l-4 border-secondary transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary">slideshow</span>
+<span>Slider Yönetimi</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary">category</span>
+<span>Hizmetler</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary">work</span>
+<span>Portfolyo</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary">article</span>
+<span>Blog</span>
+</a>
+<div class="pt-8 pb-2 px-4 text-xs font-bold uppercase tracking-widest opacity-40">Ayarlar</div>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary">travel_explore</span>
+<span>SEO Ayarları</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary">settings</span>
+<span>Site Ayarları</span>
+</a>
+</nav>
+<div class="p-6 border-t border-white/10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-white font-bold">A</div>
+<div>
+<p class="text-sm font-bold">Admin Panel</p>
+<p class="text-xs opacity-50">Çıkış Yap</p>
+</div>
+<span class="material-symbols-outlined ml-auto opacity-50 cursor-pointer hover:text-error transition-colors">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72 p-margin-desktop min-h-screen">
+<!-- Header -->
+<header class="flex justify-between items-center mb-12">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-primary">Hoş Geldiniz, Nimedya</h2>
+<p class="text-on-surface-variant font-body-md">Bugün için sitenizin genel performans özeti aşağıdadır.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-primary text-3xl cursor-pointer">notifications</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full flex items-center justify-center text-[10px] text-white font-bold">3</span>
+</div>
+<button class="bg-primary text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 hover:shadow-xl transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                        Yeni İçerik Ekle
+                    </button>
+</div>
+</header>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
+<div class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/30 flex justify-between items-start group hover:-translate-y-1 transition-transform duration-300">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase tracking-wider mb-2">Toplam Proje</p>
+<h3 class="text-4xl font-bold text-primary">124</h3>
+<p class="text-secondary text-sm font-semibold mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                            +12% bu ay
+                        </p>
+</div>
+<div class="p-4 rounded-full bg-primary-fixed text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">work</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/30 flex justify-between items-start group hover:-translate-y-1 transition-transform duration-300">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase tracking-wider mb-2">Bekleyen Mesajlar</p>
+<h3 class="text-4xl font-bold text-primary">08</h3>
+<p class="text-on-tertiary-container text-sm font-semibold mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">mail</span>
+                            Cevap bekliyor
+                        </p>
+</div>
+<div class="p-4 rounded-full bg-secondary-fixed text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-xl shadow-sm border border-outline-variant/30 flex justify-between items-start group hover:-translate-y-1 transition-transform duration-300">
+<div>
+<p class="text-on-surface-variant font-label-sm uppercase tracking-wider mb-2">Toplam Blog Yazısı</p>
+<h3 class="text-4xl font-bold text-primary">42</h3>
+<p class="text-primary-fixed-dim text-sm font-semibold mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                            8.2k Görüntülenme
+                        </p>
+</div>
+<div class="p-4 rounded-full bg-surface-container-high text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">description</span>
+</div>
+</div>
+</div>
+<!-- Content Split Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
+<!-- Recent Activities Table -->
+<div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-lowest">
+<h4 class="font-headline-md text-headline-md text-primary">Son Eklenen İçerikler</h4>
+<button class="text-secondary font-semibold hover:underline">Tümünü Gör</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-on-surface-variant font-label-sm uppercase text-xs">
+<tr>
+<th class="px-6 py-4">Başlık</th>
+<th class="px-6 py-4">Kategori</th>
+<th class="px-6 py-4">Tarih</th>
+<th class="px-6 py-4">Durum</th>
+<th class="px-6 py-4 text-right">İşlem</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up of a modern architecture portfolio cover featuring clean geometric lines and a minimalist layout. The lighting is bright and architectural, using a crisp white and deep blue color scheme that reflects a sophisticated corporate aesthetic. The overall mood is precise, elite, and professionally polished." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq7FmS4PTfd5AcXe13zjCZGUZmaVxWhdunorXjlKUbVFcIsuv50ocbsqksQZLePehpqRjHN_o8a34MqMnYcAUEbiC0Q138q-9M0hnbdM_vJrrD2EC6jqjCT6uV1jNY5jj0r_CML9jBzi7vmi_AktByUFrSNAjzHe0_6KlAexSR45o_M_ZzZhK5juvn4bNh3hG9hNtYL9E3FIy25rE60t1PZ4YHSuuoN0UcNsxvwbk7myKAuJkP6yA7Nsd3CdKacugHJoXaP5B1rty5"/>
+</div>
+<span class="font-semibold text-primary">Modern Villa Projesi</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Portfolyo</td>
+<td class="px-6 py-4 text-on-surface-variant">12.05.2024</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Yayında</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">edit</button>
+<button class="material-symbols-outlined text-outline hover:text-secondary transition-colors ml-2">delete</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="An overhead view of a modern workspace with digital tablets and design sketches, showcasing creative professional workflow. The lighting is soft and natural, emphasizing a high-end studio environment. The color palette features cool grays, deep blues, and subtle red accents to create a cohesive and modern corporate atmosphere. The scene feels innovative and focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsMMNhdwjZ3MXN-lvEXJk8GPwUJ1nykKvMR8dGU5B-SLoIYdgFUfz_4LSyW2wWCXvIYH3nuLiW9raq7L9kXl9ltbjSfo-LKhknbomVAQfwkF0MhILs57tYcuUIEk-6VwX6LD18JvSADlTMtBsboZwzd6On6wGz5Lxb185zJ9pYkCKkRibnLwN1Ev_4-US8W8_VGh7Mv9I50Jj0kNyA_LJXVODUskFllxlbrxVdk7K0pZGyzz9Ki1zVTDyKmCdXeeNoHIePJY0YbGQY"/>
+</div>
+<span class="font-semibold text-primary">Dijital Pazarlama Trendleri</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Blog</td>
+<td class="px-6 py-4 text-on-surface-variant">10.05.2024</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Taslak</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">edit</button>
+<button class="material-symbols-outlined text-outline hover:text-secondary transition-colors ml-2">delete</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean and modern UI design mockup displayed on a sleek monitor, showcasing data visualization and professional analytics interfaces. The workspace is brightly lit with high-key lighting, emphasizing a white and light gray aesthetic with prominent deep blue branding. The overall mood is professional, analytical, and highly structured, fitting a modern agency environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFT8zE16R9sWwXGTUWgHOREJaXiMWuBbxyBwxU2wIt7S39KiWWrI2lyLbeWq26Gr68abxK6ga_cpl7gUYl2qJhx-hEIJMXM6FyBk6U8KWoUHJG7dVuxPLTQmu8YuGb-u8AT1vRz9HcQGw27kJf4OsH7EL7RFpRk4BsM-BMjKCXLFWOCj9TRP7IyZ5hO1bzzKK_7NkbpNUEjTaOgL_duUQSlOdd9DF9mVUJ6tOjKXQxpLhJxTRFFaIN9u4mpbzKB45TnSlbIhcNkmfI"/>
+</div>
+<span class="font-semibold text-primary">Kurumsal Kimlik Tasarımı</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Hizmetler</td>
+<td class="px-6 py-4 text-on-surface-variant">08.05.2024</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Yayında</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">edit</button>
+<button class="material-symbols-outlined text-outline hover:text-secondary transition-colors ml-2">delete</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Messages / Notifications Sidebar -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 flex flex-col h-full overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 bg-surface-container-lowest">
+<h4 class="font-headline-md text-headline-md text-primary">Yeni Mesajlar</h4>
+</div>
+<div class="p-2 divide-y divide-outline-variant/20">
+<div class="p-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-bold text-primary group-hover:text-secondary transition-colors">Ahmet Yılmaz</span>
+<span class="text-[10px] text-on-surface-variant font-bold">2 SAAT ÖNCE</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-2">"Yeni proje lansmanı için fiyat teklifi almak istiyoruz. Hafta içi uygun bir zaman..."</p>
+</div>
+<div class="p-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-bold text-primary group-hover:text-secondary transition-colors">Zeynep Kaya</span>
+<span class="text-[10px] text-on-surface-variant font-bold">5 SAAT ÖNCE</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-2">"Slider görsellerinin güncellenmesi konusunda teknik bir sorum olacaktı..."</p>
+</div>
+<div class="p-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-bold text-primary group-hover:text-secondary transition-colors">Can Berkman</span>
+<span class="text-[10px] text-on-surface-variant font-bold">DÜN</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-2">"SEO ayarlarındaki son değişiklikler harika sonuç verdi, teşekkürler!"</p>
+</div>
+</div>
+<div class="p-4 mt-auto">
+<button class="w-full py-3 bg-surface-container-highest text-primary font-bold rounded-lg hover:bg-primary hover:text-white transition-all">Tüm Mesajları Oku</button>
+</div>
+</div>
+</div>
+<!-- Footer Area inside Main -->
+<footer class="mt-section-padding pt-12 border-t border-outline-variant/30 flex justify-between items-center text-on-surface-variant text-sm">
+<p>© 2024 Nimedya Digital Agency. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-secondary transition-colors" href="#">Yardım Merkezi</a>
+<a class="hover:text-secondary transition-colors" href="#">Geliştirici Dokümanları</a>
+<a class="hover:text-secondary transition-colors" href="#">Güvenlik</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

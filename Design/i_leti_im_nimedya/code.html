@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html class="light" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#c2c7cd",
+                    "surface-container-high": "#e8e8ea",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-variant": "#e2e2e4",
+                    "surface-container-highest": "#e2e2e4",
+                    "surface": "#f9f9fb",
+                    "primary-fixed": "#cae6ff",
+                    "outline": "#72787e",
+                    "on-tertiary-fixed-variant": "#673c1d",
+                    "on-primary-fixed-variant": "#244a64",
+                    "on-secondary-container": "#fffbff",
+                    "background": "#f9f9fb",
+                    "on-tertiary-fixed": "#311300",
+                    "tertiary-container": "#482306",
+                    "on-tertiary-container": "#c08863",
+                    "on-secondary-fixed-variant": "#93000d",
+                    "secondary-fixed-dim": "#ffb4ab",
+                    "tertiary": "#2c1100",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1c1d",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f4f3f5",
+                    "secondary-container": "#de2e2c",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#b90c17",
+                    "tertiary-fixed": "#ffdcc7",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#eeedf0",
+                    "on-primary-fixed": "#001e2f",
+                    "surface-dim": "#dadadc",
+                    "on-surface": "#1a1c1d",
+                    "primary": "#001a2b",
+                    "inverse-on-surface": "#f1f0f2",
+                    "primary-container": "#003049",
+                    "surface-tint": "#3d627d",
+                    "inverse-surface": "#2f3132",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#a5cbea",
+                    "on-secondary-fixed": "#410002",
+                    "surface-bright": "#f9f9fb",
+                    "on-surface-variant": "#42474d",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#ffdad6",
+                    "on-primary-container": "#7398b6",
+                    "inverse-primary": "#a5cbea",
+                    "tertiary-fixed-dim": "#f8b991"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-padding": "120px",
+                    "gutter": "32px",
+                    "margin-desktop": "80px",
+                    "margin-tablet": "40px",
+                    "unit": "8px",
+                    "container-max": "1440px",
+                    "margin-mobile": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "headline-xl-mobile": ["Plus Jakarta Sans"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-xl": ["48px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "display-lg-mobile": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-xl-mobile": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-sm": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f9f9fb;
+            color: #1a1c1d;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="sticky top-0 w-full bg-white/70 backdrop-blur-xl z-50 shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary">Nimedya</div>
+<div class="hidden md:flex items-center gap-gutter">
+<a class="text-on-surface hover:text-secondary transition-colors duration-300 font-body-md text-body-md" href="#">Work</a>
+<a class="text-on-surface hover:text-secondary transition-colors duration-300 font-body-md text-body-md" href="#">Services</a>
+<a class="text-on-surface hover:text-secondary transition-colors duration-300 font-body-md text-body-md" href="#">About</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-1 font-body-md text-body-md" href="#">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary transition-colors">language</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary transition-colors">dark_mode</span>
+<button class="hidden md:block bg-primary text-on-primary px-8 py-3 rounded-lg font-label-sm uppercase tracking-wider hover:bg-secondary transition-all duration-300">Let's Talk</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Contact Hero Section -->
+<section class="min-h-[614px] flex flex-col md:flex-row max-w-container-max mx-auto px-margin-desktop py-section-padding gap-gutter">
+<!-- Left: Form -->
+<div class="w-full md:w-3/5 bg-white p-margin-desktop rounded-xl shadow-sm border border-outline-variant/30">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-unit*4">Bize Ulaşın.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12">Hayalinizdeki projeyi birlikte hayata geçirelim. Mesajınızı bırakın, uzman ekibimiz en kısa sürede size dönüş yapsın.</p>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-primary uppercase">Ad Soyad</label>
+<input class="w-full p-4 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md bg-surface" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-primary uppercase">E-posta Adresi</label>
+<input class="w-full p-4 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md bg-surface" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-primary uppercase">Mesajınız</label>
+<textarea class="w-full p-4 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md bg-surface resize-none" placeholder="Projeniz hakkında bize biraz bilgi verin..." rows="6"></textarea>
+</div>
+<button class="w-full md:w-auto bg-primary text-on-primary px-12 py-5 rounded-lg font-label-sm uppercase tracking-widest hover:bg-secondary transition-all duration-300 flex items-center justify-center gap-2">
+                        Gönder <span class="material-symbols-outlined">send</span>
+</button>
+</form>
+</div>
+<!-- Right: Contact Info -->
+<div class="w-full md:w-2/5 flex flex-col justify-center gap-12">
+<div class="space-y-8">
+<div class="group">
+<h3 class="font-label-sm text-label-sm text-secondary uppercase mb-2">Adres</h3>
+<p class="font-headline-md text-[24px] text-primary leading-tight">Levent, Büyükdere Cd. No:199<br/>Şişli / İstanbul, Türkiye</p>
+</div>
+<div class="group">
+<h3 class="font-label-sm text-label-sm text-secondary uppercase mb-2">İletişim Bilgileri</h3>
+<a class="block font-headline-md text-[24px] text-primary hover:text-secondary transition-colors" href="mailto:hello@nimedya.com">hello@nimedya.com</a>
+<a class="block font-headline-md text-[24px] text-primary hover:text-secondary transition-colors" href="tel:+902120000000">+90 212 000 00 00</a>
+</div>
+<div class="group">
+<h3 class="font-label-sm text-label-sm text-secondary uppercase mb-4">Sosyal Medya</h3>
+<div class="flex gap-4">
+<a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+<a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+<a class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all duration-300" href="#">
+<span class="material-symbols-outlined">link</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Abstract Decorative Card -->
+<div class="relative h-64 rounded-xl overflow-hidden shadow-xl">
+<img alt="Nimedya Office" class="w-full h-full object-cover" data-alt="A professional and sleek modern office interior featuring minimalist architectural lines, high-end designer furniture, and expansive windows. The lighting is bright and airy, reflecting a clean light-mode aesthetic with a palette of whites, cool grays, and deep navy blue accents. Large green indoor plants add a touch of life to the sophisticated corporate atmosphere, captured in a high-fidelity cinematic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqGNt-MVfupT7D2ZonWEpcyxjR6fKSwaSIbiXxfNIaL-MLjdclX71wRjdtvlfHrQgwC65aLfc62Z_EV6lpp5vsJf4tdGEiGk9gzHuTgHiSWNAC3CN7UqT4-SQ6YFfG0S0rJYUF4I-wvGshxweRyay_yBPfGwehi8WGjKqBcDixmHbahFJzhIi3Jftk5seOXtVhUOO950jDuF3aiq9AgZiUeovjV4xStjxfU-E-i8n8pJ0QDrBdCV799zMZovtj2U3fOWb94j7AHsf3"/>
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-[2px]"></div>
+<div class="absolute bottom-6 left-6 text-on-primary">
+<p class="font-label-sm text-label-sm uppercase opacity-80">Ofisimiz</p>
+<p class="font-headline-md text-headline-md">Ziyarete Bekleriz.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Wide Map Integration Section -->
+<section class="w-full bg-surface-container-high relative">
+<div class="w-full h-[600px] bg-outline-variant/20 flex items-center justify-center overflow-hidden">
+<!-- Map Placeholder Representation -->
+<div class="absolute inset-0 grayscale opacity-40 mix-blend-multiply" data-location="Istanbul, Turkey" style="">
+<img alt="Istanbul Map Layout" class="w-full h-full object-cover" data-alt="A detailed, minimalist top-down city map view of Istanbul, Turkey, rendered in a sophisticated grayscale palette. The image shows the intricate network of streets, the Bosporus strait, and urban patterns. The aesthetic is clean and professional, using high-contrast tones that align with a modern corporate brand identity. The lighting is flat and graphic, emphasizing the geometric structure of the city layout." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApnaywN2VI9L_24zd74sLsHv2qI9sOfaW0R2rbNIHHYoDi3k3DUHtfTQT9kppnUrcdnXPjNFf7DdCqhlk04yHGhYEoYLVrlHwuICtU156cy1OWGj7ofbUnBAUy3nggpbrvLG5bgT6mKd_y851_-2yA11jeB7mhzfnHh5sUR4V4KpW3VIgyweirU9V9DjU1CMl-nNTqpPZKVEmlQeUxX7jReNGEO2gvF3UZLtXJ-1quDBlLA5hFLNlX0vUDyJlpCEKGyRXbZ0J0zX2J"/>
+</div>
+<!-- Center Pin & Information -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="bg-primary text-on-primary p-6 rounded-2xl shadow-2xl flex flex-col items-center gap-2 transform -translate-y-12">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<p class="font-headline-md text-body-lg font-bold">Nimedya HQ</p>
+<p class="font-body-md text-sm opacity-80">Levent, Şişli / İstanbul</p>
+<a class="mt-4 px-6 py-2 bg-secondary text-on-secondary rounded-full font-label-sm text-xs uppercase tracking-tighter hover:opacity-90 transition-opacity" href="https://maps.google.com" target="_blank">Yol Tarifi Al</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-white border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-section-padding max-w-container-max mx-auto">
+<div class="md:col-span-1">
+<div class="font-headline-md text-headline-md font-bold text-primary mb-6">Nimedya</div>
+<p class="text-on-surface-variant font-body-md pr-8">High-growth markalar için stratejik tasarım ve dijital çözüm ortağı.</p>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary uppercase mb-6">Navigasyon</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Work</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Services</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">About</a></li>
+<li><a class="text-primary font-semibold" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary uppercase mb-6">Legal</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Cookies</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary uppercase mb-6">Social</h4>
+<ul class="space-y-4">
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">LinkedIn</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Behance</a></li>
+<li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Instagram</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-desktop py-8 border-t border-outline-variant/30 text-center md:text-left">
+<p class="text-on-surface-variant font-body-md opacity-80">© 2024 Nimedya Digital Agency. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

@@ -5,11 +5,26 @@ import type { Locale } from "@/lib/i18n/config";
 import { buildPageMetadata } from "@/lib/seo/page-metadata";
 import type { Metadata } from "next";
 
+async function checkSystemHealth(): Promise<{ api: "online" | "offline"; database: "online" | "offline" }> {
+  const apiPromise = fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/health`)
+    .then((r) => r.json())
+    .then((d): { api: "online" | "offline" } => ({ api: d.status === "ok" ? "online" : "offline" }))
+    .catch((): { api: "offline" } => ({ api: "offline" }));
+
+  const dbPromise = fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/db-health`)
+    .then((r) => r.json())
+    .then((d): { database: "online" | "offline" } => ({ database: d.status === "ok" ? "online" : "offline" }))
+    .catch((): { database: "offline" } => ({ database: "offline" }));
+
+  const [apiStatus, dbStatus] = await Promise.all([apiPromise, dbPromise]);
+  return { api: apiStatus.api, database: dbStatus.database };
+}
+
 export default async function AdminPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const resolvedLocale = locale as Locale;
   const content = getAdminDashboardContent(resolvedLocale);
-  const [contentBlocks, newMessages, mediaAssets, recentContent, recentMessages] = await Promise.all([
+  const [contentBlocks, newMessages, mediaAssets, recentContent, recentMessages, systemStatus] = await Promise.all([
     prisma.contentBlock.count({ where: { status: "PUBLISHED" } }),
     prisma.contactRequest.count({ where: { status: "NEW" } }),
     prisma.mediaAsset.count(),
@@ -23,6 +38,7 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
       take: 2,
       select: { name: true, status: true, createdAt: true },
     }),
+    checkSystemHealth(),
   ]);
   const recentRows = [
     ...recentContent.map((item) => ({
@@ -45,6 +61,7 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
       locale={resolvedLocale}
       metrics={{ contentBlocks, newMessages, mediaAssets }}
       recentRows={recentRows}
+      systemStatus={systemStatus}
     />
   );
 }

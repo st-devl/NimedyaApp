@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: nimedyaapp-prod
+    env_file:
+      - .env.production
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nimedya-network
+
+  mariadb:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-change_root_password}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-nimedya_app}
+      MARIADB_USER: ${MARIADB_USER:-nimedya}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-nimedya_password}
+    volumes:
+      - mariadb_data_prod:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h localhost -u root -p$$MARIADB_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - nimedya-network
+
+volumes:
+  mariadb_data_prod:
+
+networks:
+  nimedya-network:
+    driver: bridge

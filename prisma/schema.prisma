@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  ARCHIVED
+}
+
+model ContactRequest {
+  id        Int           @id @default(autoincrement())
+  name      String        @db.VarChar(120)
+  email     String        @db.VarChar(190)
+  message   String        @db.Text
+  status    ContactStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, createdAt])
+  @@index([createdAt])
+}
+
+enum AdminRole {
+  ADMIN
+  EDITOR
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum TwitterCardType {
+  SUMMARY
+  SUMMARY_LARGE_IMAGE
+}
+
+model AdminUser {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique @db.VarChar(190)
+  passwordHash String    @db.VarChar(255)
+  role         AdminRole @default(ADMIN)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([role, isActive])
+}
+
+model ApiRateLimit {
+  id        Int      @id @default(autoincrement())
+  scope     String   @db.VarChar(100)
+  key       String   @db.VarChar(190)
+  count     Int      @default(0)
+  resetAt   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([scope, key])
+  @@index([resetAt])
+}
+
+model MediaAsset {
+  id           Int      @id @default(autoincrement())
+  url          String   @unique @db.VarChar(255)
+  storagePath  String   @unique @db.VarChar(255)
+  filename     String   @db.VarChar(190)
+  originalName String   @db.VarChar(190)
+  mimeType     String   @db.VarChar(100)
+  sizeBytes    Int
+  altText      String?  @db.VarChar(255)
+  width        Int?
+  height       Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  logoForSettings      SiteSettings[] @relation("SiteSettingsLogo")
+  faviconForSettings   SiteSettings[] @relation("SiteSettingsFavicon")
+  defaultOgForSettings SiteSettings[] @relation("SiteSettingsDefaultOg")
+  seoOgImages          SeoPage[]      @relation("SeoPageOgImage")
+  seoTwitterImages     SeoPage[]      @relation("SeoPageTwitterImage")
+
+  @@index([createdAt])
+  @@index([mimeType])
+}
+
+model SiteSettings {
+  id               Int      @id @default(1)
+  siteName         String   @default("Nimedya") @db.VarChar(120)
+  baseUrl          String   @db.VarChar(255)
+  defaultLocale    String   @default("tr") @db.VarChar(8)
+  contactEmail     String?  @db.VarChar(190)
+  contactPhone     String?  @db.VarChar(60)
+  contactLocation  String?  @db.VarChar(190)
+  socialLinks      Json?
+  logoMediaId      Int?
+  faviconMediaId   Int?
+  defaultOgMediaId Int?
+  robotsAllowIndex Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  logo      MediaAsset? @relation("SiteSettingsLogo", fields: [logoMediaId], references: [id], onDelete: SetNull)
+  favicon   MediaAsset? @relation("SiteSettingsFavicon", fields: [faviconMediaId], references: [id], onDelete: SetNull)
+  defaultOg MediaAsset? @relation("SiteSettingsDefaultOg", fields: [defaultOgMediaId], references: [id], onDelete: SetNull)
+
+  @@index([logoMediaId])
+  @@index([faviconMediaId])
+  @@index([defaultOgMediaId])
+}
+
+model SeoPage {
+  id                  Int             @id @default(autoincrement())
+  routeKey            String          @db.VarChar(80)
+  locale              String          @db.VarChar(8)
+  path                String          @db.VarChar(255)
+  metaTitle           String          @db.VarChar(180)
+  metaDescription     String          @db.VarChar(320)
+  canonicalUrl        String?         @db.VarChar(255)
+  ogTitle             String?         @db.VarChar(180)
+  ogDescription       String?         @db.VarChar(320)
+  ogImageMediaId      Int?
+  twitterTitle        String?         @db.VarChar(180)
+  twitterDescription  String?         @db.VarChar(320)
+  twitterImageMediaId Int?
+  twitterCard         TwitterCardType @default(SUMMARY_LARGE_IMAGE)
+  noindex             Boolean         @default(false)
+  nofollow            Boolean         @default(false)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  ogImage      MediaAsset? @relation("SeoPageOgImage", fields: [ogImageMediaId], references: [id], onDelete: SetNull)
+  twitterImage MediaAsset? @relation("SeoPageTwitterImage", fields: [twitterImageMediaId], references: [id], onDelete: SetNull)
+
+  @@unique([routeKey, locale])
+  @@unique([path, locale])
+  @@index([locale, noindex])
+  @@index([ogImageMediaId])
+  @@index([twitterImageMediaId])
+}
+
+model ContentBlock {
+  id          Int           @id @default(autoincrement())
+  key         String        @db.VarChar(100)
+  locale      String        @db.VarChar(8)
+  title       String?       @db.VarChar(190)
+  slug        String?       @db.VarChar(160)
+  status      ContentStatus @default(PUBLISHED)
+  sortOrder   Int           @default(0)
+  data        Json
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([key, locale])
+  @@unique([slug, locale])
+  @@index([locale, status, sortOrder])
+  @@index([updatedAt])
+}

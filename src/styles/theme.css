@@ -1,0 +1,102 @@
+:root {
+  --surface: #f9f9fb;
+  --surface-dim: #dadadc;
+  --surface-bright: #f9f9fb;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f4f3f5;
+  --surface-container: #eeedf0;
+  --surface-container-high: #e8e8ea;
+  --surface-container-highest: #e2e2e4;
+  --surface-variant: #e2e2e4;
+  --on-surface: #1a1c1d;
+  --on-surface-variant: #42474d;
+  --outline: #72787e;
+  --outline-variant: #c2c7cd;
+  --primary: #001a2b;
+  --primary-container: #003049;
+  --on-primary: #ffffff;
+  --secondary: #b90c17;
+  --secondary-container: #de2e2c;
+  --on-secondary: #ffffff;
+  --tertiary: #2c1100;
+  --background: #f9f9fb;
+  --on-background: #1a1c1d;
+  --error: #ba1a1a;
+  --success: #2e7d32;
+  --warning: #b26a00;
+
+  --app-bg: var(--surface);
+  --app-text: var(--on-surface);
+  --app-muted: var(--on-surface-variant);
+  --app-card: var(--surface-container-lowest);
+  --app-card-muted: var(--surface-container-low);
+  --app-border: var(--outline-variant);
+  --app-nav: var(--surface-container-low);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --space-unit: 8px;
+  --container-max: 1440px;
+  --gutter: 32px;
+  --margin-desktop: 80px;
+  --margin-tablet: 40px;
+  --margin-mobile: 24px;
+  --section-padding: 120px;
+
+  --motion-duration: 300ms;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dark {
+  --surface: #0f1418;
+  --surface-container-lowest: #121920;
+  --surface-container-low: #182029;
+  --surface-container: #1f2933;
+  --surface-container-high: #26323e;
+  --surface-container-highest: #2d3a48;
+  --surface-variant: #30404f;
+  --on-surface: #f1f0f2;
+  --on-surface-variant: #c2c7cd;
+  --outline: #8f99a3;
+  --outline-variant: #3d4b59;
+  --background: #0f1418;
+  --on-background: #f1f0f2;
+  --primary: #cae6ff;
+  --primary-container: #7398b6;
+  --secondary: #ffb4ab;
+  --secondary-container: #de2e2c;
+  --on-primary: #001a2b;
+  --on-secondary: #2d0004;
+  --app-bg: var(--surface);
+  --app-text: var(--on-surface);
+  --app-muted: var(--on-surface-variant);
+  --app-card: var(--surface-container-lowest);
+  --app-card-muted: var(--surface-container-low);
+  --app-border: var(--outline-variant);
+  --app-nav: color-mix(in oklab, var(--surface-container-low) 92%, transparent);
+}
+
+.nmd-container {
+  margin-inline: auto;
+  max-width: var(--container-max);
+  width: 100%;
+}
+
+.nmd-page-x {
+  padding-inline: var(--margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .nmd-page-x {
+    padding-inline: var(--margin-desktop);
+  }
+}
+
+.nmd-transition {
+  transition-duration: var(--motion-duration);
+  transition-timing-function: var(--motion-ease);
+}

@@ -17,9 +17,13 @@ type AdminDashboardPageProps = {
     date: string;
     status: string;
   }>;
+  systemStatus?: {
+    api: "online" | "offline";
+    database: "online" | "offline";
+  };
 };
 
-export function AdminDashboardPageSections({ locale, content, metrics, recentRows }: AdminDashboardPageProps) {
+export function AdminDashboardPageSections({ locale, content, metrics, recentRows, systemStatus }: AdminDashboardPageProps) {
   return (
     <>
         <header className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-center">
@@ -110,9 +114,18 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
             <div className="rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] p-6 shadow-sm">
               <h4 className="text-lg font-semibold text-[color:var(--primary)]">{content.systemStatus}</h4>
               <ul className="mt-4 space-y-3 text-sm">
-                <li className="flex items-center justify-between"><span>API</span><span className="font-semibold text-green-600">Online</span></li>
-                <li className="flex items-center justify-between"><span>Database</span><span className="font-semibold text-green-600">Online</span></li>
-                <li className="flex items-center justify-between"><span>Deploy</span><span className="font-semibold text-yellow-600">Beklemede</span></li>
+                <li className="flex items-center justify-between">
+                  <span>API</span>
+                  <span className={`font-semibold ${systemStatus?.api === "online" ? "text-green-600" : "text-red-600"}`}>
+                    {systemStatus?.api === "online" ? "Online" : "Offline"}
+                  </span>
+                </li>
+                <li className="flex items-center justify-between">
+                  <span>Database</span>
+                  <span className={`font-semibold ${systemStatus?.database === "online" ? "text-green-600" : "text-red-600"}`}>
+                    {systemStatus?.database === "online" ? "Online" : "Offline"}
+                  </span>
+                </li>
               </ul>
             </div>
           </aside>

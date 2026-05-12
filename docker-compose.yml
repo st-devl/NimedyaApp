@@ -1,0 +1,56 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deps
+    image: nimedyaapp-dev
+    command: sh -c "npm run dev"
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    environment:
+      DATABASE_URL: mysql://${MARIADB_USER:-nimedya}:${MARIADB_PASSWORD:-nimedya_password}@mariadb:3306/${MARIADB_DATABASE:-nimedya_app}
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nimedya-network
+
+  mariadb:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-change_root_password}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-nimedya_app}
+      MARIADB_USER: ${MARIADB_USER:-nimedya}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-nimedya_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h localhost -u root -p$$MARIADB_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - nimedya-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  nimedya-network:
+    driver: bridge

@@ -1,0 +1,28 @@
+# Nimedya Web Sitesi Gereksinim Dokümanı
+
+## Marka Kimliği
+Nimedya, ürün fotoğrafçılığından web tasarımına, SEO'dan sosyal medya yönetimine kadar geniş bir yelpazede hizmet veren, yaratıcılığı ve kaliteyi ön planda tutan bir dijital ajanstır.
+
+## Renk Paleti
+- **Ana Renk:** Derin Mavi (#003049)
+- **Vurgu Rengi:** Kırmızı (#D62828)
+- **Dikkat Çekici Vurgu:** Turuncu (#F77F00)
+- **Nötr:** Gri (#767779)
+- **Zemin:** Beyaz (#FFFFFF)
+
+## Sayfa Yapısı ve İçerik
+1. **Ana Sayfa:** Split hero slider, Hizmetler özeti, Öne çıkan portfolyo, Referanslar, Blog önizleme.
+2. **Hizmetler:** Tüm hizmetlerin (Fotoğrafçılık, Tanıtım Filmi, Web, SEO, Logo) listelendiği görsel ağırlıklı sayfa.
+3. **Hizmet Detay (Örn: Ürün Fotoğrafçılığı):** İlgili hizmete özel detaylı açıklama, süreç ve örnek işler.
+4. **Portfolyo:** Kategori filtrelemeli (Fotoğraf, Video, Web, Logo) görsel vitrini.
+5. **Portfolyo Detay:** Proje hikayesi, kullanılan teknikler ve büyük ölçekli görseller.
+6. **Hakkımızda:** Ajansın vizyonu, ekibi ve çalışma prensipleri.
+7. **İletişim:** Form, harita ve sosyal medya bağlantıları.
+8. **Admin Paneli Dashboard:** Tüm içeriklerin, SEO ayarlarının ve sliderların yönetildiği modern yönetim arayüzü.
+
+## Teknik Kurallar
+- Plus Jakarta Sans ve Inter fontları.
+- Soft radius (yumuşak köşeler).
+- Split layout (ayrılmış düzen) kullanımı.
+- %100 Mobil uyumlu tasarım.
+- Çoklu dil (Türkçe/İngilizce) desteği kurgusu.
