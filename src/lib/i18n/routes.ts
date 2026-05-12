@@ -16,6 +16,7 @@ export const routeMap = {
   adminContent: { tr: "admin/icerik", en: "admin/content" },
   adminMessages: { tr: "admin/mesajlar", en: "admin/messages" },
   adminSlider: { tr: "admin/slider", en: "admin/slider" },
+  adminUsers: { tr: "admin/kullanicilar", en: "admin/users" },
   adminLogin: { tr: "admin/login", en: "admin/login" },
 } as const;
 

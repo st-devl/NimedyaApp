@@ -67,6 +67,10 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
     tr: { title: "Nimedya Admin | Slider", description: "Nimedya slider yonetimi." },
     en: { title: "Nimedya Admin | Slider", description: "Nimedya slider management." },
   },
+  adminUsers: {
+    tr: { title: "Nimedya Admin | Kullanicilar", description: "Nimedya kullanici yonetimi." },
+    en: { title: "Nimedya Admin | Users", description: "Nimedya user management." },
+  },
   adminLogin: {
     tr: { title: "Nimedya Admin | Giris", description: "Nimedya admin giris sayfasi." },
     en: { title: "Nimedya Admin | Login", description: "Nimedya admin login page." },

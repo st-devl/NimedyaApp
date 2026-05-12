@@ -12,6 +12,7 @@ const navItems = [
   { labelKey: "SEO", routeKey: "adminSeo" as const },
   { labelKey: "İçerik", routeKey: "adminContent" as const },
   { labelKey: "Mesajlar", routeKey: "adminMessages" as const },
+  { labelKey: "Kullanıcılar", routeKey: "adminUsers" as const },
 ];
 
 export function AdminSidebar({ locale }: { locale: Locale }) {
