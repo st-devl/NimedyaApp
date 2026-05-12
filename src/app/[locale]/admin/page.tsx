@@ -2,7 +2,7 @@ import { AdminDashboardPageSections } from "@/components/sections/admin/admin-da
 import { getAdminDashboardContent } from "@/content";
 import { prisma } from "@/lib/db/prisma";
 import type { Locale } from "@/lib/i18n/config";
-import { buildPageMetadata } from "@/lib/seo/page-metadata";
+import { buildManagedMetadata } from "@/lib/cms/seo";
 import type { Metadata } from "next";
 
 async function checkSystemHealth(): Promise<{ api: "online" | "offline"; database: "online" | "offline" }> {
@@ -72,5 +72,5 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return buildPageMetadata(locale as Locale, "admin");
+  return buildManagedMetadata(locale as Locale, "admin");
 }

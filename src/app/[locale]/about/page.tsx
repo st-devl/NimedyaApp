@@ -3,7 +3,7 @@ import { TopNavServer as TopNav } from "@/components/site/top-nav-server";
 import { AboutPageSections } from "@/components/sections/about/about-page";
 import { getManagedAboutContent } from "@/lib/cms/public-content";
 import { isLocale, type Locale } from "@/lib/i18n/config";
-import { buildPageMetadata } from "@/lib/seo/page-metadata";
+import { buildManagedMetadata } from "@/lib/cms/seo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -30,5 +30,5 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return buildPageMetadata(locale, "about");
+  return buildManagedMetadata(locale, "about");
 }
