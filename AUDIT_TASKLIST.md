@@ -51,7 +51,16 @@ Kaynak: `AUDIT_REPORT.md` — 2026-05-12
 
 ## Tamamlanan Görevler
 
-_(Görev tamamlandıkça buraya taşı)_
+### A Grubu (5/5 ✅)
+- [x] **A-1** — proxy.ts doğru convention (Next.js 16)
+- [x] **A-2** — Admin logout butonu (sidebar'a eklendi, active state bonus)
+- [x] **A-3** — Mobil hamburger menü (animasyonlu, body scroll kontrol)
+- [x] **A-4** — Slider WIP (backend olmadığı için banner eklenmiş)
+- [x] **A-5** — Dashboard quick actions (Link'lere dönüştürüldü)
+
+### B Grubu (2/5 ✅)
+- [x] **B-1** — validateMediaReferences → lib/cms/media.ts (DRY)
+- [x] **B-2** — Admin auth guard → layout.tsx (7 tekrar kaldırıldı)
 
 ---
 
