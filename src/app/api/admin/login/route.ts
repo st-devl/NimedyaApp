@@ -5,6 +5,7 @@ import { getClientIp, isAllowedSameOriginMutation } from "@/lib/api/request";
 import { prisma } from "@/lib/db/prisma";
 import { buildAdminSessionCookie } from "@/lib/auth/admin-session";
 import { verifyPassword } from "@/lib/auth/password";
+import { appLogger } from "@/lib/logger";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -19,6 +20,7 @@ export async function POST(request: Request) {
   const clientIp = getClientIp(request);
   const rateLimit = consumeRateLimit("admin-login", clientIp, 8, 60_000);
   if (!rateLimit.allowed) {
+    appLogger.rateLimited({ scope: "admin-login", ip: clientIp });
     return apiError("RATE_LIMITED", "Too many login attempts. Please retry in a minute.", 429, undefined, {
       headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
     });
@@ -42,9 +44,11 @@ export async function POST(request: Request) {
   });
 
   if (!adminUser || !adminUser.isActive || !verifyPassword(parsed.data.password, adminUser.passwordHash)) {
+    appLogger.loginFailed({ email: parsed.data.email, ip: clientIp, reason: "invalid_credentials" });
     return apiError("UNAUTHORIZED", "Invalid credentials.", 401);
   }
 
+  appLogger.login({ userId: adminUser.id, role: adminUser.role, ip: clientIp });
   const sessionCookie = buildAdminSessionCookie({ id: adminUser.id, role: adminUser.role });
   const response = apiOk({ userId: adminUser.id, role: adminUser.role });
   response.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.options);

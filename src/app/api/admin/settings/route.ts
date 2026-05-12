@@ -4,6 +4,8 @@ import { siteSettingsSchema } from "@/lib/cms/settings-schema";
 import { getSiteSettings, upsertSiteSettings } from "@/lib/cms/settings";
 import { validateMediaReferences } from "@/lib/cms/media";
 import { prisma } from "@/lib/db/prisma";
+import { getClientIp } from "@/lib/api/request";
+import { appLogger } from "@/lib/logger";
 
 export async function GET(request: Request) {
   const authorized = await authorizeAdminRequest(request);
@@ -19,6 +21,7 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
+  const clientIp = getClientIp(request);
   const authorized = await authorizeAdminRequest(request, ["ADMIN"]);
   if (!authorized.ok) return authorized.response;
 
@@ -44,5 +47,6 @@ export async function PATCH(request: Request) {
   }
 
   await upsertSiteSettings(parsed.data);
+  appLogger.settingsUpdated({ userId: authorized.session.userId, ip: clientIp });
   return apiOk({ settings: await getSiteSettings() });
 }
