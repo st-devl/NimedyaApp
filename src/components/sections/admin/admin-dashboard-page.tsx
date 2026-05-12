@@ -47,23 +47,23 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
               <h2 className="mt-2 text-4xl font-bold text-[color:var(--primary)]">{metrics.contentBlocks}</h2>
               <p className="mt-2 text-sm font-semibold text-[color:var(--secondary)]">Yayindaki bloklar</p>
             </div>
-            <div className="h-14 w-14 rounded-full bg-[#cae6ff]" />
+            <div className="h-14 w-14 rounded-full bg-[color:var(--metric-primary-accent)]" />
           </article>
           <article className="nmd-transition flex justify-between rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] p-8 shadow-sm hover:-translate-y-1">
             <div>
               <p className="nmd-label-sm uppercase text-[color:var(--app-muted)]">{content.stats.messages}</p>
               <h2 className="mt-2 text-4xl font-bold text-[color:var(--primary)]">{metrics.newMessages}</h2>
-              <p className="mt-2 text-sm font-semibold text-[#003049]">Yeni mesaj</p>
+              <p className="mt-2 text-sm font-semibold text-[color:var(--primary-container)]">Yeni mesaj</p>
             </div>
-            <div className="h-14 w-14 rounded-full bg-[#ffdad6]" />
+            <div className="h-14 w-14 rounded-full bg-[color:var(--metric-secondary-accent)]" />
           </article>
           <article className="nmd-transition flex justify-between rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] p-8 shadow-sm hover:-translate-y-1">
             <div>
               <p className="nmd-label-sm uppercase text-[color:var(--app-muted)]">{content.stats.posts}</p>
               <h2 className="mt-2 text-4xl font-bold text-[color:var(--primary)]">{metrics.mediaAssets}</h2>
-              <p className="mt-2 text-sm font-semibold text-[#003049]">Medya dosyasi</p>
+              <p className="mt-2 text-sm font-semibold text-[color:var(--primary-container)]">Medya dosyasi</p>
             </div>
-            <div className="h-14 w-14 rounded-full bg-[#eeedf0]" />
+            <div className="h-14 w-14 rounded-full bg-[color:var(--metric-tertiary-accent)]" />
           </article>
         </section>
 

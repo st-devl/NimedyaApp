@@ -33,6 +33,11 @@
   --app-border: var(--outline-variant);
   --app-nav: var(--surface-container-low);
 
+  --metric-primary-accent: #cae6ff;
+  --metric-secondary-accent: #ffdad6;
+  --metric-tertiary-accent: #eeedf0;
+  --accent-light: #cae6ff;
+
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;

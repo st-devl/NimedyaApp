@@ -37,25 +37,25 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
               <p className="nmd-body-md text-[#42474d]">Isigin matematigini, kompozisyonun sanatiyla birlestiriyor, e-ticaret ve kataloglar icin premium goruntu paketleri uretiyoruz.</p>
             </div>
             <div className="grid grid-cols-2 gap-4 md:col-span-6 md:col-start-7">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[#eeedf0]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[color:var(--surface-container)]">
                 <Image alt="Detail Shot" className="object-cover grayscale nmd-transition hover:grayscale-0" fill quality={imageManifest.serviceFeatured1.quality} sizes={imageManifest.serviceFeatured1.sizes} src={imageManifest.serviceFeatured1.src} />
               </div>
-              <div className="relative mt-12 aspect-[4/5] overflow-hidden rounded-xl bg-[#eeedf0]">
+              <div className="relative mt-12 aspect-[4/5] overflow-hidden rounded-xl bg-[color:var(--surface-container)]">
                 <Image alt="Lifestyle Shot" className="object-cover grayscale nmd-transition hover:grayscale-0" fill quality={imageManifest.serviceFeatured2.quality} sizes={imageManifest.serviceFeatured2.sizes} src={imageManifest.serviceFeatured2.src} />
               </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#001a2b] py-[120px] text-white">
+        <section className="bg-[color:var(--primary)] py-[120px] text-white">
           <div className="nmd-container nmd-page-x">
             <div className="mb-16 text-center">
-              <h2 className="nmd-headline-xl text-[#cae6ff]">{t.processTitle}</h2>
+              <h2 className="nmd-headline-xl text-[color:var(--accent-light)]">{t.processTitle}</h2>
             </div>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
               {t.processSteps.map((step, idx) => (
                 <article className="text-center" key={step}>
-                  <div className={`mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-[#001a2b] ${idx === 1 ? "bg-[#b90c17]" : "bg-[#003049]"}`}>
+                  <div className={`mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-[color:var(--primary)] ${idx === 1 ? "bg-[color:var(--secondary)]" : "bg-[color:var(--primary-container)]"}`}>
                     <span className="text-2xl font-bold">0{idx + 1}</span>
                   </div>
                   <h3 className="mb-3 text-2xl font-semibold">{step}</h3>

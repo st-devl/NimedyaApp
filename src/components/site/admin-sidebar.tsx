@@ -24,7 +24,7 @@ export function AdminSidebar({ locale }: { locale: Locale }) {
   };
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-[#001a2b] text-white shadow-2xl">
+    <aside className="fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-[color:var(--primary)] text-white shadow-2xl">
       <div className="p-8">
         <h1 className="font-['Plus_Jakarta_Sans'] text-3xl font-bold">Nimedya</h1>
         <p className="mt-1 text-xs opacity-70">Admin Control Panel</p>
@@ -38,7 +38,7 @@ export function AdminSidebar({ locale }: { locale: Locale }) {
             <Link
               className={`flex items-center gap-4 rounded-xl px-4 py-3 transition-colors ${
                 isActive
-                  ? "border-l-4 border-[#b90c17] bg-[#003049]"
+                  ? "border-l-4 border-[color:var(--secondary)] bg-[color:var(--primary-container)]"
                   : "hover:bg-white/10"
               }`}
               href={href}
