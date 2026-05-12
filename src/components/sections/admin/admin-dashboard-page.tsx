@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AdminSidebar } from "@/components/site/admin-sidebar";
 import type { AdminDashboardContent } from "@/types/content";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/routes";
@@ -22,9 +21,7 @@ type AdminDashboardPageProps = {
 
 export function AdminDashboardPageSections({ locale, content, metrics, recentRows }: AdminDashboardPageProps) {
   return (
-    <div className="flex min-h-screen bg-[color:var(--app-bg)]">
-      <AdminSidebar locale={locale} />
-      <main className="ml-72 flex-1 p-8 md:p-[80px]">
+    <>
         <header className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-center">
           <div>
             <h1 className="nmd-headline-xl text-[color:var(--primary)]">{content.title}</h1>
@@ -120,7 +117,6 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
             </div>
           </aside>
         </section>
-      </main>
-    </div>
+    </>
   );
 }
