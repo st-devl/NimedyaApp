@@ -6,18 +6,18 @@ Kaynak: `AUDIT_REPORT.md` — 2026-05-12
 
 ## A) Acil Düzeltilmesi Gerekenler
 
-- [ ] **A-1** — `proxy.ts` → `src/middleware.ts` olarak yeniden adlandır ve Next.js middleware olarak çalıştığını doğrula
-- [ ] **A-2** — Admin sidebar'a logout butonu ekle (`/api/admin/logout`'a POST gönder)
-- [ ] **A-3** — Mobil hamburger menü ekle (`top-nav.tsx` — `hidden md:flex` sorunu)
-- [ ] **A-4** — Slider sayfasını tamamlanana kadar sidebar'dan ve erişilebilir route'lardan kaldır (veya "Yapım Aşamasında" banneri ekle)
-- [ ] **A-5** — Dashboard quick action butonlarını (`Yeni Icerik Duzenle`, `Medya Yukle`, `SEO Duzenle`) `<Link>`'e çevir
+- [x] **A-1** — `proxy.ts` → `src/middleware.ts` olarak yeniden adlandır ve Next.js middleware olarak çalıştığını doğrula
+- [x] **A-2** — Admin sidebar'a logout butonu ekle (`/api/admin/logout`'a POST gönder)
+- [x] **A-3** — Mobil hamburger menü ekle (`top-nav.tsx` — `hidden md:flex` sorunu)
+- [x] **A-4** — Slider sayfasını tamamlanana kadar sidebar'dan ve erişilebilir route'lardan kaldır (veya "Yapım Aşamasında" banneri ekle)
+- [x] **A-5** — Dashboard quick action butonlarını (`Yeni Icerik Duzenle`, `Medya Yukle`, `SEO Duzenle`) `<Link>`'e çevir
 
 ---
 
 ## B) Performans ve Mimari İyileştirmeler
 
-- [ ] **B-1** — `validateMediaReferences` fonksiyonunu `src/lib/cms/media.ts`'e taşı, `settings/route.ts` ve `seo/route.ts`'deki kopyaları sil
-- [ ] **B-2** — Admin sayfalarındaki tekrar eden auth guard bloğunu `src/app/[locale]/admin/layout.tsx`'e taşı (7 dosyadan kaldır)
+- [x] **B-1** — `validateMediaReferences` fonksiyonunu `src/lib/cms/media.ts`'e taşı, `settings/route.ts` ve `seo/route.ts`'deki kopyaları sil
+- [x] **B-2** — Admin sayfalarındaki tekrar eden auth guard bloğunu `src/app/[locale]/admin/layout.tsx`'e taşı (7 dosyadan kaldır)
 - [x] **B-3** — Admin sidebar'a `usePathname()` ile aktif link state'i ekle
 - [x] **B-4** — Dashboard system status widget'ını hardcoded değerlerden `/api/health` ve `/api/db-health` endpoint'lerine bağla
 - [x] **B-5** — Rate limiting'i DB tabanlıdan in-memory LRU cache'e geçir (`ApiRateLimit` modeli yerine)
@@ -40,9 +40,9 @@ Kaynak: `AUDIT_REPORT.md` — 2026-05-12
 - [x] **D-1** — Slider modülünü tamamla: Prisma `Slider` modeli + migration + `/api/admin/slider` CRUD route'ları + form submit handler + sidebar entegrasyonu
 - [x] **D-2** — KVKK / Gizlilik Politikası sayfası oluştur (`/[locale]/gizlilik` ve `/[locale]/privacy`)
 - [x] **D-3** — Kullanım Koşulları sayfası oluştur (`/[locale]/kullanim-kosullari` ve `/[locale]/terms`)
-- [ ] **D-4** — Vitest kurulumu + auth (session encode/decode, password hash) unit testleri
-- [ ] **D-5** — Vitest + contact form API integration testleri
-- [ ] **D-6** — Playwright ile e2e testler: login akışı, contact form, admin settings güncelleme
+- [x] **D-4** — Vitest kurulumu + auth (session encode/decode, password hash) unit testleri
+- [x] **D-5** — Vitest + contact form API integration testleri
+- [x] **D-6** — Playwright ile e2e testler: login akışı, contact form, admin settings güncelleme
 - [x] **D-7** — Pino ile structured logging ekle (login, settings update, content update event'leri)
 - [x] **D-8** — GitHub Actions CI/CD pipeline: lint + type-check + build + test
 - [x] **D-9** — Admin kullanıcı yönetimi sayfası: şifre değiştirme, yeni admin ekleme
