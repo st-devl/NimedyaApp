@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   }
 
   const clientIp = getClientIp(request);
-  const rateLimit = await consumeRateLimit("admin-login", clientIp, 8, 60_000);
+  const rateLimit = consumeRateLimit("admin-login", clientIp, 8, 60_000);
   if (!rateLimit.allowed) {
     return apiError("RATE_LIMITED", "Too many login attempts. Please retry in a minute.", 429, undefined, {
       headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },

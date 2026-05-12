@@ -12,7 +12,7 @@ const contactSchema = z.object({
 
 export async function POST(request: Request) {
   const clientIp = getClientIp(request);
-  const rateLimit = await consumeRateLimit("contact-submit", clientIp, 5, 60_000);
+  const rateLimit = consumeRateLimit("contact-submit", clientIp, 5, 60_000);
   if (!rateLimit.allowed) {
     return apiError("RATE_LIMITED", "Too many contact requests. Please retry in a minute.", 429, undefined, {
       headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },

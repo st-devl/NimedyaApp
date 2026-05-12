@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     return errorResponse("UNAUTHORIZED", "Unauthorized admin translate request.", 401);
   }
 
-  const rateLimit = await consumeRateLimit("admin-translate", clientIp, 20, 60_000);
+  const rateLimit = consumeRateLimit("admin-translate", clientIp, 20, 60_000);
   if (!rateLimit.allowed) {
     auditLog("rate_limited", { clientIp });
     return NextResponse.json(
