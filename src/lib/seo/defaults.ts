@@ -31,6 +31,14 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
     tr: { title: "Nimedya | Iletisim", description: "Nimedya iletisime gecin." },
     en: { title: "Nimedya | Contact", description: "Contact Nimedya." },
   },
+  privacy: {
+    tr: { title: "Nimedya | Gizlilik Politikasi", description: "Nimedya gizlilik politikasi." },
+    en: { title: "Nimedya | Privacy Policy", description: "Nimedya privacy policy." },
+  },
+  terms: {
+    tr: { title: "Nimedya | Kullanim Kosullari", description: "Nimedya kullanim kosullari." },
+    en: { title: "Nimedya | Terms of Use", description: "Nimedya terms of use." },
+  },
   admin: {
     tr: { title: "Nimedya Admin | Dashboard", description: "Nimedya admin dashboard." },
     en: { title: "Nimedya Admin | Dashboard", description: "Nimedya admin dashboard." },

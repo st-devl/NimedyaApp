@@ -7,6 +7,8 @@ export const routeMap = {
   portfolio: { tr: "islerimiz", en: "portfolio" },
   about: { tr: "hakkimizda", en: "about" },
   contact: { tr: "iletisim", en: "contact" },
+  privacy: { tr: "gizlilik", en: "privacy" },
+  terms: { tr: "kullanim-kosullari", en: "terms" },
   admin: { tr: "admin", en: "admin" },
   adminSettings: { tr: "admin/ayarlar", en: "admin/settings" },
   adminMedia: { tr: "admin/medya", en: "admin/media" },
