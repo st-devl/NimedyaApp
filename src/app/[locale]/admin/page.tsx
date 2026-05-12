@@ -40,18 +40,20 @@ export default async function AdminPage({ params }: { params: Promise<{ locale: 
     }),
     checkSystemHealth(),
   ]);
+  const dateLocale = resolvedLocale === "tr" ? "tr-TR" : "en-US";
+  const typeLabels = resolvedLocale === "tr" ? { content: "Icerik", message: "Mesaj" } : { content: "Content", message: "Message" };
   const recentRows = [
     ...recentContent.map((item) => ({
       title: `${item.key} / ${item.locale.toUpperCase()}`,
-      type: "Icerik",
-      date: item.updatedAt.toLocaleDateString("tr-TR"),
-      status: item.status === "PUBLISHED" ? "Yayinda" : "Taslak",
+      type: typeLabels.content,
+      date: item.updatedAt.toLocaleDateString(dateLocale),
+      statusKey: (item.status === "PUBLISHED" ? "published" : "draft") as "published" | "draft",
     })),
     ...recentMessages.map((item) => ({
       title: item.name,
-      type: "Mesaj",
-      date: item.createdAt.toLocaleDateString("tr-TR"),
-      status: item.status === "NEW" ? "Yeni" : item.status === "READ" ? "Okundu" : "Arsiv",
+      type: typeLabels.message,
+      date: item.createdAt.toLocaleDateString(dateLocale),
+      statusKey: (item.status === "NEW" ? "new" : item.status === "READ" ? "read" : "archived") as "new" | "read" | "archived",
     })),
   ];
 

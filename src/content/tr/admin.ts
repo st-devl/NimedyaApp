@@ -5,11 +5,39 @@ export const trAdminDashboardContent = {
     projects: "Toplam Proje",
     messages: "Bekleyen Mesajlar",
     posts: "Toplam Blog Yazisi",
+    publishedHint: "Yayindaki bloklar",
+    newMessageHint: "Yeni mesaj",
+    mediaFilesHint: "Medya dosyasi",
+  },
+  actions: {
+    addContent: "Yeni Icerik Ekle",
+    editContent: "Icerik Duzenle",
+    uploadMedia: "Medya Yukle",
+    editSeo: "SEO Duzenle",
+  },
+  table: {
+    sectionTitle: "Son Eklenen Icerikler",
+    viewAll: "Tumunu Gor",
+    colTitle: "Baslik",
+    colType: "Tip",
+    colDate: "Tarih",
+    colStatus: "Durum",
+  },
+  statusLabels: {
+    published: "Yayinda",
+    draft: "Taslak",
+    new: "Yeni",
+    read: "Okundu",
+    archived: "Arsiv",
   },
   quickActions: "Hizli Islem",
   systemStatus: "Sistem Durumu",
-  tableTitle: "Son Eklenen Icerikler",
-  tableViewAll: "Tumunu Gor",
+  system: {
+    api: "API",
+    database: "Veritabani",
+    online: "Cevrimici",
+    offline: "Cevrimdisi",
+  },
 };
 
 export const trAdminSliderContent = {

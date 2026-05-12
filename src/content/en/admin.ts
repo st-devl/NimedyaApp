@@ -1,15 +1,43 @@
 export const enAdminDashboardContent = {
   title: "Welcome, Nimedya",
-  subtitle: "Today\'s overview of your website performance.",
+  subtitle: "Today's overview of your website performance.",
   stats: {
     projects: "Total Projects",
     messages: "Pending Messages",
     posts: "Total Blog Posts",
+    publishedHint: "Published blocks",
+    newMessageHint: "New message",
+    mediaFilesHint: "Media files",
+  },
+  actions: {
+    addContent: "Add New Content",
+    editContent: "Edit Content",
+    uploadMedia: "Upload Media",
+    editSeo: "Edit SEO",
+  },
+  table: {
+    sectionTitle: "Recently Added Content",
+    viewAll: "View All",
+    colTitle: "Title",
+    colType: "Type",
+    colDate: "Date",
+    colStatus: "Status",
+  },
+  statusLabels: {
+    published: "Published",
+    draft: "Draft",
+    new: "New",
+    read: "Read",
+    archived: "Archived",
   },
   quickActions: "Quick Actions",
   systemStatus: "System Status",
-  tableTitle: "Recently Added Content",
-  tableViewAll: "View All",
+  system: {
+    api: "API",
+    database: "Database",
+    online: "Online",
+    offline: "Offline",
+  },
 };
 
 export const enAdminSliderContent = {

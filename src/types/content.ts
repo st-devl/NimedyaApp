@@ -84,11 +84,39 @@ export type AdminDashboardContent = {
     projects: string;
     messages: string;
     posts: string;
+    publishedHint: string;
+    newMessageHint: string;
+    mediaFilesHint: string;
+  };
+  actions: {
+    addContent: string;
+    editContent: string;
+    uploadMedia: string;
+    editSeo: string;
+  };
+  table: {
+    sectionTitle: string;
+    viewAll: string;
+    colTitle: string;
+    colType: string;
+    colDate: string;
+    colStatus: string;
+  };
+  statusLabels: {
+    published: string;
+    draft: string;
+    new: string;
+    read: string;
+    archived: string;
   };
   quickActions: string;
   systemStatus: string;
-  tableTitle: string;
-  tableViewAll: string;
+  system: {
+    api: string;
+    database: string;
+    online: string;
+    offline: string;
+  };
 };
 
 export type AdminSliderContent = {

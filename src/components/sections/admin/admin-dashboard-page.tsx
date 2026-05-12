@@ -3,6 +3,8 @@ import type { AdminDashboardContent } from "@/types/content";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/routes";
 
+type StatusKey = "published" | "draft" | "new" | "read" | "archived";
+
 type AdminDashboardPageProps = {
   locale: Locale;
   content: AdminDashboardContent;
@@ -15,12 +17,20 @@ type AdminDashboardPageProps = {
     title: string;
     type: string;
     date: string;
-    status: string;
+    statusKey: StatusKey;
   }>;
   systemStatus?: {
     api: "online" | "offline";
     database: "online" | "offline";
   };
+};
+
+const statusBadgeClass: Record<StatusKey, string> = {
+  published: "bg-green-100 text-green-700",
+  draft: "bg-yellow-100 text-yellow-700",
+  new: "bg-blue-100 text-blue-700",
+  read: "bg-gray-100 text-gray-600",
+  archived: "bg-gray-100 text-gray-500",
 };
 
 export function AdminDashboardPageSections({ locale, content, metrics, recentRows, systemStatus }: AdminDashboardPageProps) {
@@ -34,9 +44,9 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
           <div className="flex items-center gap-6">
             <div className="relative">
               <span className="text-3xl text-[color:var(--primary)]">🔔</span>
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#b90c17] text-[10px] font-bold text-[color:var(--on-primary)]">{metrics.newMessages}</span>
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[color:var(--secondary)] text-[10px] font-bold text-[color:var(--on-primary)]">{metrics.newMessages}</span>
             </div>
-            <Link className="inline-block nmd-transition rounded-xl bg-[color:var(--primary)] px-6 py-3 font-semibold text-[color:var(--on-primary)] hover:-translate-y-1" href={localizedPath(locale, "adminContent")}>Yeni Icerik Ekle</Link>
+            <Link className="inline-block nmd-transition rounded-xl bg-[color:var(--primary)] px-6 py-3 font-semibold text-[color:var(--on-primary)] hover:-translate-y-1" href={localizedPath(locale, "adminContent")}>{content.actions.addContent}</Link>
           </div>
         </header>
 
@@ -45,7 +55,7 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
             <div>
               <p className="nmd-label-sm uppercase text-[color:var(--app-muted)]">{content.stats.projects}</p>
               <h2 className="mt-2 text-4xl font-bold text-[color:var(--primary)]">{metrics.contentBlocks}</h2>
-              <p className="mt-2 text-sm font-semibold text-[color:var(--secondary)]">Yayindaki bloklar</p>
+              <p className="mt-2 text-sm font-semibold text-[color:var(--secondary)]">{content.stats.publishedHint}</p>
             </div>
             <div className="h-14 w-14 rounded-full bg-[color:var(--metric-primary-accent)]" />
           </article>
@@ -53,7 +63,7 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
             <div>
               <p className="nmd-label-sm uppercase text-[color:var(--app-muted)]">{content.stats.messages}</p>
               <h2 className="mt-2 text-4xl font-bold text-[color:var(--primary)]">{metrics.newMessages}</h2>
-              <p className="mt-2 text-sm font-semibold text-[color:var(--primary-container)]">Yeni mesaj</p>
+              <p className="mt-2 text-sm font-semibold text-[color:var(--primary-container)]">{content.stats.newMessageHint}</p>
             </div>
             <div className="h-14 w-14 rounded-full bg-[color:var(--metric-secondary-accent)]" />
           </article>
@@ -61,7 +71,7 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
             <div>
               <p className="nmd-label-sm uppercase text-[color:var(--app-muted)]">{content.stats.posts}</p>
               <h2 className="mt-2 text-4xl font-bold text-[color:var(--primary)]">{metrics.mediaAssets}</h2>
-              <p className="mt-2 text-sm font-semibold text-[color:var(--primary-container)]">Medya dosyasi</p>
+              <p className="mt-2 text-sm font-semibold text-[color:var(--primary-container)]">{content.stats.mediaFilesHint}</p>
             </div>
             <div className="h-14 w-14 rounded-full bg-[color:var(--metric-tertiary-accent)]" />
           </article>
@@ -70,28 +80,28 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
         <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="overflow-hidden rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] shadow-sm lg:col-span-2">
             <div className="flex items-center justify-between border-b border-[color:var(--app-border)]/30 px-6 py-4">
-              <h3 className="nmd-headline-md text-[24px] text-[color:var(--primary)]">{content.tableTitle}</h3>
-              <button className="text-sm font-semibold text-[color:var(--secondary)]">{content.tableViewAll}</button>
+              <h3 className="nmd-headline-md text-[24px] text-[color:var(--primary)]">{content.table.sectionTitle}</h3>
+              <button className="text-sm font-semibold text-[color:var(--secondary)]">{content.table.viewAll}</button>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead className="bg-[color:var(--surface-container-low)]">
                   <tr>
-                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">Baslik</th>
-                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">Tip</th>
-                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">Tarih</th>
-                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">Durum</th>
+                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">{content.table.colTitle}</th>
+                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">{content.table.colType}</th>
+                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">{content.table.colDate}</th>
+                    <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-[color:var(--app-muted)]">{content.table.colStatus}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#c2c7cd]/20">
+                <tbody className="divide-y divide-[color:var(--outline-variant)]/20">
                   {recentRows.map((row) => (
                     <tr className="hover:bg-[color:var(--app-bg)]" key={`${row.type}-${row.title}-${row.date}`}>
                       <td className="px-6 py-4 font-semibold text-[color:var(--primary)]">{row.title}</td>
                       <td className="px-6 py-4 text-[color:var(--app-muted)]">{row.type}</td>
                       <td className="px-6 py-4 text-[color:var(--app-muted)]">{row.date}</td>
                       <td className="px-6 py-4">
-                        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${row.status === "Yayinda" ? "bg-green-100 text-green-700" : row.status === "Taslak" ? "bg-yellow-100 text-yellow-700" : "bg-blue-100 text-blue-700"}`}>
-                          {row.status}
+                        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusBadgeClass[row.statusKey]}`}>
+                          {content.statusLabels[row.statusKey]}
                         </span>
                       </td>
                     </tr>
@@ -105,9 +115,9 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
             <div className="rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] p-6 shadow-sm">
               <h4 className="text-lg font-semibold text-[color:var(--primary)]">{content.quickActions}</h4>
               <div className="mt-4 space-y-3">
-                <Link className="block rounded-lg bg-[color:var(--primary)] px-4 py-3 text-left text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:opacity-90" href={localizedPath(locale, "adminContent")}>Yeni Icerik Duzenle</Link>
-                <Link className="block rounded-lg bg-[color:var(--surface-container-low)] px-4 py-3 text-left text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:opacity-90" href={localizedPath(locale, "adminMedia")}>Medya Yukle</Link>
-                <Link className="block rounded-lg bg-[color:var(--surface-container-low)] px-4 py-3 text-left text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:opacity-90" href={localizedPath(locale, "adminSeo")}>SEO Duzenle</Link>
+                <Link className="block rounded-lg bg-[color:var(--primary)] px-4 py-3 text-left text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:opacity-90" href={localizedPath(locale, "adminContent")}>{content.actions.editContent}</Link>
+                <Link className="block rounded-lg bg-[color:var(--surface-container-low)] px-4 py-3 text-left text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:opacity-90" href={localizedPath(locale, "adminMedia")}>{content.actions.uploadMedia}</Link>
+                <Link className="block rounded-lg bg-[color:var(--surface-container-low)] px-4 py-3 text-left text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:opacity-90" href={localizedPath(locale, "adminSeo")}>{content.actions.editSeo}</Link>
               </div>
             </div>
 
@@ -115,15 +125,15 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
               <h4 className="text-lg font-semibold text-[color:var(--primary)]">{content.systemStatus}</h4>
               <ul className="mt-4 space-y-3 text-sm">
                 <li className="flex items-center justify-between">
-                  <span>API</span>
+                  <span>{content.system.api}</span>
                   <span className={`font-semibold ${systemStatus?.api === "online" ? "text-green-600" : "text-red-600"}`}>
-                    {systemStatus?.api === "online" ? "Online" : "Offline"}
+                    {systemStatus?.api === "online" ? content.system.online : content.system.offline}
                   </span>
                 </li>
                 <li className="flex items-center justify-between">
-                  <span>Database</span>
+                  <span>{content.system.database}</span>
                   <span className={`font-semibold ${systemStatus?.database === "online" ? "text-green-600" : "text-red-600"}`}>
-                    {systemStatus?.database === "online" ? "Online" : "Offline"}
+                    {systemStatus?.database === "online" ? content.system.online : content.system.offline}
                   </span>
                 </li>
               </ul>
