@@ -17,13 +17,17 @@ export type ContentBlockInput = {
 };
 
 export const getPublishedContentBlock = cache(async <T>(key: ContentBlockKey, locale: Locale): Promise<T | null> => {
-  const row = await prisma.contentBlock.findUnique({
-    where: { key_locale: { key, locale } },
-    select: { data: true, status: true },
-  });
+  try {
+    const row = await prisma.contentBlock.findUnique({
+      where: { key_locale: { key, locale } },
+      select: { data: true, status: true },
+    });
 
-  if (!row || row.status !== "PUBLISHED") return null;
-  return row.data as T;
+    if (!row || row.status !== "PUBLISHED") return null;
+    return row.data as T;
+  } catch {
+    return null;
+  }
 });
 
 export function upsertContentBlock(input: ContentBlockInput) {

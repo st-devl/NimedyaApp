@@ -22,17 +22,21 @@ export type PublicSliderItem = {
 };
 
 export async function getActiveSliderItems(locale: Locale): Promise<PublicSliderItem[]> {
-  const items = await prisma.sliderItem.findMany({
-    where: { status: "ACTIVE" },
-    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-  });
-  return items.map((item) => ({
-    id: item.id,
-    title: locale === "tr" ? item.trTitle : item.enTitle,
-    description: locale === "tr" ? item.trDescription : item.enDescription,
-    imageUrl: item.imageUrl,
-    linkUrl: item.linkUrl,
-  }));
+  try {
+    const items = await prisma.sliderItem.findMany({
+      where: { status: "ACTIVE" },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+    return items.map((item) => ({
+      id: item.id,
+      title: locale === "tr" ? item.trTitle : item.enTitle,
+      description: locale === "tr" ? item.trDescription : item.enDescription,
+      imageUrl: item.imageUrl,
+      linkUrl: item.linkUrl,
+    }));
+  } catch {
+    return [];
+  }
 }
 
 async function getManagedContent<T extends object>(key: Parameters<typeof getPublishedContentBlock<T>>[0], locale: Locale, fallback: T): Promise<T> {
