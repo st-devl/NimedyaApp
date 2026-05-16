@@ -72,6 +72,8 @@ const blank: ServiceDetailFormData = {
   status: "DRAFT",
 };
 
+type TranslateStatus = { type: "idle" } | { type: "ok"; at: string } | { type: "error"; message: string };
+
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h4 className="mt-8 border-t border-[color:var(--app-border)]/30 pt-6 text-sm font-bold uppercase tracking-wider text-[color:var(--secondary)]">{children}</h4>;
 }
@@ -80,13 +82,161 @@ function FieldLabel({ htmlFor, children }: { htmlFor?: string; children: React.R
   return <label className="mt-4 block text-sm font-semibold text-[color:var(--app-muted)]" htmlFor={htmlFor}>{children}</label>;
 }
 
+type TranslatePayload = {
+  label: string;
+  title: string;
+  intro: string;
+  heroCta: string;
+  aboutTitle: string;
+  aboutLead: string;
+  aboutBody: string;
+  benefitsTitle: string;
+  benefits: { title: string; description: string }[];
+  processTitle: string;
+  processSteps: { step: string; description: string }[];
+  deliverablesTitle: string;
+  deliverables: string[];
+  faqTitle: string;
+  faq: { question: string; answer: string }[];
+  ctaTitle: string;
+  ctaSubtitle: string;
+  ctaButton: string;
+};
+
+function safeStr(v: unknown, fallback: string): string {
+  return typeof v === "string" ? v : fallback;
+}
+
+function mergeBenefits(
+  translated: unknown,
+  original: { title: string; description: string }[],
+): { title: string; description: string }[] {
+  if (!Array.isArray(translated)) return original;
+  return translated.map((item: unknown, i: number) => {
+    const orig = original[i] ?? { title: "", description: "" };
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      return { title: safeStr(o.title, orig.title), description: safeStr(o.description, orig.description) };
+    }
+    return orig;
+  });
+}
+
+function mergeProcessSteps(
+  translated: unknown,
+  original: { step: string; description: string }[],
+): { step: string; description: string }[] {
+  if (!Array.isArray(translated)) return original;
+  return translated.map((item: unknown, i: number) => {
+    const orig = original[i] ?? { step: "", description: "" };
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      return { step: safeStr(o.step, orig.step), description: safeStr(o.description, orig.description) };
+    }
+    return orig;
+  });
+}
+
+function mergeDeliverables(translated: unknown, original: string[]): string[] {
+  if (!Array.isArray(translated)) return original;
+  return translated.map((item: unknown, i: number) => safeStr(item, original[i] ?? ""));
+}
+
+function mergeFaq(
+  translated: unknown,
+  original: { question: string; answer: string }[],
+): { question: string; answer: string }[] {
+  if (!Array.isArray(translated)) return original;
+  return translated.map((item: unknown, i: number) => {
+    const orig = original[i] ?? { question: "", answer: "" };
+    if (item && typeof item === "object") {
+      const o = item as Record<string, unknown>;
+      return { question: safeStr(o.question, orig.question), answer: safeStr(o.answer, orig.answer) };
+    }
+    return orig;
+  });
+}
+
 export function AdminServiceDetailForm({ id, initial, onSaved, onCancel }: Props) {
   const [form, setForm] = useState<ServiceDetailFormData>({ ...blank, ...initial });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [translateLoading, setTranslateLoading] = useState(false);
+  const [translateStatus, setTranslateStatus] = useState<TranslateStatus>({ type: "idle" });
 
   function set<K extends keyof ServiceDetailFormData>(field: K, value: ServiceDetailFormData[K]) {
     setForm((f) => ({ ...f, [field]: value }));
+  }
+
+  async function handleTranslate() {
+    setTranslateLoading(true);
+    setTranslateStatus({ type: "idle" });
+    try {
+      const payload: TranslatePayload = {
+        label: form.label,
+        title: form.title,
+        intro: form.intro,
+        heroCta: form.heroCta,
+        aboutTitle: form.aboutTitle,
+        aboutLead: form.aboutLead,
+        aboutBody: form.aboutBody,
+        benefitsTitle: form.benefitsTitle,
+        benefits: form.benefits,
+        processTitle: form.processTitle,
+        processSteps: form.processSteps,
+        deliverablesTitle: form.deliverablesTitle,
+        deliverables: form.deliverables,
+        faqTitle: form.faqTitle,
+        faq: form.faq,
+        ctaTitle: form.ctaTitle,
+        ctaSubtitle: form.ctaSubtitle,
+        ctaButton: form.ctaButton,
+      };
+
+      const res = await fetch("/api/admin/translate-content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: payload }),
+      });
+
+      const json = (await res.json()) as { ok: boolean; data?: Record<string, unknown>; error?: string };
+      if (!res.ok || !json.ok) {
+        setTranslateStatus({ type: "error", message: json.error ?? "Çeviri başarısız oldu." });
+        return;
+      }
+
+      const d = json.data ?? {};
+      setForm((f) => ({
+        ...f,
+        label: safeStr(d.label, f.label),
+        title: safeStr(d.title, f.title),
+        intro: safeStr(d.intro, f.intro),
+        heroCta: safeStr(d.heroCta, f.heroCta),
+        aboutTitle: safeStr(d.aboutTitle, f.aboutTitle),
+        aboutLead: safeStr(d.aboutLead, f.aboutLead),
+        aboutBody: safeStr(d.aboutBody, f.aboutBody),
+        benefitsTitle: safeStr(d.benefitsTitle, f.benefitsTitle),
+        benefits: mergeBenefits(d.benefits, f.benefits),
+        processTitle: safeStr(d.processTitle, f.processTitle),
+        processSteps: mergeProcessSteps(d.processSteps, f.processSteps),
+        deliverablesTitle: safeStr(d.deliverablesTitle, f.deliverablesTitle),
+        deliverables: mergeDeliverables(d.deliverables, f.deliverables),
+        faqTitle: safeStr(d.faqTitle, f.faqTitle),
+        faq: mergeFaq(d.faq, f.faq),
+        ctaTitle: safeStr(d.ctaTitle, f.ctaTitle),
+        ctaSubtitle: safeStr(d.ctaSubtitle, f.ctaSubtitle),
+        ctaButton: safeStr(d.ctaButton, f.ctaButton),
+      }));
+
+      setTranslateStatus({
+        type: "ok",
+        at: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+      });
+    } catch {
+      setTranslateStatus({ type: "error", message: "Ağ hatası." });
+    } finally {
+      setTranslateLoading(false);
+    }
   }
 
   async function handleSave() {
@@ -115,9 +265,27 @@ export function AdminServiceDetailForm({ id, initial, onSaved, onCancel }: Props
 
   return (
     <Card className="p-6">
-      <h3 className="text-xl font-semibold text-[color:var(--primary)]">
-        {id ? "Hizmet Detayı Düzenle" : "Yeni Hizmet Detayı"}
-      </h3>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <h3 className="text-xl font-semibold text-[color:var(--primary)]">
+          {id ? "Hizmet Detayı Düzenle" : "Yeni Hizmet Detayı"}
+        </h3>
+        <div className="flex flex-col items-end gap-1">
+          <Button
+            disabled={translateLoading}
+            onClick={handleTranslate}
+            size="sm"
+            variant="secondary"
+          >
+            {translateLoading ? "Çevriliyor..." : "AI ile Çevir"}
+          </Button>
+          {translateStatus.type === "ok" && (
+            <span className="text-xs text-green-600">✓ Çeviri tamamlandı — {translateStatus.at}</span>
+          )}
+          {translateStatus.type === "error" && (
+            <span className="text-xs text-red-600">{translateStatus.message}</span>
+          )}
+        </div>
+      </div>
 
       {/* Meta */}
       <SectionTitle>Temel Bilgiler</SectionTitle>
