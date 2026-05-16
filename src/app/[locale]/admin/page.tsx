@@ -5,6 +5,8 @@ import type { Locale } from "@/lib/i18n/config";
 import { buildManagedMetadata } from "@/lib/cms/seo";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+
 async function checkSystemHealth(): Promise<{ api: "online" | "offline"; database: "online" | "offline" }> {
   const apiPromise = fetch(`${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/health`)
     .then((r) => r.json())
