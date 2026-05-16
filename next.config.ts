@@ -5,10 +5,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   images: {
-    localPatterns: [
-      { pathname: "/uploads/**" },
-      { pathname: "/images/**" },
-    ],
+    loader: "custom",
+    loaderFile: "./src/lib/image-loader.ts",
   },
 };
 
