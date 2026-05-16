@@ -14,6 +14,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# local info file (never commit)
+info.md
+
 # env
 .env
 .env.local
@@ -35,3 +38,6 @@ pnpm-debug.log*
 # docker
 .mariadb
 **/docker-data
+
+# user-uploaded media (server-side only)
+public/uploads/

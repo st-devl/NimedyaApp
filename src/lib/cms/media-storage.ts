@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 import { mkdir, unlink, writeFile } from "fs/promises";
 import path from "path";
+import sharp from "sharp";
 
 const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
 const UPLOAD_ROOT = path.join(process.cwd(), "public", "uploads");
@@ -45,6 +46,21 @@ export function validateImageFile(file: File): { ok: true } | { ok: false; messa
   return { ok: true };
 }
 
+async function compressImage(buffer: Buffer, mimeType: AllowedMimeType): Promise<Buffer> {
+  if (mimeType === "image/svg+xml" || mimeType === "image/x-icon" || mimeType === "image/vnd.microsoft.icon") {
+    return buffer;
+  }
+
+  const pipeline = sharp(buffer).resize(1920, 1920, { fit: "inside", withoutEnlargement: true });
+
+  switch (mimeType) {
+    case "image/jpeg": return pipeline.jpeg({ quality: 82 }).toBuffer();
+    case "image/png": return pipeline.png({ compressionLevel: 8 }).toBuffer();
+    case "image/webp": return pipeline.webp({ quality: 82 }).toBuffer();
+    default: return buffer;
+  }
+}
+
 export async function storeImageFile(file: File): Promise<StoredMediaFile> {
   if (!isAllowedMimeType(file.type)) {
     throw new Error("UNSUPPORTED_MEDIA_TYPE");
@@ -58,7 +74,8 @@ export async function storeImageFile(file: File): Promise<StoredMediaFile> {
   const extension = allowedMimeTypes[file.type];
   const filename = `${randomUUID()}${extension}`;
   const storagePath = path.join(uploadDir, filename);
-  const bytes = Buffer.from(await file.arrayBuffer());
+  const rawBytes = Buffer.from(await file.arrayBuffer());
+  const bytes = await compressImage(rawBytes, file.type);
 
   await writeFile(storagePath, bytes, { flag: "wx" });
 
@@ -68,7 +85,7 @@ export async function storeImageFile(file: File): Promise<StoredMediaFile> {
     filename,
     originalName: safeOriginalName(file.name),
     mimeType: file.type,
-    sizeBytes: file.size,
+    sizeBytes: bytes.length,
   };
 }
 

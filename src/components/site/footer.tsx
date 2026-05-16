@@ -5,26 +5,26 @@ import Link from "next/link";
 
 const translations = {
   tr: {
-    desc: "Markalar icin fotograf, video ve web odakli stratejik kreatif cozumler.",
-    ctaTitle: "Yeni dijital hikayenizi birlikte kuralim",
-    ctaButton: "Proje Baslatalim",
-    nav: "Site Haritasi",
+    desc: "Markalar için fotoğraf, video ve web odaklı stratejik kreatif çözümler.",
+    ctaTitle: "Yeni dijital hikayenizi birlikte kuralım",
+    ctaButton: "Proje Başlatalım",
+    nav: "Site Haritası",
     navLinks: {
-      home: "Anasayfa",
+      home: "Ana Sayfa",
       services: "Hizmetler",
       portfolio: "Portfolyo",
-      about: "Hakkimizda",
-      contact: "Iletisim",
+      about: "Hakkımızda",
+      contact: "İletişim",
     },
-    contact: "Iletisim",
-    follow: "Bizi Takip Edin",
-    newsletterTitle: "Haftalik kreatif notlar",
-    newsletterDesc: "Kisa strateji notlari, performans odakli fikirler ve ilham veren proje ozetleri.",
-    newsletterCta: "Abonelik talep et",
+    contact: "İletişim",
+    follow: "Çalışma Bilgileri",
+    newsletterTitle: "Pazartesi – Cuma",
+    newsletterDesc: "09:00 – 18:00 saatleri arasında aktifiz. Acil talepler için e-posta ile ulaşabilirsiniz.",
+    newsletterCta: "E-posta gönder",
     legal: "Yasal",
-    rights: "Tum haklari saklidir.",
+    rights: "Tüm hakları saklıdır.",
     policy: "Gizlilik",
-    terms: "Kullanim",
+    terms: "Kullanım",
   },
   en: {
     desc: "Strategic creative solutions focused on photography, video, and web for modern brands.",
@@ -39,10 +39,10 @@ const translations = {
       contact: "Contact",
     },
     contact: "Contact",
-    follow: "Follow Us",
-    newsletterTitle: "Weekly creative notes",
-    newsletterDesc: "Short strategy notes, performance-first ideas, and inspiring project summaries.",
-    newsletterCta: "Request subscription",
+    follow: "Working Hours",
+    newsletterTitle: "Monday – Friday",
+    newsletterDesc: "We're active between 09:00 – 18:00. For urgent requests, reach us via email.",
+    newsletterCta: "Send an email",
     legal: "Legal",
     rights: "All rights reserved.",
     policy: "Privacy",
@@ -61,7 +61,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <p className="text-2xl font-semibold tracking-tight md:text-3xl">{t.ctaTitle}</p>
             <Link
-              className="inline-flex items-center justify-center rounded-full bg-[color:var(--on-primary)] px-6 py-3 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-0.5 hover:opacity-90"
+              className="inline-flex items-center justify-center rounded-xl bg-[color:var(--on-primary)] px-6 py-3 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-0.5 hover:opacity-90"
               href={localizedPath(locale, "contact")}
             >
               {t.ctaButton}
@@ -72,7 +72,7 @@ export async function Footer({ locale }: { locale: Locale }) {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-x-12">
           <div className="md:col-span-4">
             <p className="text-2xl font-bold tracking-tight">{settings.siteName}</p>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[color:var(--primary-container)]">{t.desc}</p>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/70">{t.desc}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
               {settings.socialLinks.filter((item) => item.url).map((item) => (
                 <a className="rounded-full border border-white/30 px-3 py-1.5 hover:bg-white/10" href={item.url} key={item.label} rel="noreferrer" target="_blank">{item.label}</a>
@@ -81,7 +81,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           </div>
 
           <div className="md:col-span-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--primary-container)]">{t.nav}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--accent-light)]">{t.nav}</p>
             <div className="mt-4 flex flex-col gap-2 text-sm">
               <Link className="hover:opacity-80" href={localizedPath(locale, "home")}>{t.navLinks.home}</Link>
               <Link className="hover:opacity-80" href={localizedPath(locale, "services")}>{t.navLinks.services}</Link>
@@ -92,7 +92,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           </div>
 
           <div className="md:col-span-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--primary-container)]">{t.contact}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--accent-light)]">{t.contact}</p>
             <div className="mt-4 space-y-2 text-sm">
               {settings.contactEmail ? <p>{settings.contactEmail}</p> : null}
               {settings.contactPhone ? <p>{settings.contactPhone}</p> : null}
@@ -101,21 +101,21 @@ export async function Footer({ locale }: { locale: Locale }) {
           </div>
 
           <div className="md:col-span-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--primary-container)]">{t.follow}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--accent-light)]">{t.follow}</p>
             <div className="mt-4 space-y-3 rounded-xl border border-white/15 bg-white/5 p-4 text-sm">
               <p className="font-semibold text-white/90">{t.newsletterTitle}</p>
               <p className="text-white/70">{t.newsletterDesc}</p>
-              <Link
+              <a
                 className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:opacity-80"
-                href={localizedPath(locale, "contact")}
+                href={settings.contactEmail ? `mailto:${settings.contactEmail}` : localizedPath(locale, "contact")}
               >
                 {t.newsletterCta}
-              </Link>
+              </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-[color:var(--primary-container)] md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-white/60 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {settings.siteName}. {t.rights}</p>
           <div className="flex items-center gap-4">
             <span>{t.legal}</span>

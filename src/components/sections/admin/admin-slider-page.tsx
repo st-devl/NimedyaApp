@@ -203,7 +203,7 @@ export function AdminSliderPageSections({ locale, initialItems }: AdminSliderPag
       </header>
 
       {apiError && (
-        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{apiError}</div>
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">{apiError}</div>
       )}
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">

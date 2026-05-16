@@ -8,11 +8,16 @@ import { localizedPath } from "@/lib/i18n/routes";
 const navItems = [
   { labelKey: "Dashboard", routeKey: "admin" as const },
   { labelKey: "Site Ayarları", routeKey: "adminSettings" as const },
+  { labelKey: "Slider", routeKey: "adminSlider" as const },
   { labelKey: "Medya", routeKey: "adminMedia" as const },
   { labelKey: "SEO", routeKey: "adminSeo" as const },
   { labelKey: "İçerik", routeKey: "adminContent" as const },
+  { labelKey: "Kreatif Çözümler", routeKey: "adminServices" as const },
+  { labelKey: "Hizmet Detayları", routeKey: "adminServiceDetails" as const },
+  { labelKey: "Vaka Çalışmaları", routeKey: "adminCaseStudies" as const },
   { labelKey: "Mesajlar", routeKey: "adminMessages" as const },
   { labelKey: "Kullanıcılar", routeKey: "adminUsers" as const },
+  { labelKey: "AI Ayarları", routeKey: "adminAiSettings" as const },
 ];
 
 export function AdminSidebar({ locale }: { locale: Locale }) {

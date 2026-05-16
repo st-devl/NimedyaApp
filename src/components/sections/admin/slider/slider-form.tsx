@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TextArea, TextInput } from "@/components/ui/input";
+import { MediaPicker } from "@/components/ui/media-picker";
 import type { TranslateStatus, SliderFormState } from "@/components/sections/admin/slider/types";
 
 type SliderFormProps = {
@@ -62,15 +63,15 @@ export function SliderForm({
         </label>
 
         {status.type === "success" && (
-          <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+          <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800 dark:border-green-800 dark:bg-green-900/30 dark:text-green-300">
             {status.message} <span className="font-semibold">({status.at})</span>
           </div>
         )}
 
         {status.type === "error" && (
-          <div className="flex items-center justify-between gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          <div className="flex items-center justify-between gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">
             <span>{status.message}</span>
-            <button className="shrink-0 rounded-md bg-red-100 px-3 py-1 text-xs font-semibold text-red-800 disabled:opacity-50" disabled={loading || !hasRetryPayload} onClick={onRetry} type="button">
+            <button className="shrink-0 rounded-md bg-red-100 px-3 py-1 text-xs font-semibold text-red-800 disabled:opacity-50 dark:bg-red-900/50 dark:text-red-300" disabled={loading || !hasRetryPayload} onClick={onRetry} type="button">
               Tekrar Dene
             </button>
           </div>
@@ -83,7 +84,11 @@ export function SliderForm({
         <TextArea className="h-28" id="en-description" placeholder="Description (EN)" value={form.enDescription} onChange={(e) => onChange("enDescription", e.target.value)} />
 
         <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="image-url">Gorsel URL (opsiyonel)</label>
-        <TextInput id="image-url" placeholder="https://..." value={form.imageUrl} onChange={(e) => onChange("imageUrl", e.target.value)} />
+        <div className="flex gap-2">
+          <TextInput id="image-url" placeholder="https://..." value={form.imageUrl} onChange={(e) => onChange("imageUrl", e.target.value)} />
+          <MediaPicker value={form.imageUrl} onChange={(url) => onChange("imageUrl", url)} />
+        </div>
+        <p className="text-xs text-[color:var(--app-muted)] opacity-70">1920×1080 px önerilir — tam ekran hero görseli, 16:9, JPEG veya WebP</p>
 
         <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="link-url">Link URL (opsiyonel)</label>
         <TextInput id="link-url" placeholder="https://..." value={form.linkUrl} onChange={(e) => onChange("linkUrl", e.target.value)} />

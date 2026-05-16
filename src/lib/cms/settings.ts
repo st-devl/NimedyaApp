@@ -110,3 +110,43 @@ export async function upsertSiteSettings(input: SiteSettingsInput) {
     create: { id: 1, ...input },
   });
 }
+
+export type AiSettingsView = {
+  aiProvider: string;
+  aiApiKey: string | null;
+  aiModel: string;
+  aiBaseUrl: string | null;
+};
+
+export type AiSettingsInput = {
+  aiProvider: string;
+  aiApiKey?: string | null;
+  aiModel: string;
+  aiBaseUrl?: string | null;
+};
+
+export async function getAiSettings(): Promise<AiSettingsView> {
+  const settings = await prisma.siteSettings.findUnique({
+    where: { id: 1 },
+    select: { aiProvider: true, aiApiKey: true, aiModel: true, aiBaseUrl: true },
+  });
+  return {
+    aiProvider: settings?.aiProvider ?? "disabled",
+    aiApiKey: settings?.aiApiKey ?? null,
+    aiModel: settings?.aiModel ?? "gpt-4.1-mini",
+    aiBaseUrl: settings?.aiBaseUrl ?? null,
+  };
+}
+
+export async function upsertAiSettings(input: AiSettingsInput) {
+  return prisma.siteSettings.upsert({
+    where: { id: 1 },
+    update: input,
+    create: {
+      id: 1,
+      siteName: "Nimedya",
+      baseUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nimedya.com",
+      ...input,
+    },
+  });
+}

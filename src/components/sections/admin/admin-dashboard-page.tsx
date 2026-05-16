@@ -26,11 +26,11 @@ type AdminDashboardPageProps = {
 };
 
 const statusBadgeClass: Record<StatusKey, string> = {
-  published: "bg-green-100 text-green-700",
-  draft: "bg-yellow-100 text-yellow-700",
-  new: "bg-blue-100 text-blue-700",
-  read: "bg-gray-100 text-gray-600",
-  archived: "bg-gray-100 text-gray-500",
+  published: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
+  draft: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+  new: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+  read: "bg-[color:var(--surface-container)] text-[color:var(--app-muted)]",
+  archived: "bg-[color:var(--surface-container)] text-[color:var(--on-surface-variant)]",
 };
 
 export function AdminDashboardPageSections({ locale, content, metrics, recentRows, systemStatus }: AdminDashboardPageProps) {
@@ -126,13 +126,13 @@ export function AdminDashboardPageSections({ locale, content, metrics, recentRow
               <ul className="mt-4 space-y-3 text-sm">
                 <li className="flex items-center justify-between">
                   <span>{content.system.api}</span>
-                  <span className={`font-semibold ${systemStatus?.api === "online" ? "text-green-600" : "text-red-600"}`}>
+                  <span className={`font-semibold ${systemStatus?.api === "online" ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                     {systemStatus?.api === "online" ? content.system.online : content.system.offline}
                   </span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span>{content.system.database}</span>
-                  <span className={`font-semibold ${systemStatus?.database === "online" ? "text-green-600" : "text-red-600"}`}>
+                  <span className={`font-semibold ${systemStatus?.database === "online" ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}>
                     {systemStatus?.database === "online" ? content.system.online : content.system.offline}
                   </span>
                 </li>

@@ -131,3 +131,14 @@ export const imageManifest = {
 } as const;
 
 export type ImageManifestKey = keyof typeof imageManifest;
+
+export function resolveImageMeta(
+  image: string,
+  fallbackSizes: string,
+): { src: string; sizes: string; quality: number } {
+  if (image in imageManifest) {
+    const e = imageManifest[image as ImageManifestKey];
+    return { src: e.src, sizes: e.sizes, quality: e.quality };
+  }
+  return { src: image, sizes: fallbackSizes, quality: 80 };
+}

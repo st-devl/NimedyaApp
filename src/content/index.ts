@@ -5,8 +5,10 @@ import type {
   AdminSliderContent,
   ContactContent,
   HomeContent,
+  HowWeWorkContent,
   PortfolioContent,
   ProductPhotographyContent,
+  ServiceDetailsContent,
   ServicesContent,
 } from "@/types/content";
 import { enAboutContent } from "@/content/en/about";
@@ -23,6 +25,10 @@ import { trHomeContent } from "@/content/tr/home";
 import { trPortfolioContent } from "@/content/tr/portfolio";
 import { trProductPhotographyContent } from "@/content/tr/product-photography";
 import { trServicesContent } from "@/content/tr/services";
+import { trHowWeWorkContent } from "@/content/tr/how-we-work";
+import { enHowWeWorkContent } from "@/content/en/how-we-work";
+import { enServiceDetailsContent } from "@/content/en/service-details";
+import { trServiceDetailsContent } from "@/content/tr/service-details";
 
 const contentRegistry = {
   home: { tr: trHomeContent, en: enHomeContent },
@@ -33,6 +39,8 @@ const contentRegistry = {
   contact: { tr: trContactContent, en: enContactContent },
   adminDashboard: { tr: trAdminDashboardContent, en: enAdminDashboardContent },
   adminSlider: { tr: trAdminSliderContent, en: enAdminSliderContent },
+  howWeWork: { tr: trHowWeWorkContent, en: enHowWeWorkContent },
+  serviceDetails: { tr: trServiceDetailsContent, en: enServiceDetailsContent },
 } as const;
 
 type ContentNamespace = keyof typeof contentRegistry;
@@ -76,4 +84,12 @@ export function getAdminDashboardContent(locale: Locale) {
 
 export function getAdminSliderContent(locale: Locale) {
   return resolveContent<AdminSliderContent>("adminSlider", locale);
+}
+
+export function getHowWeWorkContent(locale: Locale): HowWeWorkContent {
+  return resolveContent<HowWeWorkContent>("howWeWork", locale);
+}
+
+export function getServiceDetailsContent(locale: Locale): ServiceDetailsContent {
+  return resolveContent<ServiceDetailsContent>("serviceDetails", locale);
 }

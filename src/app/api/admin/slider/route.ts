@@ -8,8 +8,8 @@ const createSliderSchema = z.object({
   trDescription: z.string().trim().min(1),
   enTitle: z.string().trim().min(1).max(255),
   enDescription: z.string().trim().min(1),
-  imageUrl: z.string().trim().url().max(500).optional().or(z.literal("")),
-  linkUrl: z.string().trim().url().max(255).optional().or(z.literal("")),
+  imageUrl: z.union([z.literal(""), z.string().trim().url().max(500), z.string().trim().startsWith("/").max(500)]).optional(),
+  linkUrl: z.union([z.literal(""), z.string().trim().url().max(255), z.string().trim().startsWith("/").max(255)]).optional(),
   status: z.enum(["ACTIVE", "DRAFT"]).optional(),
   sortOrder: z.number().int().min(0).optional(),
 });

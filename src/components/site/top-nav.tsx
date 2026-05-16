@@ -16,7 +16,7 @@ type TopNavProps = {
 };
 
 const labels = {
-  tr: { home: "Anasayfa", services: "Hizmetler", portfolio: "Islerimiz", about: "Hakkimizda", contact: "Iletisim", cta: "Let's Talk" },
+  tr: { home: "Anasayfa", services: "Hizmetler", portfolio: "İşlerimiz", about: "Hakkımızda", contact: "İletişim", cta: "İletişime Geç" },
   en: { home: "Home", services: "Services", portfolio: "Portfolio", about: "About", contact: "Contact", cta: "Let's Talk" },
 };
 
@@ -64,8 +64,9 @@ export function TopNav({ locale, active = "home", siteName, logoUrl }: TopNavPro
       <div className="nmd-container nmd-page-x flex items-center justify-between py-4">
         {/* Logo */}
         <Link className="nmd-headline-md flex items-center gap-3 font-bold text-[color:var(--primary)]" href={localizedPath(locale, "home")}>
-          {logoUrl ? <Image alt={siteName} height={36} src={logoUrl} width={36} /> : null}
-          <span>{siteName}</span>
+          {logoUrl
+            ? <Image alt={siteName} className="h-10 w-auto object-contain" height={40} src={logoUrl} width={200} />
+            : <span>{siteName}</span>}
         </Link>
 
         {/* Desktop nav */}
@@ -114,7 +115,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl }: TopNavPro
 
           {/* CTA — desktop only */}
           <Link
-            className="hidden rounded-lg bg-[color:var(--primary)] px-8 py-3 text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90 md:block"
+            className="hidden rounded-xl bg-[color:var(--primary)] px-8 py-3 text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90 md:block"
             href={localizedPath(locale, "contact")}
           >
             {t.cta}
@@ -155,7 +156,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl }: TopNavPro
             ))}
             <div className="mt-3 border-t border-[color:var(--outline-variant)] pt-3">
               <Link
-                className="block w-full rounded-lg bg-[color:var(--primary)] px-4 py-3 text-center text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:opacity-90"
+                className="block w-full rounded-xl bg-[color:var(--primary)] px-4 py-3 text-center text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:opacity-90"
                 href={localizedPath(locale, "contact")}
               >
                 {t.cta}

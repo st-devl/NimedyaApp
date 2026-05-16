@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { ThemeMode } from "@/lib/theme/types";
 
 type ThemeContextValue = {
@@ -16,37 +16,32 @@ function applyTheme(theme: ThemeMode) {
   document.documentElement.classList.toggle("dark", theme === "dark");
 }
 
-function getInitialTheme(): ThemeMode {
-  if (typeof document === "undefined") {
-    return "light";
-  }
-
-  return document.documentElement.classList.contains("dark") ? "dark" : "light";
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeMode>(getInitialTheme);
-  const hasStoredPreferenceRef = useRef<boolean>(false);
+  // Always start with "light" so SSR and client initial render match.
+  // useEffect below syncs the real value (already applied by the inline script in layout.tsx).
+  const [theme, setThemeState] = useState<ThemeMode>("light");
 
   useEffect(() => {
+    // Sync React state with what the inline script already applied to the DOM.
+    // A lazy useState initializer would cause SSR/client hydration mismatch,
+    // so we intentionally read the DOM after hydration and update once.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setThemeState(document.documentElement.classList.contains("dark") ? "dark" : "light");
+
     const stored = localStorage.getItem(STORAGE_KEY);
-    hasStoredPreferenceRef.current = stored === "dark" || stored === "light";
-
-    if (!hasStoredPreferenceRef.current) {
+    if (!stored) {
       const media = window.matchMedia("(prefers-color-scheme: dark)");
-      const onChange = (event: MediaQueryListEvent) => {
-        const nextTheme: ThemeMode = event.matches ? "dark" : "light";
-        setThemeState(nextTheme);
-        applyTheme(nextTheme);
+      const onChange = (e: MediaQueryListEvent) => {
+        const next: ThemeMode = e.matches ? "dark" : "light";
+        setThemeState(next);
+        applyTheme(next);
       };
-
       media.addEventListener("change", onChange);
       return () => media.removeEventListener("change", onChange);
     }
   }, []);
 
   const setTheme = useCallback((nextTheme: ThemeMode) => {
-    hasStoredPreferenceRef.current = true;
     setThemeState(nextTheme);
     applyTheme(nextTheme);
     localStorage.setItem(STORAGE_KEY, nextTheme);

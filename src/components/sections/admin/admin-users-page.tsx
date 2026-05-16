@@ -100,10 +100,10 @@ export function AdminUsersPage({ currentUserId, initialUsers }: AdminUsersPagePr
       </header>
 
       {error && (
-        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>
+        <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">{error}</div>
       )}
       {success && (
-        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">{success}</div>
+        <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700 dark:border-green-800 dark:bg-green-900/30 dark:text-green-300">{success}</div>
       )}
 
       {showAddForm && (
@@ -188,7 +188,7 @@ export function AdminUsersPage({ currentUserId, initialUsers }: AdminUsersPagePr
               <tr className="hover:bg-[color:var(--app-bg)]" key={user.id}>
                 <td className="px-6 py-4 font-semibold text-[color:var(--primary)]">
                   {user.email}
-                  {user.id === currentUserId && <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-[10px] text-blue-700">Sen</span>}
+                  {user.id === currentUserId && <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-[10px] text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">Sen</span>}
                 </td>
                 <td className="px-6 py-4">
                   {user.id === currentUserId ? (
@@ -205,7 +205,7 @@ export function AdminUsersPage({ currentUserId, initialUsers }: AdminUsersPagePr
                   )}
                 </td>
                 <td className="px-6 py-4">
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${user.isActive ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${user.isActive ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300" : "bg-[color:var(--surface-container)] text-[color:var(--app-muted)]"}`}>
                     {user.isActive ? "Aktif" : "Devre Dışı"}
                   </span>
                 </td>
@@ -220,7 +220,7 @@ export function AdminUsersPage({ currentUserId, initialUsers }: AdminUsersPagePr
                     </button>
                     {user.id !== currentUserId && (
                       <button
-                        className={`rounded-lg px-3 py-1.5 text-xs font-semibold hover:opacity-80 ${user.isActive ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}
+                        className={`rounded-lg px-3 py-1.5 text-xs font-semibold hover:opacity-80 ${user.isActive ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300" : "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300"}`}
                         onClick={() => handleToggleActive(user)}
                         type="button"
                       >

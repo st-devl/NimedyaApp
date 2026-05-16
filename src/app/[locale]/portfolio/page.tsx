@@ -17,7 +17,7 @@ export default async function PortfolioPage({ params }: { params: Promise<{ loca
   return (
     <>
       <TopNav active="portfolio" locale={resolvedLocale} />
-      <PortfolioPageSections content={content} />
+      <PortfolioPageSections content={content} locale={resolvedLocale} />
       <Footer locale={resolvedLocale} />
     </>
   );

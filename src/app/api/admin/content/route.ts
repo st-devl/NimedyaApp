@@ -1,4 +1,5 @@
 import type { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { apiError, apiOk } from "@/lib/api/json-response";
 import { authorizeAdminRequest } from "@/lib/auth/admin-guard";
 import { contentBlockSchema } from "@/lib/cms/content-schema";
@@ -32,5 +33,9 @@ export async function PATCH(request: Request) {
     data: parsed.data.data as Prisma.InputJsonValue,
     publishedAt: parsed.data.status === "PUBLISHED" ? new Date() : null,
   });
+
+  revalidatePath("/tr", "page");
+  revalidatePath("/en", "page");
+
   return apiOk({ block });
 }

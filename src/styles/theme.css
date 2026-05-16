@@ -75,10 +75,10 @@
   --outline-variant: #3d4b59;
   --background: #0f1418;
   --on-background: #f1f0f2;
-  --primary: #cae6ff;
+  --primary: #ccdde8;
   --primary-container: #7398b6;
-  --secondary: #ffb4ab;
-  --secondary-container: #de2e2c;
+  --secondary: #b90c17;
+  --secondary-container: #8a0a11;
   --on-primary: #001a2b;
   --on-secondary: #2d0004;
   --app-bg: var(--surface);
@@ -88,6 +88,10 @@
   --app-card-muted: var(--surface-container-low);
   --app-border: var(--outline-variant);
   --app-nav: color-mix(in oklab, var(--surface-container-low) 92%, transparent);
+
+  --metric-primary-accent: #1a3a52;
+  --metric-secondary-accent: #3a1a1a;
+  --metric-tertiary-accent: #2d3a48;
 }
 
 .nmd-container {

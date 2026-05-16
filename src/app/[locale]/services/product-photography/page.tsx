@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Footer } from "@/components/site/footer";
 import { TopNavServer as TopNav } from "@/components/site/top-nav-server";
 import { getManagedProductPhotographyContent } from "@/lib/cms/public-content";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { buildManagedMetadata } from "@/lib/cms/seo";
+import { localizedPath } from "@/lib/i18n/routes";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { imageManifest } from "@/config/image-manifest";
@@ -18,11 +20,11 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
       <TopNav active="services" locale={locale as Locale} />
       <main>
         <section className="flex min-h-[820px] flex-col md:flex-row">
-          <div className="w-full bg-[#f9f9fb] px-6 py-[120px] md:w-1/2 md:px-20">
-            <span className="nmd-label-sm mb-4 block uppercase tracking-widest text-[#b90c17]">{t.label}</span>
-            <h1 className="nmd-display-lg mb-8 text-[#001a2b]">{t.title}</h1>
-            <p className="nmd-body-lg mb-10 max-w-xl text-[#42474d]">{t.desc}</p>
-            <button className="rounded-lg bg-[#b90c17] px-10 py-4 text-sm font-semibold text-white nmd-transition hover:-translate-y-1">{t.cta}</button>
+          <div className="w-full bg-[color:var(--app-bg)] px-6 py-[120px] md:w-1/2 md:px-20">
+            <span className="nmd-label-sm mb-4 block uppercase tracking-widest text-[color:var(--secondary)]">{t.label}</span>
+            <h1 className="nmd-display-lg mb-8 text-[color:var(--primary)]">{t.title}</h1>
+            <p className="nmd-body-lg mb-10 max-w-xl text-[color:var(--app-muted)]">{t.desc}</p>
+            <Link className="inline-block rounded-lg bg-[color:var(--secondary)] px-10 py-4 text-sm font-semibold text-white nmd-transition hover:-translate-y-1" href={localizedPath(locale as Locale, "contact")}>{t.cta}</Link>
           </div>
           <div className="relative min-h-[420px] w-full md:w-1/2">
             <Image alt="Product Photography" className="object-cover" fill priority quality={imageManifest.productServiceHero.quality} sizes={imageManifest.productServiceHero.sizes} src={imageManifest.productServiceHero.src} />
@@ -32,9 +34,9 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
         <section className="nmd-container nmd-page-x py-[120px]">
           <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-12">
             <div className="md:col-span-5">
-              <h2 className="nmd-headline-xl mb-6 text-[#001a2b]">{t.aboutTitle}</h2>
-              <p className="nmd-body-lg mb-6 text-[#42474d]">Nimedya olarak urun fotografciligini sadece deklansore basmak olarak gormuyoruz.</p>
-              <p className="nmd-body-md text-[#42474d]">Isigin matematigini, kompozisyonun sanatiyla birlestiriyor, e-ticaret ve kataloglar icin premium goruntu paketleri uretiyoruz.</p>
+              <h2 className="nmd-headline-xl mb-6 text-[color:var(--primary)]">{t.aboutTitle}</h2>
+              <p className="nmd-body-lg mb-6 text-[color:var(--app-muted)]">{locale === "tr" ? "Nimedya olarak ürün fotoğrafçılığını sadece deklanşöre basmak olarak görmüyoruz." : "At Nimedya, we don't see product photography as simply pressing a shutter."}</p>
+              <p className="nmd-body-md text-[color:var(--app-muted)]">{locale === "tr" ? "Işığın matematiğini, kompozisyonun sanatıyla birleştiriyor; e-ticaret ve kataloglar için premium görüntü paketleri üretiyoruz." : "We combine the mathematics of light with the art of composition to produce premium image packages for e-commerce and catalogues."}</p>
             </div>
             <div className="grid grid-cols-2 gap-4 md:col-span-6 md:col-start-7">
               <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-[color:var(--surface-container)]">
@@ -59,7 +61,7 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
                     <span className="text-2xl font-bold">0{idx + 1}</span>
                   </div>
                   <h3 className="mb-3 text-2xl font-semibold">{step}</h3>
-                  <p className="nmd-body-md text-[#7398b6]">Fikirden teslime disiplinli ve seffaf bir surec.</p>
+                  <p className="nmd-body-md text-[color:var(--primary-container)]">{locale === "tr" ? "Fikirden teslime disiplinli ve şeffaf bir süreç." : "A disciplined and transparent process from concept to delivery."}</p>
                 </article>
               ))}
             </div>

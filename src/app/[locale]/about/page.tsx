@@ -17,7 +17,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       <TopNav active="about" locale={resolvedLocale} />
-      <AboutPageSections content={content} />
+      <AboutPageSections content={content} locale={resolvedLocale} />
       <Footer locale={resolvedLocale} />
     </>
   );

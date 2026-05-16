@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { locales } from "@/lib/i18n/config";
 
-export const contentBlockKeys = ["home", "services", "productPhotography", "portfolio", "about", "contact"] as const;
+export const contentBlockKeys = ["home", "services", "productPhotography", "portfolio", "about", "contact", "homeServices"] as const;
 
 const localeValues = [...locales] as ["tr", "en"];
 

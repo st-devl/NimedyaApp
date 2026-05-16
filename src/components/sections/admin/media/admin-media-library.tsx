@@ -39,18 +39,34 @@ export function AdminMediaLibrary({ media }: AdminMediaLibraryProps) {
 
   const upload = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus({ type: "busy", message: "Yukleniyor..." });
+    const form = event.currentTarget;
+    const fileInput = form.elements.namedItem("file") as HTMLInputElement;
+    const files = Array.from(fileInput.files ?? []);
+    if (files.length === 0) return;
 
-    const formData = new FormData(event.currentTarget);
-    const response = await fetch("/api/admin/media", { method: "POST", body: formData });
-    if (!response.ok) {
-      setStatus({ type: "error", message: "Medya yuklenemedi. Dosya tipi ve boyutunu kontrol edin." });
-      return;
+    const altText = (form.elements.namedItem("altText") as HTMLInputElement).value.trim();
+    const errors: string[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      setStatus({ type: "busy", message: `Yükleniyor ${i + 1}/${files.length}…` });
+      const formData = new FormData();
+      formData.append("file", files[i]);
+      if (altText) formData.append("altText", altText);
+
+      const response = await fetch("/api/admin/media", { method: "POST", body: formData });
+      if (!response.ok) errors.push(files[i].name);
     }
 
-    event.currentTarget.reset();
-    setStatus({ type: "success", message: "Medya yuklendi." });
+    form.reset();
     router.refresh();
+
+    if (errors.length === 0) {
+      setStatus({ type: "success", message: files.length === 1 ? "Medya yüklendi." : `${files.length} dosya yüklendi.` });
+    } else if (errors.length === files.length) {
+      setStatus({ type: "error", message: "Hiçbir dosya yüklenemedi. Dosya tipi ve boyutunu kontrol edin." });
+    } else {
+      setStatus({ type: "error", message: `${files.length - errors.length}/${files.length} yüklendi. Başarısız: ${errors.join(", ")}` });
+    }
   };
 
   const saveAlt = async (id: number) => {
@@ -88,7 +104,7 @@ export function AdminMediaLibrary({ media }: AdminMediaLibraryProps) {
         <h2 className="text-2xl font-semibold text-[color:var(--primary)]">Yeni Medya Yukle</h2>
         <p className="mt-2 text-sm text-[color:var(--app-muted)]">JPG, PNG, WebP, SVG ve ICO desteklenir. Maksimum dosya boyutu 2MB.</p>
         <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_auto]" onSubmit={upload}>
-          <input accept="image/jpeg,image/png,image/webp,image/svg+xml,image/x-icon" className="rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3 py-2" name="file" required type="file" />
+          <input accept="image/jpeg,image/png,image/webp,image/svg+xml,image/x-icon" className="rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3 py-2" multiple name="file" required type="file" />
           <TextInput name="altText" placeholder="Gorsel alt metni" />
           <Button disabled={status.type === "busy"} type="submit">Yukle</Button>
         </form>

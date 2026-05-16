@@ -119,12 +119,14 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
         <p className="mt-2 text-sm text-[color:var(--app-muted)]">Medya yukleme Phase 4 kapsaminda eklenecek; burada mevcut medya kayitlari secilir.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {[
-            ["logoMediaId", "Logo"],
-            ["faviconMediaId", "Favicon"],
-            ["defaultOgMediaId", "Varsayilan OG Gorseli"],
-          ].map(([field, label]) => (
-            <label className="grid gap-2 text-sm font-semibold text-[color:var(--app-muted)]" key={field}>
-              {label}
+            ["logoMediaId", "Logo", "256×256 px — PNG veya SVG, şeffaf arka plan"],
+            ["faviconMediaId", "Favicon", "64×64 px — PNG veya ICO, kare"],
+            ["defaultOgMediaId", "Varsayilan OG Gorseli", "1200×630 px — JPEG veya WebP, 16:9"],
+          ].map(([field, label, hint]) => (
+            <div className="grid gap-2" key={field}>
+              <label className="text-sm font-semibold text-[color:var(--app-muted)]">
+                {label}
+              </label>
               <select
                 className="h-11 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3 text-[color:var(--app-text)]"
                 value={String(form[field as "logoMediaId" | "faviconMediaId" | "defaultOgMediaId"] ?? "")}
@@ -135,7 +137,8 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
                   <option key={item.id} value={item.id}>{mediaLabel(item)}</option>
                 ))}
               </select>
-            </label>
+              <p className="text-xs text-[color:var(--app-muted)] opacity-70">{hint}</p>
+            </div>
           ))}
         </div>
       </Card>

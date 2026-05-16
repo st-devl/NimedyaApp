@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import Script from "next/script";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
@@ -15,16 +14,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(() => { try { const s = localStorage.getItem("nimedya-theme"); const d = s ? s === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches; document.documentElement.classList.toggle("dark", d); } catch {} })();`,
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${plusJakarta.variable}`}>
-        <Script id="theme-init" strategy="beforeInteractive">
-          {`(() => {
-            try {
-              const saved = localStorage.getItem("nimedya-theme");
-              const dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-              document.documentElement.classList.toggle("dark", dark);
-            } catch {}
-          })();`}
-        </Script>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

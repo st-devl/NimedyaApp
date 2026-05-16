@@ -177,20 +177,22 @@ export function AdminSeoManager({ initialPages, media }: AdminSeoManagerProps) {
               Twitter Description
               <TextArea className="h-24" value={form.twitterDescription} onChange={(event) => setForm((prev) => ({ ...prev, twitterDescription: event.target.value }))} />
             </label>
-            <label className="grid gap-2 text-sm font-semibold text-[color:var(--app-muted)]">
-              OG Image
+            <div className="grid gap-2">
+              <label className="text-sm font-semibold text-[color:var(--app-muted)]">OG Image</label>
               <select className="h-11 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3" value={String(form.ogImageMediaId ?? "")} onChange={(event) => setMedia("ogImageMediaId", event.target.value)}>
                 <option value="">Varsayilan / Yok</option>
                 {media.map((item) => <option key={item.id} value={item.id}>{item.originalName} (#{item.id})</option>)}
               </select>
-            </label>
-            <label className="grid gap-2 text-sm font-semibold text-[color:var(--app-muted)]">
-              Twitter Image
+              <p className="text-xs text-[color:var(--app-muted)] opacity-70">1200×630 px — Facebook, LinkedIn önizleme görseli</p>
+            </div>
+            <div className="grid gap-2">
+              <label className="text-sm font-semibold text-[color:var(--app-muted)]">Twitter Image</label>
               <select className="h-11 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3" value={String(form.twitterImageMediaId ?? "")} onChange={(event) => setMedia("twitterImageMediaId", event.target.value)}>
                 <option value="">OG / Varsayilan</option>
                 {media.map((item) => <option key={item.id} value={item.id}>{item.originalName} (#{item.id})</option>)}
               </select>
-            </label>
+              <p className="text-xs text-[color:var(--app-muted)] opacity-70">1200×675 px — Twitter/X önizleme görseli (16:9)</p>
+            </div>
             <label className="grid gap-2 text-sm font-semibold text-[color:var(--app-muted)]">
               Twitter Card
               <select className="h-11 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3" value={form.twitterCard} onChange={(event) => setForm((prev) => ({ ...prev, twitterCard: event.target.value as "SUMMARY" | "SUMMARY_LARGE_IMAGE" }))}>

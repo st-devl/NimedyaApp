@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { consumeRateLimit } from "@/lib/api/rate-limit";
 import { getClientIp } from "@/lib/api/request";
-import { getTranslateProvider } from "@/lib/ai/translate-provider";
+import { getTranslateProvider, type AiProvider } from "@/lib/ai/translate-provider";
 import { authorizeAdminRequest } from "@/lib/auth/admin-guard";
+import { prisma } from "@/lib/db/prisma";
 import {
   translateRequestSchema,
   type TranslateErrorCode,
@@ -31,7 +32,19 @@ function hasDisallowedControlChars(value: string) {
 }
 
 async function translateWithTimeout(title: string, description: string, timeoutMs: number) {
-  const provider = getTranslateProvider();
+  const settings = await prisma.siteSettings.findUnique({
+    where: { id: 1 },
+    select: { aiProvider: true, aiApiKey: true, aiModel: true, aiBaseUrl: true },
+  });
+
+  const config: Parameters<typeof getTranslateProvider>[0] = {
+    provider: (settings?.aiProvider ?? "disabled") as AiProvider,
+    apiKey: settings?.aiApiKey ?? "",
+    model: settings?.aiModel ?? "gpt-4.1-mini",
+    baseUrl: settings?.aiBaseUrl ?? null,
+  };
+
+  const provider = getTranslateProvider(config);
 
   return Promise.race([
     provider.translate({ title, description }),
@@ -92,19 +105,34 @@ export async function POST(request: Request) {
     auditLog("success", { clientIp, titleLength: parsed.data.title.length, descriptionLength: parsed.data.description.length });
     return NextResponse.json(payload, { status: 200 });
   } catch (error) {
-    if (error instanceof Error && error.message === "MOCK_PROVIDER_DISABLED_IN_PRODUCTION") {
+    if (error instanceof Error && error.message === "AI_PROVIDER_DISABLED") {
       auditLog("provider_error", { clientIp, reason: error.message });
-      return errorResponse("INTERNAL_ERROR", "Mock translate provider cannot run in production.", 500);
+      return errorResponse("INTERNAL_ERROR", "AI provider is disabled. Configure it in AI Settings.", 500);
     }
 
-    if (error instanceof Error && error.message.startsWith("OPENAI_PROVIDER_")) {
+    if (error instanceof Error && error.message === "AI_API_KEY_MISSING") {
       auditLog("provider_error", { clientIp, reason: error.message });
-      return errorResponse("INTERNAL_ERROR", "OpenAI provider translation failed.", 502);
+      return errorResponse("INTERNAL_ERROR", "AI API key is missing. Configure it in AI Settings.", 500);
     }
 
-    if (error instanceof Error && error.message === "OPENAI_API_KEY_MISSING") {
+    if (error instanceof Error && error.message === "AI_CUSTOM_BASE_URL_MISSING") {
       auditLog("provider_error", { clientIp, reason: error.message });
-      return errorResponse("INTERNAL_ERROR", "OpenAI API key is missing.", 500);
+      return errorResponse("INTERNAL_ERROR", "Custom provider base URL is missing.", 500);
+    }
+
+    if (error instanceof Error && error.message === "AI_UNSUPPORTED_PROVIDER") {
+      auditLog("provider_error", { clientIp, reason: error.message });
+      return errorResponse("INTERNAL_ERROR", "Unsupported AI provider configured.", 500);
+    }
+
+    if (error instanceof Error && error.message.startsWith("PROVIDER_HTTP_ERROR")) {
+      auditLog("provider_error", { clientIp, reason: error.message });
+      return errorResponse("INTERNAL_ERROR", "AI provider returned an HTTP error.", 502);
+    }
+
+    if (error instanceof Error && (error.message === "PROVIDER_EMPTY_OUTPUT" || error.message === "PROVIDER_INVALID_JSON" || error.message === "PROVIDER_SCHEMA_MISMATCH")) {
+      auditLog("provider_error", { clientIp, reason: error.message });
+      return errorResponse("INTERNAL_ERROR", "AI provider returned an unexpected response.", 502);
     }
 
     if (error instanceof Error && error.message === "TRANSLATE_TIMEOUT") {

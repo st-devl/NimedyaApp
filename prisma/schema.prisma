@@ -15,13 +15,16 @@ enum ContactStatus {
 }
 
 model ContactRequest {
-  id        Int           @id @default(autoincrement())
-  name      String        @db.VarChar(120)
-  email     String        @db.VarChar(190)
-  message   String        @db.Text
-  status    ContactStatus @default(NEW)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(120)
+  email       String        @db.VarChar(190)
+  message     String        @db.Text
+  serviceType String?       @db.VarChar(100)
+  budget      String?       @db.VarChar(80)
+  timeline    String?       @db.VarChar(80)
+  status      ContactStatus @default(NEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
   @@index([status, createdAt])
   @@index([createdAt])
@@ -104,6 +107,10 @@ model SiteSettings {
   faviconMediaId   Int?
   defaultOgMediaId Int?
   robotsAllowIndex Boolean  @default(true)
+  aiProvider       String   @default("disabled") @db.VarChar(50)
+  aiApiKey         String?  @db.VarChar(500)
+  aiModel          String   @default("gpt-4.1-mini") @db.VarChar(100)
+  aiBaseUrl        String?  @db.VarChar(255)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -183,5 +190,67 @@ model ContentBlock {
   @@unique([key, locale])
   @@unique([slug, locale])
   @@index([locale, status, sortOrder])
+  @@index([updatedAt])
+}
+
+model ServiceDetail {
+  id           Int           @id @default(autoincrement())
+  key          String        @db.VarChar(60)
+  locale       String        @db.VarChar(8)
+  slug         String        @db.VarChar(120)
+  label        String        @db.VarChar(120)
+  title        String        @db.VarChar(255)
+  intro        String        @db.Text
+  heroCta      String        @db.VarChar(120)
+  aboutTitle   String        @db.VarChar(255)
+  aboutLead    String        @db.Text
+  aboutBody    String        @db.Text
+  benefitsTitle   String     @db.VarChar(255)
+  benefits        Json
+  processTitle    String     @db.VarChar(255)
+  processSteps    Json
+  deliverablesTitle String   @db.VarChar(255)
+  deliverables    Json
+  faqTitle        String     @db.VarChar(255)
+  faq             Json
+  ctaTitle     String        @db.VarChar(255)
+  ctaSubtitle  String        @db.Text
+  ctaButton    String        @db.VarChar(120)
+  image        String        @db.VarChar(100)
+  status       ContentStatus @default(DRAFT)
+  publishedAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([key, locale])
+  @@unique([slug, locale])
+  @@index([locale, status])
+  @@index([updatedAt])
+}
+
+model CaseStudy {
+  id          Int           @id @default(autoincrement())
+  slug        String        @db.VarChar(120)
+  locale      String        @db.VarChar(8)
+  client      String        @db.VarChar(190)
+  sector      String        @db.VarChar(120)
+  duration    String        @db.VarChar(80)
+  year        String?       @db.VarChar(10)
+  image       String        @db.VarChar(255)
+  challenge   String        @db.Text
+  approach    String        @db.Text
+  result      String        @db.Text
+  scope       Json
+  services    Json?
+  metrics     Json
+  gallery     Json?
+  testimonial Json?
+  status      ContentStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([slug, locale])
+  @@index([locale, status])
   @@index([updatedAt])
 }

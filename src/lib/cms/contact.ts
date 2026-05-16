@@ -5,6 +5,9 @@ export type ContactRequestInput = {
   name: string;
   email: string;
   message: string;
+  serviceType?: string;
+  budget?: string;
+  timeline?: string;
 };
 
 export function createContactRequest(input: ContactRequestInput) {

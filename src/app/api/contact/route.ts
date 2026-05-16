@@ -9,6 +9,9 @@ const contactSchema = z.object({
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(190),
   message: z.string().trim().min(10).max(5000),
+  serviceType: z.string().max(100).optional(),
+  budget: z.string().max(80).optional(),
+  timeline: z.string().max(80).optional(),
 });
 
 export async function POST(request: Request) {
