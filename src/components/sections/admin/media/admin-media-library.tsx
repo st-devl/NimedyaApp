@@ -102,7 +102,7 @@ export function AdminMediaLibrary({ media }: AdminMediaLibraryProps) {
     <div className="grid gap-8">
       <Card className="p-6">
         <h2 className="text-2xl font-semibold text-[color:var(--primary)]">Yeni Medya Yukle</h2>
-        <p className="mt-2 text-sm text-[color:var(--app-muted)]">JPG, PNG, WebP, SVG ve ICO desteklenir. Maksimum dosya boyutu 2MB.</p>
+        <p className="mt-2 text-sm text-[color:var(--app-muted)]">JPG, PNG, WebP, SVG ve ICO desteklenir. Maksimum dosya boyutu 10MB.</p>
         <form className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_auto]" onSubmit={upload}>
           <input accept="image/jpeg,image/png,image/webp,image/svg+xml,image/x-icon" className="rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3 py-2" multiple name="file" required type="file" />
           <TextInput name="altText" placeholder="Gorsel alt metni" />

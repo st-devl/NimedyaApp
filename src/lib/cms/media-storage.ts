@@ -3,7 +3,7 @@ import { mkdir, unlink, writeFile } from "fs/promises";
 import path from "path";
 import sharp from "sharp";
 
-const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 const UPLOAD_ROOT = path.join(process.cwd(), "public", "uploads");
 
 const allowedMimeTypes = {
