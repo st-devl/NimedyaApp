@@ -1,0 +1,5 @@
+ALTER TABLE `SiteSettings`
+    ADD COLUMN `aiProvider` VARCHAR(50) NOT NULL DEFAULT 'disabled',
+    ADD COLUMN `aiApiKey` VARCHAR(500) NULL,
+    ADD COLUMN `aiModel` VARCHAR(100) NOT NULL DEFAULT 'gpt-4.1-mini',
+    ADD COLUMN `aiBaseUrl` VARCHAR(255) NULL;
