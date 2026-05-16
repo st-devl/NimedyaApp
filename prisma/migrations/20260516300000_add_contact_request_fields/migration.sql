@@ -1,0 +1,4 @@
+ALTER TABLE `ContactRequest`
+  ADD COLUMN `serviceType` VARCHAR(100) NULL,
+  ADD COLUMN `budget` VARCHAR(80) NULL,
+  ADD COLUMN `timeline` VARCHAR(80) NULL;
