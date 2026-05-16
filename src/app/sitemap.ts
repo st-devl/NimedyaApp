@@ -4,13 +4,16 @@ import { getSiteSettings } from "@/lib/cms/settings";
 import { listIndexedSeoPages } from "@/lib/cms/seo";
 import { routeMap, type RouteKey } from "@/lib/i18n/routes";
 
+export const dynamic = 'force-dynamic';
+
 const routeKeys = Object.keys(routeMap) as RouteKey[];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const settings = await getSiteSettings();
-  const siteUrl = settings.baseUrl.replace(/\/$/, "");
+  let siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nimedya.com";
 
   try {
+    const settings = await getSiteSettings();
+    siteUrl = settings.baseUrl.replace(/\/$/, "");
     const pages = await listIndexedSeoPages();
     return pages
       .filter((page) => !page.routeKey.startsWith("admin"))
