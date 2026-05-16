@@ -21,3 +21,7 @@ export function listContactRequests() {
 export function updateContactRequestStatus(id: number, status: ContactStatus) {
   return prisma.contactRequest.update({ where: { id }, data: { status } });
 }
+
+export function deleteContactRequest(id: number) {
+  return prisma.contactRequest.delete({ where: { id } });
+}

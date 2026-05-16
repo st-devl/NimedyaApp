@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { apiError, apiOk } from "@/lib/api/json-response";
 import { authorizeAdminRequest } from "@/lib/auth/admin-guard";
-import { listContactRequests, updateContactRequestStatus } from "@/lib/cms/contact";
+import { listContactRequests, updateContactRequestStatus, deleteContactRequest } from "@/lib/cms/contact";
 
 const updateStatusSchema = z.object({
   id: z.number().int().positive(),
@@ -33,4 +33,18 @@ export async function PATCH(request: Request) {
 
   const requestRow = await updateContactRequestStatus(parsed.data.id, parsed.data.status);
   return apiOk({ request: requestRow });
+}
+
+export async function DELETE(request: Request) {
+  const authorized = await authorizeAdminRequest(request, ["ADMIN", "EDITOR"]);
+  if (!authorized.ok) return authorized.response;
+
+  const { searchParams } = new URL(request.url);
+  const id = Number(searchParams.get("id"));
+  if (!id || !Number.isInteger(id) || id <= 0) {
+    return apiError("BAD_REQUEST", "Geçersiz id.", 400);
+  }
+
+  await deleteContactRequest(id);
+  return apiOk({ deleted: id });
 }

@@ -17,16 +17,14 @@ type ContactRequestItem = {
   createdAt: string;
 };
 
-const statusLabel: Record<ContactRequestItem["status"], string> = {
+const statusLabel: Record<"NEW" | "READ", string> = {
   NEW: "Yeni",
   READ: "Okundu",
-  ARCHIVED: "Arşivlendi",
 };
 
-const statusColor: Record<ContactRequestItem["status"], string> = {
+const statusColor: Record<"NEW" | "READ", string> = {
   NEW: "bg-[color:var(--secondary)]/15 text-[color:var(--secondary)]",
   READ: "bg-[color:var(--surface-container)] text-[color:var(--app-muted)]",
-  ARCHIVED: "bg-[color:var(--app-border)]/20 text-[color:var(--outline)]",
 };
 
 export function AdminMessagesPageSections({ requests }: { locale: Locale; requests: ContactRequestItem[] }) {
@@ -41,6 +39,13 @@ export function AdminMessagesPageSections({ requests }: { locale: Locale; reques
 
     if (!response.ok) return;
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, status } : item)));
+  };
+
+  const deleteItem = async (id: number, name: string) => {
+    if (!confirm(`"${name}" adlı kişinin mesajı silinsin mi?`)) return;
+    const response = await fetch(`/api/admin/contact-requests?id=${id}`, { method: "DELETE" });
+    if (!response.ok) return;
+    setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
@@ -58,21 +63,18 @@ export function AdminMessagesPageSections({ requests }: { locale: Locale; reques
               <div>
                 <div className="flex flex-wrap items-center gap-3">
                   <h2 className="text-xl font-semibold text-[color:var(--primary)]">{item.name}</h2>
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColor[item.status]}`}>{statusLabel[item.status]}</span>
+                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColor[item.status === "ARCHIVED" ? "READ" : item.status]}`}>{item.status === "ARCHIVED" ? "Okundu" : statusLabel[item.status]}</span>
                 </div>
                 <a className="mt-1 block text-sm font-semibold text-[color:var(--secondary)]" href={`mailto:${item.email}`}>{item.email}</a>
                 <p className="mt-1 text-xs text-[color:var(--app-muted)]">{new Date(item.createdAt).toLocaleString("tr-TR")}</p>
               </div>
               <div className="flex flex-wrap gap-2">
-                {item.status !== "READ" && (
+                {item.status === "NEW" && (
                   <Button onClick={() => updateStatus(item.id, "READ")} size="sm" type="button" variant="secondary">Okundu</Button>
                 )}
-                {item.status !== "ARCHIVED" && (
-                  <Button onClick={() => updateStatus(item.id, "ARCHIVED")} size="sm" type="button" variant="ghost">Arşivle</Button>
-                )}
-                {item.status === "ARCHIVED" && (
-                  <Button onClick={() => updateStatus(item.id, "NEW")} size="sm" type="button" variant="ghost">Geri Al</Button>
-                )}
+                <Button onClick={() => deleteItem(item.id, item.name)} size="sm" type="button" variant="ghost">
+                  <span className="text-red-500">Sil</span>
+                </Button>
               </div>
             </div>
 
