@@ -8,6 +8,8 @@ import { getSiteSettings } from "@/lib/cms/settings";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();

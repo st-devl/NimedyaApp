@@ -10,6 +10,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { imageManifest } from "@/config/image-manifest";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProductPhotographyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();

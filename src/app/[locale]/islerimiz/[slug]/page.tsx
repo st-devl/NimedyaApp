@@ -2,7 +2,7 @@ import { getPortfolioContent } from "@/content";
 
 export { default, generateMetadata } from "../../portfolio/[slug]/page";
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   const studies = getPortfolioContent("tr").caseStudies ?? [];

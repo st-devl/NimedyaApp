@@ -2,7 +2,7 @@ import { getServiceDetailsContent } from "@/content";
 
 export { default, generateMetadata } from "../../services/[slug]/page";
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   // Canonical TR URLs only (EN canonical lives under /services)

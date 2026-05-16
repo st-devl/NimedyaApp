@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 
 type RouteParams = { locale: string; slug: string };
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
 
 export default async function PortfolioDetailPage({ params }: { params: Promise<RouteParams> }) {
   const { locale, slug } = await params;
