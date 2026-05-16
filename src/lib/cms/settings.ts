@@ -1,5 +1,4 @@
 import { cache } from "react";
-import { env } from "@/config/env";
 import { prisma } from "@/lib/db/prisma";
 
 export type SocialLink = {
@@ -43,8 +42,8 @@ export type SiteSettingsInput = {
 const fallbackSettings: SiteSettingsView = {
   id: 1,
   siteName: "Nimedya",
-  baseUrl: env.NEXT_PUBLIC_SITE_URL,
-  defaultLocale: env.NEXT_PUBLIC_DEFAULT_LOCALE,
+  baseUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nimedya.com",
+  defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE ?? "tr",
   contactEmail: "hello@nimedya.com",
   contactPhone: "+90 462 000 00 00",
   contactLocation: "Trabzon, Turkiye",

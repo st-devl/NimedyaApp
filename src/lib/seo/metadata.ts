@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { env } from "@/config/env";
 import { defaultLocale, type Locale } from "@/lib/i18n/config";
 
 export function buildLocaleMetadata(locale: Locale, title: string, description: string): Metadata {
-  const baseUrl = new URL(env.NEXT_PUBLIC_SITE_URL);
+  const baseUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nimedya.com");
 
   return {
     title,
