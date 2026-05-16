@@ -228,6 +228,31 @@ function HomeForm({ data, onChange }: { data: HomeContent; onChange: (v: HomeCon
         </div>
       ))}
 
+      <SectionTitle>Çalıştığımız Markalar</SectionTitle>
+      <div>
+        <FieldLabel>Bölüm Başlığı</FieldLabel>
+        <TextInput value={data.brandsTitle} onChange={(e) => set("brandsTitle", e.target.value)} />
+      </div>
+      <div className="grid gap-3">
+        {data.brands.map((brand, i) => (
+          <div className="flex items-center gap-2" key={i}>
+            <TextInput className="flex-1" placeholder="Marka adı" value={brand.name} onChange={(e) => set("brands", data.brands.map((b, idx) => idx === i ? { ...b, name: e.target.value } : b))} />
+            <TextInput className="flex-1" placeholder="Sektör" value={brand.sector} onChange={(e) => set("brands", data.brands.map((b, idx) => idx === i ? { ...b, sector: e.target.value } : b))} />
+            <button
+              className="shrink-0 rounded-md px-2 py-1.5 text-sm text-[color:var(--error)] hover:bg-red-50 dark:hover:bg-red-950"
+              disabled={data.brands.length <= 1}
+              onClick={() => set("brands", data.brands.filter((_, idx) => idx !== i))}
+              type="button"
+            >✕</button>
+          </div>
+        ))}
+        <button
+          className="mt-1 w-max rounded-md border border-dashed border-[color:var(--app-border)] px-3 py-1 text-xs text-[color:var(--app-muted)] hover:border-[color:var(--primary)] hover:text-[color:var(--primary)]"
+          onClick={() => set("brands", [...data.brands, { name: "", sector: "" }])}
+          type="button"
+        >+ Marka Ekle</button>
+      </div>
+
       <SectionTitle>Referanslar</SectionTitle>
       {data.references.map((ref, i) => (
         <div className="rounded-lg border border-[color:var(--app-border)] p-4" key={i}>
