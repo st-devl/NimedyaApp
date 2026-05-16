@@ -16,6 +16,7 @@ export type SiteSettingsView = {
   contactLocation: string | null;
   socialLinks: SocialLink[];
   robotsAllowIndex: boolean;
+  sliderIntervalSeconds: number;
   logoMediaId: number | null;
   faviconMediaId: number | null;
   defaultOgMediaId: number | null;
@@ -53,6 +54,7 @@ const fallbackSettings: SiteSettingsView = {
     { label: "Behance", url: "" },
   ],
   robotsAllowIndex: true,
+  sliderIntervalSeconds: 6,
   logoMediaId: null,
   faviconMediaId: null,
   defaultOgMediaId: null,
@@ -92,6 +94,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettingsView> => {
     contactLocation: settings.contactLocation,
     socialLinks: normalizeSocialLinks(settings.socialLinks),
     robotsAllowIndex: settings.robotsAllowIndex,
+    sliderIntervalSeconds: settings.sliderIntervalSeconds,
     logoMediaId: settings.logoMediaId,
     faviconMediaId: settings.faviconMediaId,
     defaultOgMediaId: settings.defaultOgMediaId,

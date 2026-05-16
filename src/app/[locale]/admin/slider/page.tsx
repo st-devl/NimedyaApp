@@ -6,6 +6,7 @@ import { AdminSliderPageSections } from "@/components/sections/admin/admin-slide
 import { buildManagedMetadata } from "@/lib/cms/seo";
 import type { Metadata } from "next";
 import type { SliderItem } from "@/components/sections/admin/slider/types";
+import { getSiteSettings } from "@/lib/cms/settings";
 
 export default async function AdminSliderPage({
   params,
@@ -18,9 +19,10 @@ export default async function AdminSliderPage({
   const session = await requireAdminSession();
   if (!session) notFound();
 
-  const rows = await prisma.sliderItem.findMany({
-    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-  });
+  const [rows, settings] = await Promise.all([
+    prisma.sliderItem.findMany({ orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] }),
+    getSiteSettings(),
+  ]);
 
   const items: SliderItem[] = rows.map((r) => ({
     ...r,
@@ -28,7 +30,7 @@ export default async function AdminSliderPage({
     updatedAt: r.updatedAt.toISOString(),
   }));
 
-  return <AdminSliderPageSections initialItems={items} locale={locale as Locale} />;
+  return <AdminSliderPageSections initialItems={items} locale={locale as Locale} sliderIntervalSeconds={settings.sliderIntervalSeconds} />;
 }
 
 export async function generateMetadata({

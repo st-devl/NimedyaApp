@@ -23,14 +23,19 @@ const EMPTY_FORM: SliderFormState = {
 type AdminSliderPageSectionsProps = {
   locale: Locale;
   initialItems: SliderItem[];
+  sliderIntervalSeconds: number;
 };
 
-export function AdminSliderPageSections({ locale, initialItems }: AdminSliderPageSectionsProps) {
+export function AdminSliderPageSections({ locale, initialItems, sliderIntervalSeconds }: AdminSliderPageSectionsProps) {
   const t = getAdminSliderContent(locale);
 
   const [items, setItems] = useState<SliderItem[]>(initialItems);
   const [editingItem, setEditingItem] = useState<SliderItem | null>(null);
   const [showForm, setShowForm] = useState(false);
+
+  const [intervalInput, setIntervalInput] = useState(sliderIntervalSeconds);
+  const [intervalSaving, setIntervalSaving] = useState(false);
+  const [intervalStatus, setIntervalStatus] = useState<"idle" | "ok" | "error">("idle");
 
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -183,6 +188,19 @@ export function AdminSliderPageSections({ locale, initialItems }: AdminSliderPag
     }
   };
 
+  const handleSaveInterval = async () => {
+    if (intervalInput < 1 || intervalInput > 60) return;
+    setIntervalSaving(true);
+    setIntervalStatus("idle");
+    const res = await fetch("/api/admin/slider-settings", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ intervalSeconds: intervalInput }),
+    });
+    setIntervalSaving(false);
+    setIntervalStatus(res.ok ? "ok" : "error");
+  };
+
   const activeCount = items.filter((x) => x.status === "ACTIVE").length;
 
   return (
@@ -201,6 +219,27 @@ export function AdminSliderPageSections({ locale, initialItems }: AdminSliderPag
           <Button className="hover:-translate-y-1" onClick={openCreate} size="lg" variant="secondary">{t.addNew}</Button>
         )}
       </header>
+
+      {/* Geçiş Süresi */}
+      <div className="mb-8 flex flex-wrap items-center gap-4 rounded-xl border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-5 py-4">
+        <span className="text-sm font-medium text-[color:var(--primary)]">Slaytlar arası geçiş süresi</span>
+        <div className="flex items-center gap-2">
+          <input
+            className="w-20 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-bg)] px-3 py-1.5 text-sm text-[color:var(--primary)]"
+            max={60}
+            min={1}
+            onChange={(e) => { setIntervalStatus("idle"); setIntervalInput(Number(e.target.value)); }}
+            type="number"
+            value={intervalInput}
+          />
+          <span className="text-sm text-[color:var(--app-muted)]">saniye</span>
+          <Button disabled={intervalSaving} onClick={handleSaveInterval} size="sm" variant="secondary">
+            {intervalSaving ? "Kaydediliyor…" : "Kaydet"}
+          </Button>
+          {intervalStatus === "ok" && <span className="text-sm text-green-600">✓ Kaydedildi</span>}
+          {intervalStatus === "error" && <span className="text-sm text-red-600">Hata oluştu</span>}
+        </div>
+      </div>
 
       {apiError && (
         <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">{apiError}</div>

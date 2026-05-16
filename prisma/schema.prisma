@@ -106,7 +106,8 @@ model SiteSettings {
   logoMediaId      Int?
   faviconMediaId   Int?
   defaultOgMediaId Int?
-  robotsAllowIndex Boolean  @default(true)
+  robotsAllowIndex        Boolean  @default(true)
+  sliderIntervalSeconds   Int      @default(6)
   aiProvider       String   @default("disabled") @db.VarChar(50)
   aiApiKey         String?  @db.VarChar(500)
   aiModel          String   @default("gpt-4.1-mini") @db.VarChar(100)

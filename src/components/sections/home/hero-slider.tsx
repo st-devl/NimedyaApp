@@ -7,9 +7,10 @@ import type { PublicSliderItem } from "@/lib/cms/public-content";
 
 type HeroSliderProps = {
   items: PublicSliderItem[];
+  intervalSeconds?: number;
 };
 
-export function HeroSlider({ items }: HeroSliderProps) {
+export function HeroSlider({ items, intervalSeconds = 6 }: HeroSliderProps) {
   const [current, setCurrent] = useState(0);
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % items.length), [items.length]);
@@ -17,9 +18,9 @@ export function HeroSlider({ items }: HeroSliderProps) {
 
   useEffect(() => {
     if (items.length <= 1) return;
-    const id = setInterval(next, 6000);
+    const id = setInterval(next, intervalSeconds * 1000);
     return () => clearInterval(id);
-  }, [items.length, next]);
+  }, [items.length, next, intervalSeconds]);
 
   if (items.length === 0) return null;
 
