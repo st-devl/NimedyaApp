@@ -15,6 +15,7 @@ export const routeMap = {
   adminMedia: { tr: "admin/medya", en: "admin/media" },
   adminSeo: { tr: "admin/seo", en: "admin/seo" },
   adminContent: { tr: "admin/icerik", en: "admin/content" },
+  adminBrands: { tr: "admin/markalar", en: "admin/brands" },
   adminMessages: { tr: "admin/mesajlar", en: "admin/messages" },
   adminSlider: { tr: "admin/slider", en: "admin/slider" },
   adminUsers: { tr: "admin/kullanicilar", en: "admin/users" },

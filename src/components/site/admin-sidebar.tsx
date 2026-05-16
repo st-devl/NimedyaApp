@@ -12,6 +12,7 @@ const navItems = [
   { labelKey: "Medya", routeKey: "adminMedia" as const },
   { labelKey: "SEO", routeKey: "adminSeo" as const },
   { labelKey: "İçerik", routeKey: "adminContent" as const },
+  { labelKey: "Markalar", routeKey: "adminBrands" as const },
   { labelKey: "Kreatif Çözümler", routeKey: "adminServices" as const },
   { labelKey: "Hizmet Detayları", routeKey: "adminServiceDetails" as const },
   { labelKey: "Vaka Çalışmaları", routeKey: "adminCaseStudies" as const },

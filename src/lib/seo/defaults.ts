@@ -149,4 +149,8 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
     tr: { title: "Nimedya Admin | Giriş", description: "Nimedya admin giriş sayfası." },
     en: { title: "Nimedya Admin | Login", description: "Nimedya admin login page." },
   },
+  adminBrands: {
+    tr: { title: "Nimedya Admin | Markalar", description: "Nimedya marka listesi yönetimi." },
+    en: { title: "Nimedya Admin | Brands", description: "Nimedya brands management." },
+  },
 };
