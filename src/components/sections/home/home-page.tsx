@@ -139,9 +139,6 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
                       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <div className="grid items-end gap-4 md:grid-cols-[1fr_auto]">
                           <div>
-                            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
-                              {locale === "tr" ? `Proje ${String(index + 1).padStart(2, "0")}` : `Project ${String(index + 1).padStart(2, "0")}`}
-                            </p>
                             <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{project.title}</h3>
                             <p className="mt-3 max-w-2xl text-sm text-white/80 md:text-base">{project.description}</p>
                           </div>
