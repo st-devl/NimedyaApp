@@ -119,7 +119,7 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrandsHeadi
           <div className="space-y-4 rounded-2xl border border-[color:var(--app-border)] bg-[color:var(--app-card)] p-5">
             <div>
               <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[color:var(--app-muted)]">
-                Bölüm Etiketi <span className="font-normal opacity-60">— "Çalıştığımız Markalar"</span>
+                Bölüm Etiketi <span className="font-normal opacity-60">— &ldquo;Çalıştığımız Markalar&rdquo;</span>
               </label>
               <TextInput
                 placeholder="Çalıştığımız Markalar"
@@ -129,7 +129,7 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrandsHeadi
             </div>
             <div>
               <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[color:var(--app-muted)]">
-                Ana Başlık <span className="font-normal opacity-60">— "Markaların dijital yüzünü..."</span>
+                Ana Başlık <span className="font-normal opacity-60">— &ldquo;Markaların dijital yüzünü...&rdquo;</span>
               </label>
               <TextInput
                 placeholder="Markaların dijital yüzünü birlikte güçlendiriyoruz."
