@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath, type RouteKey } from "@/lib/i18n/routes";
-import { ThemeToggleButton } from "@/components/site/theme-toggle-button";
 
 type TopNavProps = {
   locale: Locale;
@@ -104,8 +103,6 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
               );
             })}
           </div>
-
-          <ThemeToggleButton />
 
           {/* CTA — desktop only */}
           <Link

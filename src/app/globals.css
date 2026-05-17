@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "../styles/theme.css";
 
-@variant dark (&:is(.dark *));
 
 body {
   background: var(--app-bg);
@@ -70,11 +69,3 @@ h6 {
   line-height: 1;
 }
 
-html.dark {
-  color-scheme: dark;
-}
-
-html.dark body {
-  background: var(--app-bg);
-  color: var(--app-text);
-}

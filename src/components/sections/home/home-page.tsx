@@ -47,17 +47,17 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
       )}
 
       {/* Stats */}
-      <section className="bg-white py-20 dark:bg-[#07111f]">
+      <section className="bg-white py-20">
         <div className="nmd-container nmd-page-x">
-          <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[#001a2b]/50 dark:text-white/60">{content.statsTitle}</p>
+          <p className="mb-10 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[#001a2b]/50">{content.statsTitle}</p>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             {content.stats.map((stat, i) => (
               <FadeIn delay={([0, 100, 200, 300] as const)[i] ?? 0} key={stat.label}>
                 <div className="text-center">
-                  <p className="text-4xl font-bold tracking-tight text-[#001a2b] md:text-5xl dark:text-white">
+                  <p className="text-4xl font-bold tracking-tight text-[#001a2b] md:text-5xl">
                     <CountUp value={stat.value} />
                   </p>
-                  <p className="mt-2 text-sm font-medium text-[#001a2b]/60 dark:text-white/70">{stat.label}</p>
+                  <p className="mt-2 text-sm font-medium text-[#001a2b]/60">{stat.label}</p>
                 </div>
               </FadeIn>
             ))}
@@ -123,25 +123,25 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
             <div className="space-y-6">
               {content.featuredProjects.map((project, index) => (
                 <FadeIn delay={index === 0 ? 0 : index === 1 ? 100 : 200} key={project.title}>
-                  <article className="group relative overflow-hidden rounded-2xl border border-[color:var(--app-border)]/30 bg-white shadow-lg dark:bg-black">
+                  <article className="group relative overflow-hidden rounded-2xl border border-[color:var(--app-border)]/30 bg-white shadow-lg">
                     <div className="relative h-[320px] md:h-[360px]">
                       <Image
                         alt={project.title}
-                        className="object-cover opacity-100 nmd-transition duration-500 group-hover:scale-105 group-hover:opacity-90 dark:opacity-75 dark:group-hover:opacity-60"
+                        className="object-cover opacity-100 nmd-transition duration-500 group-hover:scale-105 group-hover:opacity-90"
                         fill
                         quality={resolveImageMeta(project.image, "100vw").quality}
                         sizes="100vw"
                         src={resolveImageMeta(project.image, "100vw").src}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/55 to-transparent dark:from-black/75 dark:via-black/45 dark:to-transparent" />
-                      <div className="absolute left-6 top-6 rounded-full border border-[#001a2b]/25 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#001a2b]/75 md:left-8 md:top-8 dark:border-white/30 dark:text-white/90">
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/55 to-transparent" />
+                      <div className="absolute left-6 top-6 rounded-full border border-[#001a2b]/25 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#001a2b]/75 md:left-8 md:top-8">
                         {project.tag}
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <div className="grid items-end gap-4 md:grid-cols-[1fr_auto]">
                           <div>
-                            <h3 className="text-2xl font-semibold leading-tight text-[#001a2b] md:text-3xl dark:text-white">{project.title}</h3>
-                            <p className="mt-3 max-w-2xl text-sm text-[#001a2b]/70 md:text-base dark:text-white/80">{project.description}</p>
+                            <h3 className="text-2xl font-semibold leading-tight text-[#001a2b] md:text-3xl">{project.title}</h3>
+                            <p className="mt-3 max-w-2xl text-sm text-[#001a2b]/70 md:text-base">{project.description}</p>
                           </div>
                           <div className="flex flex-col items-end gap-2">
                             {project.metric && (
@@ -150,7 +150,7 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
                               </span>
                             )}
                             <Link
-                              className="text-sm font-semibold text-[#001a2b]/70 nmd-transition hover:text-[#001a2b] dark:text-white/90 dark:hover:text-white"
+                              className="text-sm font-semibold text-[#001a2b]/70 nmd-transition hover:text-[#001a2b]"
                               href={localizedPath(locale, "portfolio")}
                             >
                               {locale === "tr" ? "Tümünü Gör →" : "View All →"}
