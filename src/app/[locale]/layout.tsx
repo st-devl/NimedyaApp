@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getSiteSettings } from "@/lib/cms/settings";
 import { isLocale, locales } from "@/lib/i18n/config";
+import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -50,6 +51,7 @@ export default async function LocaleLayout({
         type="application/ld+json"
       />
       {children}
+      {settings.contactPhone && <WhatsAppButton phone={settings.contactPhone} />}
     </div>
   );
 }
