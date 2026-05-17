@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TextInput } from "@/components/ui/input";
+import { SocialIcon, PLATFORM_OPTIONS } from "@/lib/social-icons";
 import type { SocialLink } from "@/lib/cms/settings";
 
 type MediaOption = {
@@ -201,10 +202,37 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
         </div>
         <div className="mt-6 grid gap-4">
           {form.socialLinks.map((item, index) => (
-            <div className="grid gap-3 rounded-xl border border-[color:var(--app-border)] p-4 md:grid-cols-[1fr_2fr_auto]" key={`${item.label}-${index}`}>
-              <TextInput placeholder="Platform" value={item.label} onChange={(event) => updateSocialLink(index, "label", event.target.value)} />
-              <TextInput placeholder="https://..." value={item.url} onChange={(event) => updateSocialLink(index, "url", event.target.value)} />
-              <Button onClick={() => removeSocialLink(index)} type="button" variant="danger">Sil</Button>
+            <div className="rounded-xl border border-[color:var(--app-border)] p-4" key={`${item.label}-${index}`}>
+              {/* Platform icon picker */}
+              <div className="mb-3">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-[color:var(--app-muted)]">Platform</p>
+                <div className="flex flex-wrap gap-2">
+                  {PLATFORM_OPTIONS.map((opt) => {
+                    const isSelected = item.label === opt.label;
+                    return (
+                      <button
+                        className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold nmd-transition ${
+                          isSelected
+                            ? "border-[#d9111e] bg-[#d9111e]/10 text-[#d9111e]"
+                            : "border-[color:var(--app-border)] bg-[color:var(--app-card)] text-[color:var(--app-text)] hover:border-[color:var(--primary)]/40"
+                        }`}
+                        key={opt.key}
+                        onClick={() => updateSocialLink(index, "label", opt.label)}
+                        title={opt.label}
+                        type="button"
+                      >
+                        <SocialIcon label={opt.label} size={14} />
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* URL + delete */}
+              <div className="flex gap-3">
+                <TextInput className="flex-1" placeholder="https://..." value={item.url} onChange={(event) => updateSocialLink(index, "url", event.target.value)} />
+                <Button onClick={() => removeSocialLink(index)} type="button" variant="danger">Sil</Button>
+              </div>
             </div>
           ))}
         </div>
