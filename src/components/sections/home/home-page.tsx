@@ -130,24 +130,24 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
                         sizes="100vw"
                         src={resolveImageMeta(project.image, "100vw").src}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/55 to-transparent" />
-                      <div className="absolute left-6 top-6 rounded-full border border-[#001a2b]/25 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#001a2b]/75 md:left-8 md:top-8">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/10" />
+                      <div className="absolute left-6 top-6 rounded-full border border-white/30 bg-black/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/85 md:left-8 md:top-8">
                         {project.tag}
                       </div>
                       <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                         <div className="grid items-end gap-4 md:grid-cols-[1fr_auto]">
                           <div>
-                            <h3 className="text-2xl font-semibold leading-tight text-[#001a2b] md:text-3xl">{project.title}</h3>
-                            <p className="mt-3 max-w-2xl text-sm text-[#001a2b]/70 md:text-base">{project.description}</p>
+                            <h3 className="text-2xl font-semibold leading-tight text-white md:text-3xl">{project.title}</h3>
+                            <p className="mt-3 max-w-2xl text-sm text-white/70 md:text-base">{project.description}</p>
                           </div>
                           <div className="flex flex-col items-end gap-2">
                             {project.metric && (
-                              <span className="rounded-full bg-[color:var(--secondary)] px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-[color:var(--on-secondary)] shadow-md">
+                              <span className="rounded-full bg-[color:var(--secondary)] px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-white shadow-md">
                                 {project.metric}
                               </span>
                             )}
                             <Link
-                              className="text-sm font-semibold text-[#001a2b]/70 nmd-transition hover:text-[#001a2b]"
+                              className="text-sm font-semibold text-white/70 nmd-transition hover:text-white"
                               href={localizedPath(locale, "portfolio")}
                             >
                               {locale === "tr" ? "Tümünü Gör →" : "View All →"}
