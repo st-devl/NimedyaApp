@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { TextInput } from "@/components/ui/input";
+import { TextInput, TextArea } from "@/components/ui/input";
+import { MediaPicker } from "@/components/ui/media-picker";
 import { BrandsSection } from "@/components/sections/home/brands-section";
 import type { Locale } from "@/lib/i18n/config";
 import type { HomeContent } from "@/types/content";
 
-type Brand = { name: string; sector: string };
+type Brand = { name: string; sector: string; description?: string; imageUrl?: string };
 type SaveStatus = "idle" | "saving" | "ok" | "error";
 
 type Props = {
   locale: Locale;
   initialBrandsTitle: string;
+  initialBrandsHeading?: string;
+  initialBrandsSub?: string;
   initialBrands: Brand[];
   fullHomeContent: HomeContent;
 };
@@ -23,10 +26,12 @@ function roleLabel(index: number) {
   return { text: "Logo Şeridinde", color: "bg-[color:var(--surface-container)] text-[color:var(--app-muted)]" };
 }
 
-export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrands, fullHomeContent }: Props) {
+export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrandsHeading, initialBrandsSub, initialBrands, fullHomeContent }: Props) {
   const [brandsTitle, setBrandsTitle] = useState(initialBrandsTitle || "Çalıştığımız Markalar");
+  const [brandsHeading, setBrandsHeading] = useState(initialBrandsHeading || "");
+  const [brandsSub, setBrandsSub] = useState(initialBrandsSub || "");
   const [brands, setBrands] = useState<Brand[]>(
-    initialBrands.length > 0 ? initialBrands : [{ name: "", sector: "" }]
+    initialBrands.length > 0 ? initialBrands : [{ name: "", sector: "", description: "", imageUrl: "" }]
   );
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
   const [showPreview, setShowPreview] = useState(false);
@@ -34,7 +39,7 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrands, ful
   const update = (i: number, field: keyof Brand, value: string) =>
     setBrands((prev) => prev.map((b, idx) => (idx === i ? { ...b, [field]: value } : b)));
 
-  const add = () => setBrands((prev) => [...prev, { name: "", sector: "" }]);
+  const add = () => setBrands((prev) => [...prev, { name: "", sector: "", description: "", imageUrl: "" }]);
 
   const remove = (i: number) => {
     if (brands.length <= 1) return;
@@ -72,7 +77,7 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrands, ful
           slug: "",
           status: "PUBLISHED",
           sortOrder: 0,
-          data: { ...fullHomeContent, brandsTitle, brands },
+          data: { ...fullHomeContent, brandsTitle, brandsHeading, brandsSub, brands },
         }),
       });
       setSaveStatus(res.ok ? "ok" : "error");
@@ -110,16 +115,39 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrands, ful
       <div className={`grid gap-8 ${showPreview ? "xl:grid-cols-[480px_1fr]" : ""}`}>
         {/* ── Form ── */}
         <div className="space-y-6">
-          {/* Section title */}
-          <div className="rounded-2xl border border-[color:var(--app-border)] bg-[color:var(--app-card)] p-5">
-            <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[color:var(--app-muted)]">
-              Bölüm Başlığı
-            </label>
-            <TextInput
-              placeholder="Çalıştığımız Markalar"
-              value={brandsTitle}
-              onChange={(e) => setBrandsTitle(e.target.value)}
-            />
+          {/* Section texts */}
+          <div className="space-y-4 rounded-2xl border border-[color:var(--app-border)] bg-[color:var(--app-card)] p-5">
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[color:var(--app-muted)]">
+                Bölüm Etiketi <span className="font-normal opacity-60">— "Çalıştığımız Markalar"</span>
+              </label>
+              <TextInput
+                placeholder="Çalıştığımız Markalar"
+                value={brandsTitle}
+                onChange={(e) => setBrandsTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[color:var(--app-muted)]">
+                Ana Başlık <span className="font-normal opacity-60">— "Markaların dijital yüzünü..."</span>
+              </label>
+              <TextInput
+                placeholder="Markaların dijital yüzünü birlikte güçlendiriyoruz."
+                value={brandsHeading}
+                onChange={(e) => setBrandsHeading(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-bold uppercase tracking-wider text-[color:var(--app-muted)]">
+                Alt Metin
+              </label>
+              <TextArea
+                className="h-20"
+                placeholder="Büyüme aşamasındaki markalar için..."
+                value={brandsSub}
+                onChange={(e) => setBrandsSub(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Role legend */}
@@ -202,6 +230,37 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrands, ful
                       />
                     </div>
                   </div>
+
+                  {/* Description + image — only for featured (0) and mini cards (1,2) */}
+                  {i < 3 && (
+                    <div className="mt-3 space-y-3 border-t border-[color:var(--app-border)] pt-3">
+                      <div>
+                        <label className="mb-1 block text-xs font-semibold text-[color:var(--app-muted)]">Açıklama</label>
+                        <TextArea
+                          className="h-16 text-xs"
+                          placeholder="Kart üzerinde görünecek kısa açıklama"
+                          value={brand.description ?? ""}
+                          onChange={(e) => update(i, "description", e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label className="mb-1 block text-xs font-semibold text-[color:var(--app-muted)]">
+                          Görsel {i === 0 ? "(Öne Çıkan Kart arka planı)" : "(Mini kart — henüz kullanılmıyor)"}
+                        </label>
+                        <div className="flex gap-2">
+                          <TextInput
+                            placeholder="https://... veya /uploads/..."
+                            value={brand.imageUrl ?? ""}
+                            onChange={(e) => update(i, "imageUrl", e.target.value)}
+                          />
+                          <MediaPicker
+                            value={brand.imageUrl ?? ""}
+                            onChange={(url) => update(i, "imageUrl", url)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -242,6 +301,8 @@ export function AdminBrandsPage({ locale, initialBrandsTitle, initialBrands, ful
             <div className="overflow-hidden rounded-2xl border border-[color:var(--app-border)] shadow-lg">
               <BrandsSection
                 brands={validBrands.length > 0 ? validBrands : [{ name: "Örnek Marka", sector: "Sektör" }]}
+                brandsHeading={brandsHeading}
+                brandsSub={brandsSub}
                 brandsTitle={brandsTitle}
               />
             </div>

@@ -1,11 +1,15 @@
-type Brand = { name: string; sector: string };
+import Image from "next/image";
+
+type Brand = { name: string; sector: string; description?: string; imageUrl?: string };
 
 type Props = {
   brandsTitle: string;
+  brandsHeading?: string;
+  brandsSub?: string;
   brands: Brand[];
 };
 
-export function BrandsSection({ brandsTitle, brands }: Props) {
+export function BrandsSection({ brandsTitle, brandsHeading, brandsSub, brands }: Props) {
   if (brands.length === 0) return null;
 
   const featured = brands[0];
@@ -51,15 +55,17 @@ export function BrandsSection({ brandsTitle, brands }: Props) {
                 color: "var(--primary)",
               }}
             >
-              Markaların dijital yüzünü birlikte güçlendiriyoruz.
+              {brandsHeading ?? "Markaların dijital yüzünü birlikte güçlendiriyoruz."}
             </h2>
           </div>
-          <p
-            className="m-0 max-w-lg text-base font-medium leading-[1.8]"
-            style={{ color: "rgba(7,17,31,.58)" }}
-          >
-            Büyüme aşamasındaki markalar için stratejik kreatif üretim yapıyoruz; fotoğraf, video, web ve içerik süreçlerini bütünleşik bir sistem olarak yönetiyoruz.
-          </p>
+          {brandsSub && (
+            <p
+              className="m-0 max-w-lg text-base font-medium leading-[1.8]"
+              style={{ color: "rgba(7,17,31,.58)" }}
+            >
+              {brandsSub}
+            </p>
+          )}
         </div>
 
         {/* Showcase card */}
@@ -99,20 +105,30 @@ export function BrandsSection({ brandsTitle, brands }: Props) {
                       "linear-gradient(to top,rgba(3,8,18,.88),rgba(3,8,18,.22)), linear-gradient(135deg,#0d1f38,#1a0a10)",
                   }}
                 >
-                  {/* decorative circles */}
-                  <div
-                    className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]"
-                    aria-hidden
-                  >
-                    <div
-                      className="absolute -right-16 -top-16 h-72 w-72 rounded-full opacity-20"
-                      style={{ background: "radial-gradient(circle,#d9111e,transparent 65%)" }}
+                  {/* Background image or decorative circles */}
+                  {featured.imageUrl ? (
+                    <Image
+                      alt={featured.name}
+                      className="pointer-events-none absolute inset-0 rounded-[28px] object-cover opacity-30"
+                      fill
+                      sizes="(min-width: 768px) 45vw, 100vw"
+                      src={featured.imageUrl}
                     />
+                  ) : (
                     <div
-                      className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full opacity-10"
-                      style={{ background: "radial-gradient(circle,#4a7fa5,transparent 65%)" }}
-                    />
-                  </div>
+                      className="pointer-events-none absolute inset-0 overflow-hidden rounded-[28px]"
+                      aria-hidden
+                    >
+                      <div
+                        className="absolute -right-16 -top-16 h-72 w-72 rounded-full opacity-20"
+                        style={{ background: "radial-gradient(circle,#d9111e,transparent 65%)" }}
+                      />
+                      <div
+                        className="absolute -bottom-8 -left-8 h-48 w-48 rounded-full opacity-10"
+                        style={{ background: "radial-gradient(circle,#4a7fa5,transparent 65%)" }}
+                      />
+                    </div>
+                  )}
                   <div className="relative">
                     <small
                       className="block text-[11px] font-extrabold uppercase tracking-[0.14em]"
@@ -124,17 +140,19 @@ export function BrandsSection({ brandsTitle, brands }: Props) {
                       className="mb-3 mt-3.5 font-extrabold leading-none text-white"
                       style={{
                         fontSize: "clamp(30px, 3.4vw, 48px)",
-                        letterSpacing: "-0.055em",
+                        letterSpacing: "-0.03em",
                       }}
                     >
                       {featured.name}
                     </h3>
-                    <p
-                      className="m-0 max-w-sm text-sm font-medium leading-[1.75]"
-                      style={{ color: "rgba(255,255,255,.65)" }}
-                    >
-                      Ürün sunumu, kategori mimarisi ve satış odaklı dijital deneyim için modern bir görsel dil oluşturuldu.
-                    </p>
+                    {featured.description && (
+                      <p
+                        className="m-0 max-w-sm text-sm font-medium leading-[1.75]"
+                        style={{ color: "rgba(255,255,255,.65)" }}
+                      >
+                        {featured.description}
+                      </p>
+                    )}
                   </div>
                 </article>
               )}
@@ -175,14 +193,14 @@ export function BrandsSection({ brandsTitle, brands }: Props) {
                         >
                           {brand.name}
                         </h3>
-                        <p
-                          className="m-0 text-[13px] font-medium leading-[1.65]"
-                          style={{ color: "rgba(7,17,31,.56)" }}
-                        >
-                          {i === 0
-                            ? "Klinik algısını güçlendiren web, içerik ve görsel üretim desteği."
-                            : "Sezonluk kampanya, ürün fotoğrafı ve sosyal medya kreatifleri."}
-                        </p>
+                        {brand.description && (
+                          <p
+                            className="m-0 text-[13px] font-medium leading-[1.65]"
+                            style={{ color: "rgba(7,17,31,.56)" }}
+                          >
+                            {brand.description}
+                          </p>
+                        )}
                       </div>
                     </article>
                   ))}

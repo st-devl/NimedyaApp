@@ -19,6 +19,8 @@ export default async function AdminBrandsRoute({ params }: { params: Promise<{ l
     <AdminBrandsPage
       fullHomeContent={homeContent}
       initialBrands={homeContent.brands ?? []}
+      initialBrandsHeading={homeContent.brandsHeading ?? ""}
+      initialBrandsSub={homeContent.brandsSub ?? ""}
       initialBrandsTitle={homeContent.brandsTitle ?? ""}
       locale={locale as Locale}
     />

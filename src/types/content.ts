@@ -10,6 +10,8 @@ export type HomeTestimonial = {
 export type HomeBrand = {
   name: string;
   sector: string;
+  description?: string;
+  imageUrl?: string;
 };
 
 export type HomeContent = {
@@ -27,6 +29,8 @@ export type HomeContent = {
   testimonialsTitle: string;
   testimonials: HomeTestimonial[];
   brandsTitle: string;
+  brandsHeading?: string;
+  brandsSub?: string;
   brands: HomeBrand[];
   featuredProjects: Array<{
     title: string;

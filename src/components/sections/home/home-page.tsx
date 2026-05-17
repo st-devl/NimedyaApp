@@ -65,9 +65,6 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
         </div>
       </section>
 
-      {/* Brands */}
-      <BrandsSection brands={content.brands} brandsTitle={content.brandsTitle} />
-
       {/* Services */}
       <section className="nmd-container nmd-page-x py-[120px]">
         <div className="mb-16">
@@ -169,26 +166,42 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials + Brands strip */}
       {content.testimonials.length > 0 && (
-        <section className="py-[120px]">
+        <section className="bg-white py-[120px]">
           <div className="nmd-container nmd-page-x">
-            <h2 className="nmd-headline-xl mb-16 text-center text-[color:var(--primary)]">{content.testimonialsTitle}</h2>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <h2 className="nmd-headline-xl mb-14 text-center text-[color:var(--primary)]">{content.testimonialsTitle}</h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {content.testimonials.map((t, i) => (
                 <FadeIn delay={([0, 100, 200] as const)[i] ?? 0} key={t.name}>
-                  <article className="flex h-full flex-col rounded-2xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] p-8 shadow-sm">
-                    <p className="mb-1 text-4xl font-bold leading-none text-[color:var(--secondary)]">&ldquo;</p>
-                    <p className="nmd-body-md flex-1 text-[color:var(--app-text)]">{t.quote}</p>
-                    <div className="mt-8 border-t border-[color:var(--app-border)]/40 pt-6">
-                      <p className="text-sm font-semibold text-[color:var(--primary)]">{t.name}</p>
-                      <p className="text-xs text-[color:var(--app-muted)]">{t.title} · {t.company}</p>
+                  <article className="flex h-full flex-col rounded-2xl border border-[#001a2b]/8 bg-white p-8">
+                    {/* Stars */}
+                    <div className="mb-5 flex gap-1">
+                      {[0, 1, 2, 3, 4].map((s) => (
+                        <svg fill="#d9111e" height="17" key={s} viewBox="0 0 24 24" width="17">
+                          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+                        </svg>
+                      ))}
+                    </div>
+                    {/* Quote */}
+                    <p className="flex-1 text-[15px] italic leading-[1.8] text-[#001a2b]/65">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    {/* Person */}
+                    <div className="mt-8 flex items-center gap-3">
+                      <div className="h-10 w-10 shrink-0 rounded-full bg-[#001a2b]/10" />
+                      <div>
+                        <p className="text-sm font-semibold text-[#001a2b]">{t.name}</p>
+                        <p className="mt-0.5 text-xs text-[#001a2b]/45">{t.title}{t.company ? ` · ${t.company}` : ""}</p>
+                      </div>
                     </div>
                   </article>
                 </FadeIn>
               ))}
             </div>
           </div>
+          {/* Brand names strip — immediately below testimonials */}
+          <BrandsSection brands={content.brands} brandsHeading={content.brandsHeading} brandsSub={content.brandsSub} brandsTitle={content.brandsTitle} />
         </section>
       )}
 
