@@ -218,8 +218,8 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
                   }`}
                   key={reference.name}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2">
-                    <div className="relative h-56 md:h-full">
+                  <div className="relative">
+                    <div className="relative h-56 md:absolute md:inset-y-0 md:left-0 md:h-auto md:w-1/2">
                       <Image
                         alt={reference.name}
                         className="object-cover"
@@ -229,7 +229,7 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
                         src={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").src}
                       />
                     </div>
-                    <div className="flex flex-col justify-between p-6 md:p-7">
+                    <div className="flex flex-col justify-between p-6 md:ml-[50%] md:p-7">
                       <div>
                         <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[color:var(--secondary)]">{reference.sector}</p>
                         <h3 className="mt-3 text-xl font-semibold text-[color:var(--primary)]">{reference.name}</h3>
