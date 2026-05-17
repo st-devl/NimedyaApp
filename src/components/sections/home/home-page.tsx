@@ -24,7 +24,7 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
   return (
     <main>
       {sliderItems.length > 0 ? (
-        <HeroSlider items={sliderItems} intervalSeconds={sliderIntervalSeconds} />
+        <HeroSlider items={sliderItems} intervalSeconds={sliderIntervalSeconds} locale={locale} />
       ) : (
         <section className="flex min-h-[calc(100vh-80px)] flex-col md:flex-row">
           <div className="w-full bg-[color:var(--app-bg)] px-6 py-[120px] md:w-1/2 md:px-20">
