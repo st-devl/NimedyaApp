@@ -28,7 +28,7 @@ export function HeroSlider({ items, intervalSeconds = 6 }: HeroSliderProps) {
 
   return (
     <section className="px-6 pb-[100px] pt-6 md:px-20 md:pt-8">
-      <div className="relative flex flex-col overflow-hidden rounded-2xl border border-[color:var(--app-border)]/30 shadow-sm md:h-[560px] md:flex-row">
+      <div className="relative flex flex-col-reverse overflow-hidden rounded-2xl border border-[color:var(--app-border)]/30 shadow-sm md:h-[560px] md:flex-row">
         {/* Sol: metin */}
         <div className="relative z-10 flex w-full items-center overflow-hidden bg-[color:var(--app-bg)] px-6 py-12 md:w-1/2 md:px-14 md:py-16">
           <div className="w-full max-w-xl">
