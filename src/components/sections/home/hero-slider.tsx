@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 import type { PublicSliderItem } from "@/lib/cms/public-content";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/routes";
+import { BadgeIcon } from "@/lib/slider-icons";
 
 type HeroSliderProps = {
   items: PublicSliderItem[];
@@ -13,32 +14,30 @@ type HeroSliderProps = {
   intervalSeconds?: number;
 };
 
-const labels = {
+const fallback = {
   tr: {
     pretitle: "DİJİTAL YARATICILIK",
-    cta: "Projeleri İncele",
-    secondary: "Biz Kimiz?",
     badge: "4K Sinematik",
     badgeSub: "Prodüksiyon Standardı",
-    prev: "Önceki",
-    next: "Sonraki",
-    slide: "Slayt",
   },
   en: {
     pretitle: "DIGITAL CREATIVITY",
-    cta: "View Projects",
-    secondary: "About Us",
     badge: "4K Cinematic",
     badgeSub: "Production Standard",
-    prev: "Previous",
-    next: "Next",
-    slide: "Slide",
   },
 } as const;
+
+const labels = {
+  tr: { cta: "Projeleri İncele", secondary: "Biz Kimiz?", prev: "Önceki", next: "Sonraki", slide: "Slayt" },
+  en: { cta: "View Projects", secondary: "About Us", prev: "Previous", next: "Next", slide: "Slide" },
+} as const;
+
+const DEFAULT_SECONDARY = { tr: "Biz Kimiz?", en: "About Us" } as const;
 
 export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderProps) {
   const [current, setCurrent] = useState(0);
   const t = labels[locale];
+  const fb = fallback[locale];
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % items.length), [items.length]);
   const prev = useCallback(() => setCurrent((c) => (c - 1 + items.length) % items.length), [items.length]);
@@ -51,7 +50,7 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
 
   if (items.length === 0) return null;
 
-  const item = items[current];
+  const activePretitle = items[current].pretitle ?? fb.pretitle;
 
   return (
     <section className="bg-white py-14 md:py-20 nmd-page-x">
@@ -59,44 +58,55 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
 
         {/* Left: Text — order 2 on mobile (below image), order 1 on desktop */}
         <div className="order-2 md:order-1">
-          {/* Pretitle */}
+          {/* Pretitle — uses active slide's value (changes per slide) */}
           <div className="mb-6 flex items-center gap-3">
             <span className="h-5 w-[3px] shrink-0 rounded-full bg-[#d9111e]" />
             <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#d9111e]">
-              {t.pretitle}
+              {activePretitle}
             </span>
           </div>
 
-          {/* Heading + body — keyed to animate on slide change */}
-          <div key={current}>
-            <h1
-              className="font-extrabold leading-[1.06] text-[#001a2b]"
-              style={{ fontSize: "clamp(2.4rem,4.5vw,4rem)", letterSpacing: "-0.03em" }}
-            >
-              {item.title}
-            </h1>
-            <p className="mt-5 max-w-lg text-[15px] font-medium leading-[1.75] text-[#001a2b]/58 md:text-base">
-              {item.description}
-            </p>
-
-            {/* Buttons */}
-            <div className="mt-9 flex flex-wrap items-center gap-4">
-              {item.linkUrl && (
-                <Link
-                  className="rounded-xl bg-[#001a2b] px-7 py-3.5 text-sm font-semibold text-white nmd-transition hover:-translate-y-0.5 hover:opacity-90"
-                  href={item.linkUrl}
-                >
-                  {t.cta}
-                </Link>
-              )}
-              <Link
-                className="flex items-center gap-1.5 text-sm font-semibold text-[#001a2b]/55 nmd-transition hover:text-[#001a2b]"
-                href={localizedPath(locale, "about")}
+          {/* Grid-stack: all slides rendered in same cell, opacity-switched — no height jump */}
+          <div className="grid">
+            {items.map((item, i) => (
+              <div
+                key={item.id}
+                aria-hidden={i !== current}
+                className="col-start-1 row-start-1 transition-opacity duration-500"
+                style={{ opacity: i === current ? 1 : 0, pointerEvents: i === current ? "auto" : "none" }}
               >
-                {t.secondary}
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
+                <h1
+                  className="font-extrabold leading-[1.06] text-[#001a2b]"
+                  style={{ fontSize: "clamp(2.4rem,4.5vw,4rem)", letterSpacing: "-0.03em" }}
+                >
+                  {item.title}
+                </h1>
+                <p className="mt-5 max-w-lg text-[15px] font-medium leading-[1.75] text-[#001a2b]/58 md:text-base">
+                  {item.description}
+                </p>
+
+                {/* Buttons */}
+                <div className="mt-9 flex flex-wrap items-center gap-4">
+                  {item.linkUrl && (
+                    <Link
+                      className="rounded-xl bg-[#001a2b] px-7 py-3.5 text-sm font-semibold text-white nmd-transition hover:-translate-y-0.5 hover:opacity-90"
+                      href={item.linkUrl}
+                      tabIndex={i !== current ? -1 : 0}
+                    >
+                      {t.cta}
+                    </Link>
+                  )}
+                  <Link
+                    className="flex items-center gap-1.5 text-sm font-semibold text-[#001a2b]/55 nmd-transition hover:text-[#001a2b]"
+                    href={localizedPath(locale, "about")}
+                    tabIndex={i !== current ? -1 : 0}
+                  >
+                    {item.ctaSecondary ?? DEFAULT_SECONDARY[locale]}
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Navigation dots + arrows */}
@@ -177,23 +187,11 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
             {/* Badge card */}
             <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-xl bg-white px-4 py-3 shadow-[0_4px_24px_rgba(0,26,43,0.12)]">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#d9111e]/10">
-                <svg
-                  fill="none"
-                  height="18"
-                  stroke="#d9111e"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.8"
-                  viewBox="0 0 24 24"
-                  width="18"
-                >
-                  <rect height="14" rx="2" width="20" x="2" y="4" />
-                  <path d="M8 20h8M12 18v2" />
-                </svg>
+                <BadgeIcon iconKey={items[current].badgeIcon ?? "monitor"} size={18} stroke="#d9111e" />
               </div>
               <div>
-                <p className="text-[13px] font-bold leading-tight text-[#001a2b]">{t.badge}</p>
-                <p className="mt-0.5 text-[11px] leading-tight text-[#001a2b]/50">{t.badgeSub}</p>
+                <p className="text-[13px] font-bold leading-tight text-[#001a2b]">{items[current].badge ?? fb.badge}</p>
+                <p className="mt-0.5 text-[11px] leading-tight text-[#001a2b]/50">{items[current].badgeSub ?? fb.badgeSub}</p>
               </div>
             </div>
           </div>

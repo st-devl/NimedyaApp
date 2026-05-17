@@ -169,7 +169,16 @@ model SliderItem {
   trDescription String       @db.Text
   enTitle       String       @db.VarChar(255)
   enDescription String       @db.Text
-  imageUrl      String?      @db.VarChar(500)
+  trPretitle    String?      @db.VarChar(255)
+  enPretitle    String?      @db.VarChar(255)
+  trBadge           String?      @db.VarChar(255)
+  enBadge           String?      @db.VarChar(255)
+  trBadgeSub        String?      @db.VarChar(255)
+  enBadgeSub        String?      @db.VarChar(255)
+  trCtaSecondary    String?      @db.VarChar(255)
+  enCtaSecondary    String?      @db.VarChar(255)
+  badgeIcon         String?      @db.VarChar(60)
+  imageUrl          String?      @db.VarChar(500)
   linkUrl       String?      @db.VarChar(255)
   status        SliderStatus @default(DRAFT)
   sortOrder     Int          @default(0)

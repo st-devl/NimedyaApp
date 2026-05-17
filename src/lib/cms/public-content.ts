@@ -19,6 +19,11 @@ export type PublicSliderItem = {
   description: string;
   imageUrl: string | null;
   linkUrl: string | null;
+  pretitle: string | null;
+  badge: string | null;
+  badgeSub: string | null;
+  ctaSecondary: string | null;
+  badgeIcon: string | null;
 };
 
 export async function getActiveSliderItems(locale: Locale): Promise<PublicSliderItem[]> {
@@ -33,6 +38,11 @@ export async function getActiveSliderItems(locale: Locale): Promise<PublicSlider
       description: locale === "tr" ? item.trDescription : item.enDescription,
       imageUrl: item.imageUrl,
       linkUrl: item.linkUrl,
+      pretitle: locale === "tr" ? (item.trPretitle ?? null) : (item.enPretitle ?? null),
+      badge: locale === "tr" ? (item.trBadge ?? null) : (item.enBadge ?? null),
+      badgeSub: locale === "tr" ? (item.trBadgeSub ?? null) : (item.enBadgeSub ?? null),
+      ctaSecondary: locale === "tr" ? (item.trCtaSecondary ?? null) : (item.enCtaSecondary ?? null),
+      badgeIcon: item.badgeIcon ?? null,
     }));
   } catch {
     return [];
