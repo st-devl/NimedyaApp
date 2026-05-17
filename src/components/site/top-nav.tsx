@@ -13,6 +13,7 @@ type TopNavProps = {
   active?: "home" | "services" | "portfolio" | "about" | "contact";
   siteName: string;
   logoUrl: string | null;
+  logoWhiteUrl: string | null;
 };
 
 const labels = {
@@ -30,7 +31,7 @@ const keyToRoute: Record<NonNullable<TopNavProps["active"]>, RouteKey> = {
 
 const navKeys: Array<NonNullable<TopNavProps["active"]>> = ["home", "services", "portfolio", "about", "contact"];
 
-export function TopNav({ locale, active = "home", siteName, logoUrl }: TopNavProps) {
+export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUrl }: TopNavProps) {
   const t = labels[locale];
   const currentRoute = keyToRoute[active];
   const pathname = usePathname();
@@ -64,9 +65,25 @@ export function TopNav({ locale, active = "home", siteName, logoUrl }: TopNavPro
       <div className="nmd-container nmd-page-x flex items-center justify-between py-4">
         {/* Logo */}
         <Link className="nmd-headline-md flex items-center gap-3 font-bold text-[color:var(--primary)]" href={localizedPath(locale, "home")}>
-          {logoUrl
-            ? <Image alt={siteName} className="h-10 w-auto object-contain" height={40} src={logoUrl} width={200} />
-            : <span>{siteName}</span>}
+          {logoUrl && (
+            <Image
+              alt={siteName}
+              className={`h-10 w-auto object-contain ${logoWhiteUrl ? "block dark:hidden" : "block"}`}
+              height={40}
+              src={logoUrl}
+              width={200}
+            />
+          )}
+          {logoWhiteUrl && (
+            <Image
+              alt={siteName}
+              className="hidden h-10 w-auto object-contain dark:block"
+              height={40}
+              src={logoWhiteUrl}
+              width={200}
+            />
+          )}
+          {!logoUrl && !logoWhiteUrl && <span>{siteName}</span>}
         </Link>
 
         {/* Desktop nav */}

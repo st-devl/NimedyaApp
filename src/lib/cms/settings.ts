@@ -18,9 +18,11 @@ export type SiteSettingsView = {
   robotsAllowIndex: boolean;
   sliderIntervalSeconds: number;
   logoMediaId: number | null;
+  logoWhiteMediaId: number | null;
   faviconMediaId: number | null;
   defaultOgMediaId: number | null;
   logoUrl: string | null;
+  logoWhiteUrl: string | null;
   faviconUrl: string | null;
   defaultOgImageUrl: string | null;
   updatedAt: Date | null;
@@ -35,6 +37,7 @@ export type SiteSettingsInput = {
   contactLocation?: string | null;
   socialLinks?: SocialLink[];
   logoMediaId?: number | null;
+  logoWhiteMediaId?: number | null;
   faviconMediaId?: number | null;
   defaultOgMediaId?: number | null;
   robotsAllowIndex: boolean;
@@ -56,9 +59,11 @@ const fallbackSettings: SiteSettingsView = {
   robotsAllowIndex: true,
   sliderIntervalSeconds: 6,
   logoMediaId: null,
+  logoWhiteMediaId: null,
   faviconMediaId: null,
   defaultOgMediaId: null,
   logoUrl: null,
+  logoWhiteUrl: null,
   faviconUrl: null,
   defaultOgImageUrl: null,
   updatedAt: null,
@@ -79,7 +84,7 @@ function normalizeSocialLinks(value: unknown): SocialLink[] {
 export const getSiteSettings = cache(async (): Promise<SiteSettingsView> => {
   const settings = await prisma.siteSettings.findUnique({
     where: { id: 1 },
-    include: { defaultOg: true, favicon: true, logo: true },
+    include: { defaultOg: true, favicon: true, logo: true, logoWhite: true },
   });
 
   if (!settings) return fallbackSettings;
@@ -96,9 +101,11 @@ export const getSiteSettings = cache(async (): Promise<SiteSettingsView> => {
     robotsAllowIndex: settings.robotsAllowIndex,
     sliderIntervalSeconds: settings.sliderIntervalSeconds,
     logoMediaId: settings.logoMediaId,
+    logoWhiteMediaId: settings.logoWhiteMediaId,
     faviconMediaId: settings.faviconMediaId,
     defaultOgMediaId: settings.defaultOgMediaId,
     logoUrl: settings.logo?.url ?? null,
+    logoWhiteUrl: settings.logoWhite?.url ?? null,
     faviconUrl: settings.favicon?.url ?? null,
     defaultOgImageUrl: settings.defaultOg?.url ?? null,
     updatedAt: settings.updatedAt,

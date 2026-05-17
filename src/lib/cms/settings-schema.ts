@@ -19,6 +19,7 @@ export const siteSettingsSchema = z.object({
   contactLocation: z.union([z.literal(""), z.string().trim().min(2).max(190)]).transform((value) => value || null),
   socialLinks: z.array(socialLinkSchema).max(8),
   logoMediaId: optionalMediaIdSchema,
+  logoWhiteMediaId: optionalMediaIdSchema,
   faviconMediaId: optionalMediaIdSchema,
   defaultOgMediaId: optionalMediaIdSchema,
   robotsAllowIndex: z.boolean(),

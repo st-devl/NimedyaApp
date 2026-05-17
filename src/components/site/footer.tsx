@@ -2,6 +2,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/routes";
 import { getSiteSettings } from "@/lib/cms/settings";
 import Link from "next/link";
+import Image from "next/image";
 
 const translations = {
   tr: {
@@ -75,7 +76,29 @@ export async function Footer({ locale }: { locale: Locale }) {
 
           {/* Brand col */}
           <div className="md:col-span-4">
-            <p className="text-2xl font-bold tracking-tight">{settings.siteName}</p>
+            <div className="mb-1">
+              {settings.logoUrl && (
+                <Image
+                  alt={settings.siteName}
+                  className={`h-10 w-auto object-contain ${settings.logoWhiteUrl ? "block dark:hidden" : "block"}`}
+                  height={40}
+                  src={settings.logoUrl}
+                  width={200}
+                />
+              )}
+              {settings.logoWhiteUrl && (
+                <Image
+                  alt={settings.siteName}
+                  className="hidden h-10 w-auto object-contain dark:block"
+                  height={40}
+                  src={settings.logoWhiteUrl}
+                  width={200}
+                />
+              )}
+              {!settings.logoUrl && !settings.logoWhiteUrl && (
+                <p className="text-2xl font-bold tracking-tight">{settings.siteName}</p>
+              )}
+            </div>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#001a2b]/60 dark:text-white/70">{t.desc}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
               {settings.socialLinks.filter((item) => item.url).map((item) => (

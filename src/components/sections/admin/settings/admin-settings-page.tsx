@@ -36,6 +36,7 @@ export function AdminSettingsPageSections({ settings, media }: AdminSettingsPage
           contactLocation: settings.contactLocation ?? "",
           socialLinks: settings.socialLinks,
           logoMediaId: settings.logoMediaId,
+          logoWhiteMediaId: settings.logoWhiteMediaId,
           faviconMediaId: settings.faviconMediaId,
           defaultOgMediaId: settings.defaultOgMediaId,
           robotsAllowIndex: settings.robotsAllowIndex,

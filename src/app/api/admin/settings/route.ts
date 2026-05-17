@@ -39,6 +39,7 @@ export async function PATCH(request: Request) {
 
   const mediaReferencesValid = await validateMediaReferences([
     parsed.data.logoMediaId,
+    parsed.data.logoWhiteMediaId,
     parsed.data.faviconMediaId,
     parsed.data.defaultOgMediaId,
   ]);

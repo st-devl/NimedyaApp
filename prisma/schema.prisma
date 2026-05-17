@@ -85,6 +85,7 @@ model MediaAsset {
   updatedAt    DateTime @updatedAt
 
   logoForSettings      SiteSettings[] @relation("SiteSettingsLogo")
+  logoWhiteForSettings SiteSettings[] @relation("SiteSettingsLogoWhite")
   faviconForSettings   SiteSettings[] @relation("SiteSettingsFavicon")
   defaultOgForSettings SiteSettings[] @relation("SiteSettingsDefaultOg")
   seoOgImages          SeoPage[]      @relation("SeoPageOgImage")
@@ -104,6 +105,7 @@ model SiteSettings {
   contactLocation  String?  @db.VarChar(190)
   socialLinks      Json?
   logoMediaId      Int?
+  logoWhiteMediaId Int?
   faviconMediaId   Int?
   defaultOgMediaId Int?
   robotsAllowIndex        Boolean  @default(true)
@@ -116,10 +118,12 @@ model SiteSettings {
   updatedAt        DateTime @updatedAt
 
   logo      MediaAsset? @relation("SiteSettingsLogo", fields: [logoMediaId], references: [id], onDelete: SetNull)
+  logoWhite MediaAsset? @relation("SiteSettingsLogoWhite", fields: [logoWhiteMediaId], references: [id], onDelete: SetNull)
   favicon   MediaAsset? @relation("SiteSettingsFavicon", fields: [faviconMediaId], references: [id], onDelete: SetNull)
   defaultOg MediaAsset? @relation("SiteSettingsDefaultOg", fields: [defaultOgMediaId], references: [id], onDelete: SetNull)
 
   @@index([logoMediaId])
+  @@index([logoWhiteMediaId])
   @@index([faviconMediaId])
   @@index([defaultOgMediaId])
 }

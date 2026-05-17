@@ -22,6 +22,7 @@ type SettingsFormState = {
   contactLocation: string;
   socialLinks: SocialLink[];
   logoMediaId: number | null;
+  logoWhiteMediaId: number | null;
   faviconMediaId: number | null;
   defaultOgMediaId: number | null;
   robotsAllowIndex: boolean;
@@ -61,7 +62,7 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
     setForm((prev) => ({ ...prev, socialLinks: prev.socialLinks.filter((_, itemIndex) => itemIndex !== index) }));
   };
 
-  const onMediaChange = (field: "logoMediaId" | "faviconMediaId" | "defaultOgMediaId", value: string) => {
+  const onMediaChange = (field: "logoMediaId" | "logoWhiteMediaId" | "faviconMediaId" | "defaultOgMediaId", value: string) => {
     setForm((prev) => ({ ...prev, [field]: value ? Number(value) : null }));
   };
 
@@ -118,19 +119,20 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
         <h2 className="text-2xl font-semibold text-[color:var(--primary)]">Marka ve Paylasim Gorselleri</h2>
         <p className="mt-2 text-sm text-[color:var(--app-muted)]">Medya yukleme Phase 4 kapsaminda eklenecek; burada mevcut medya kayitlari secilir.</p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {[
-            ["logoMediaId", "Logo", "256×256 px — PNG veya SVG, şeffaf arka plan"],
+          {([
+            ["logoMediaId", "Logo (Koyu — Light mod)", "Açık zemin için koyu/renkli logo. PNG veya SVG, şeffaf arka plan."],
+            ["logoWhiteMediaId", "Logo (Beyaz — Dark mod)", "Koyu zemin için beyaz/açık logo. PNG veya SVG, şeffaf arka plan."],
             ["faviconMediaId", "Favicon", "64×64 px — PNG veya ICO, kare"],
             ["defaultOgMediaId", "Varsayilan OG Gorseli", "1200×630 px — JPEG veya WebP, 16:9"],
-          ].map(([field, label, hint]) => (
+          ] as const).map(([field, label, hint]) => (
             <div className="grid gap-2" key={field}>
               <label className="text-sm font-semibold text-[color:var(--app-muted)]">
                 {label}
               </label>
               <select
                 className="h-11 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--app-card)] px-3 text-[color:var(--app-text)]"
-                value={String(form[field as "logoMediaId" | "faviconMediaId" | "defaultOgMediaId"] ?? "")}
-                onChange={(event) => onMediaChange(field as "logoMediaId" | "faviconMediaId" | "defaultOgMediaId", event.target.value)}
+                value={String(form[field] ?? "")}
+                onChange={(event) => onMediaChange(field, event.target.value)}
               >
                 <option value="">Secili medya yok</option>
                 {media.map((item) => (

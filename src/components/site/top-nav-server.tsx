@@ -9,5 +9,5 @@ type TopNavServerProps = {
 
 export async function TopNavServer({ locale, active }: TopNavServerProps) {
   const settings = await getSiteSettings();
-  return <TopNav active={active} locale={locale} logoUrl={settings.logoUrl} siteName={settings.siteName} />;
+  return <TopNav active={active} locale={locale} logoUrl={settings.logoUrl} logoWhiteUrl={settings.logoWhiteUrl} siteName={settings.siteName} />;
 }
