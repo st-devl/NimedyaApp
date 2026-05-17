@@ -19,7 +19,7 @@ type SliderFormProps = {
   onToggleProtect: (checked: boolean) => void;
   onRetry: () => void;
   onTranslate: () => void;
-  onChange: (field: keyof SliderFormState, value: string) => void;
+  onChange: (field: keyof SliderFormState, value: string | boolean) => void;
   onSave: () => void;
   onCancel: () => void;
 };
@@ -132,6 +132,21 @@ export function SliderForm({
             })}
           </div>
         </div>
+
+        {/* Play button toggle */}
+        <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--surface-container-low)] px-4 py-3">
+          <input
+            checked={form.showPlayButton}
+            className="h-4 w-4 accent-[#d9111e]"
+            id="show-play-button"
+            onChange={(e) => onChange("showPlayButton", e.target.checked)}
+            type="checkbox"
+          />
+          <div>
+            <span className="text-sm font-semibold text-[color:var(--primary)]">Play Butonu Göster</span>
+            <p className="mt-0.5 text-xs text-[color:var(--app-muted)]">Görsel üzerindeki beyaz yuvarlak play ikonunu göster / gizle</p>
+          </div>
+        </label>
 
         <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="image-url">Gorsel URL (opsiyonel)</label>
         <div className="flex gap-2">

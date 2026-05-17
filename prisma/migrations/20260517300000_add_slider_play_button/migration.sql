@@ -1,0 +1,2 @@
+ALTER TABLE `SliderItem`
+  ADD COLUMN `showPlayButton` TINYINT(1) NOT NULL DEFAULT 1;

@@ -174,14 +174,16 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
                 </div>
               ))}
 
-              {/* Play button */}
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white/90 shadow-lg">
-                  <svg fill="#001a2b" height="16" viewBox="0 0 24 24" width="16">
-                    <polygon points="6,3 20,12 6,21" />
-                  </svg>
+              {/* Play button — optional per slide */}
+              {items[current].showPlayButton && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-white/90 shadow-lg">
+                    <svg fill="#001a2b" height="16" viewBox="0 0 24 24" width="16">
+                      <polygon points="6,3 20,12 6,21" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Badge card */}

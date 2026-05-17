@@ -24,6 +24,7 @@ const EMPTY_FORM: SliderFormState = {
   trCtaSecondary: "",
   enCtaSecondary: "",
   badgeIcon: "",
+  showPlayButton: true,
   imageUrl: "",
   linkUrl: "",
   status: "DRAFT",
@@ -80,6 +81,7 @@ export function AdminSliderPageSections({ locale, initialItems, sliderIntervalSe
       trCtaSecondary: item.trCtaSecondary ?? "",
       enCtaSecondary: item.enCtaSecondary ?? "",
       badgeIcon: item.badgeIcon ?? "",
+      showPlayButton: item.showPlayButton,
       imageUrl: item.imageUrl ?? "",
       linkUrl: item.linkUrl ?? "",
       status: item.status,
@@ -134,7 +136,7 @@ export function AdminSliderPageSections({ locale, initialItems, sliderIntervalSe
     }
   };
 
-  const onChange = (field: keyof SliderFormState, value: string) => {
+  const onChange = (field: keyof SliderFormState, value: string | boolean) => {
     if (field === "enTitle" || field === "enDescription") {
       setEnTouched((prev) => ({ ...prev, [field]: true }));
     }

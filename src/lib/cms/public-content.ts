@@ -24,6 +24,7 @@ export type PublicSliderItem = {
   badgeSub: string | null;
   ctaSecondary: string | null;
   badgeIcon: string | null;
+  showPlayButton: boolean;
 };
 
 export async function getActiveSliderItems(locale: Locale): Promise<PublicSliderItem[]> {
@@ -43,6 +44,7 @@ export async function getActiveSliderItems(locale: Locale): Promise<PublicSlider
       badgeSub: locale === "tr" ? (item.trBadgeSub ?? null) : (item.enBadgeSub ?? null),
       ctaSecondary: locale === "tr" ? (item.trCtaSecondary ?? null) : (item.enCtaSecondary ?? null),
       badgeIcon: item.badgeIcon ?? null,
+      showPlayButton: item.showPlayButton,
     }));
   } catch {
     return [];

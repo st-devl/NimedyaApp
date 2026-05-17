@@ -178,6 +178,7 @@ model SliderItem {
   trCtaSecondary    String?      @db.VarChar(255)
   enCtaSecondary    String?      @db.VarChar(255)
   badgeIcon         String?      @db.VarChar(60)
+  showPlayButton    Boolean      @default(true)
   imageUrl          String?      @db.VarChar(500)
   linkUrl       String?      @db.VarChar(255)
   status        SliderStatus @default(DRAFT)

@@ -15,6 +15,7 @@ export type SliderItem = {
   trCtaSecondary: string | null;
   enCtaSecondary: string | null;
   badgeIcon: string | null;
+  showPlayButton: boolean;
   imageUrl: string | null;
   linkUrl: string | null;
   status: SliderStatus;
@@ -37,6 +38,7 @@ export type SliderFormState = {
   trCtaSecondary: string;
   enCtaSecondary: string;
   badgeIcon: string;
+  showPlayButton: boolean;
   imageUrl: string;
   linkUrl: string;
   status: SliderStatus;
