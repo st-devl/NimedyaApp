@@ -9,62 +9,62 @@ export type SeoDefaults = {
 export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
   home: {
     tr: {
-      title: "Nimedya | Kreatif Dijital Ajans",
-      description: "Nimedya; ürün fotoğrafçılığı, tanıtım filmi ve marka kimliği alanında markalar için güçlü görsel hikayeler üretir.",
+      title: "Nimedya | Trabzon Kreatif Dijital Ajans",
+      description: "Nimedya, Trabzon merkezli kreatif dijital ajans. Ürün fotoğrafçılığı, tanıtım filmi, web tasarım ve marka kimliği alanında markalar için güçlü görsel hikayeler üretir.",
     },
     en: {
-      title: "Nimedya | Creative Digital Agency",
-      description: "Nimedya creates powerful visual stories for brands through product photography, promotional video and brand identity.",
+      title: "Nimedya | Creative Digital Agency in Trabzon",
+      description: "Nimedya is a creative digital agency based in Trabzon. We create powerful visual stories through product photography, promotional video, web design and brand identity.",
     },
   },
   services: {
     tr: {
-      title: "Nimedya | Hizmetlerimiz",
-      description: "Ürün fotoğrafçılığı, tanıtım filmi, kurumsal fotoğraf ve sosyal medya içerikleri — markalar için uçtan uca kreatif çözümler.",
+      title: "Nimedya | Trabzon Fotoğraf, Video & Web Tasarım Hizmetleri",
+      description: "Trabzon'un önde gelen kreatif ajansı Nimedya: ürün fotoğrafçılığı, tanıtım filmi, web tasarım ve yazılım hizmetleri. Markanız için uçtan uca yaratıcı çözümler.",
     },
     en: {
-      title: "Nimedya | Our Services",
-      description: "Product photography, promotional video, corporate photography and social media content — end-to-end creative solutions for brands.",
+      title: "Nimedya | Photography, Video & Web Design Services in Trabzon",
+      description: "Nimedya, Trabzon's leading creative agency: product photography, promotional video, web design and software services. End-to-end creative solutions for your brand.",
     },
   },
   productPhotography: {
     tr: {
-      title: "Nimedya | Ürün Fotoğrafçılığı",
-      description: "Markanızın ürünlerini en iyi şekilde yansıtan profesyonel ürün fotoğrafçılığı hizmeti. E-ticaret, katalog ve kampanya görselleri.",
+      title: "Trabzon Ürün Fotoğrafçılığı | Nimedya",
+      description: "Trabzon'da profesyonel ürün fotoğrafçılığı hizmeti. E-ticaret, katalog ve kampanya görselleri için markanızı en iyi şekilde yansıtan çekimler. Nimedya ile fark yaratın.",
     },
     en: {
-      title: "Nimedya | Product Photography",
-      description: "Professional product photography that showcases your brand's products at their best. E-commerce, catalog and campaign visuals.",
+      title: "Product Photography in Trabzon | Nimedya",
+      description: "Professional product photography service in Trabzon. E-commerce, catalog and campaign visuals that best showcase your brand. Make a difference with Nimedya.",
     },
   },
   portfolio: {
     tr: {
-      title: "Nimedya | İşlerimiz",
-      description: "Nimedya'nın gerçekleştirdiği seçilmiş projeler — fotoğraf, film ve marka kimliği alanında referans çalışmalar.",
+      title: "Nimedya | İşlerimiz — Trabzon Kreatif Ajans Portföyü",
+      description: "Trabzon ve Türkiye genelinde gerçekleştirdiğimiz seçilmiş projeler — fotoğraf, tanıtım filmi ve marka kimliği alanında referans çalışmalar.",
     },
     en: {
-      title: "Nimedya | Portfolio",
-      description: "Selected projects by Nimedya — reference work in photography, film and brand identity.",
+      title: "Nimedya | Portfolio — Trabzon Creative Agency Work",
+      description: "Selected projects across Trabzon and Turkey — reference work in photography, promotional film and brand identity.",
     },
   },
   about: {
     tr: {
-      title: "Nimedya | Hakkımızda",
-      description: "Nimedya olarak markalar için stratejik düşünce ve yaratıcı üretimi bir araya getiriyoruz. Ekibimizi ve vizyonumuzu keşfedin.",
+      title: "Nimedya Hakkında | Trabzon Merkezli Kreatif Ajans",
+      description: "Trabzon merkezli Nimedya, markalar için stratejik düşünce ve yaratıcı üretimi bir araya getirir. Vizyonumuzu ve çalışma anlayışımızı keşfedin.",
     },
     en: {
-      title: "Nimedya | About Us",
-      description: "At Nimedya, we combine strategic thinking and creative production for brands. Discover our team and vision.",
+      title: "About Nimedya | Trabzon-Based Creative Agency",
+      description: "Trabzon-based Nimedya combines strategic thinking and creative production for brands. Discover our vision and approach.",
     },
   },
   contact: {
     tr: {
-      title: "Nimedya | İletişim",
-      description: "Projenizi konuşalım. Nimedya ile iletişime geçin ve markanız için en doğru kreatif çözümü birlikte belirleyelim.",
+      title: "Nimedya İletişim | Trabzon'da Proje Başlatalım",
+      description: "Trabzon'da proje hayata geçirmek ister misiniz? Nimedya ile iletişime geçin — fotoğraf, video, web tasarım ve yazılım için ücretsiz keşif görüşmesi.",
     },
     en: {
-      title: "Nimedya | Contact",
-      description: "Let's talk about your project. Get in touch with Nimedya and together we'll find the right creative solution for your brand.",
+      title: "Contact Nimedya | Start a Project in Trabzon",
+      description: "Want to launch a project in Trabzon? Get in touch with Nimedya — free discovery call for photography, video, web design and software.",
     },
   },
   privacy: {
@@ -89,12 +89,12 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
   },
   howWeWork: {
     tr: {
-      title: "Nimedya | Nasıl Çalışıyoruz?",
-      description: "Keşiften teslimat aşamasına kadar Nimedya'nın şeffaf ve yapılandırılmış iş akışını keşfedin.",
+      title: "Nimedya | Nasıl Çalışıyoruz? — Trabzon Kreatif Ajans",
+      description: "Keşiften teslimat aşamasına kadar Nimedya'nın şeffaf ve yapılandırılmış iş akışını keşfedin. Trabzon'da kaliteli kreatif üretim süreci.",
     },
     en: {
-      title: "Nimedya | How We Work",
-      description: "Discover Nimedya's transparent, structured workflow — from discovery to delivery.",
+      title: "Nimedya | How We Work — Trabzon Creative Agency",
+      description: "Discover Nimedya's transparent, structured workflow from discovery to delivery. Quality creative production process in Trabzon.",
     },
   },
   admin: {

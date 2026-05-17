@@ -1,6 +1,7 @@
 import { Footer } from "@/components/site/footer";
 import { TopNavServer as TopNav } from "@/components/site/top-nav-server";
 import { ContactPageSections } from "@/components/sections/contact/contact-page";
+import { FaqSection } from "@/components/ui/faq-section";
 import { getManagedContactContent } from "@/lib/cms/public-content";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { buildManagedMetadata } from "@/lib/cms/seo";
@@ -9,6 +10,45 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
+
+const faqItems = {
+  tr: [
+    {
+      question: "Trabzon'da yüz yüze görüşme yapabilir miyiz?",
+      answer: "Evet, Trabzon'daki ofisimizde veya size uygun bir lokasyonda yüz yüze görüşme düzenleyebiliriz. İletişim formunu doldurduğunuzda sizinle en kısa sürede iletişime geçeceğiz.",
+    },
+    {
+      question: "Mesaj gönderdikten sonra ne kadar sürede geri dönüş alırım?",
+      answer: "Hafta içi mesai saatleri (09:00–18:00) içinde gönderilen mesajlara genellikle aynı gün veya en geç bir sonraki iş günü içinde dönüş yapıyoruz.",
+    },
+    {
+      question: "Hangi hizmetler için teklif isteyebilirim?",
+      answer: "Ürün fotoğrafçılığı, tanıtım filmi, marka kimliği, web tasarım ve özel yazılım geliştirme projelerinin tamamı için teklif alabilirsiniz. Formdaki hizmet alanını işaretlemeniz yeterlidir.",
+    },
+    {
+      question: "Trabzon dışından da proje gönderebilir miyim?",
+      answer: "Evet. Türkiye'nin her şehrinden ve yurt dışından müşteri kabul ediyoruz. Video konferans üzerinden keşif görüşmesi yaparak projeye başlayabiliriz.",
+    },
+  ],
+  en: [
+    {
+      question: "Can we meet in person in Trabzon?",
+      answer: "Yes, we can arrange an in-person meeting at our Trabzon office or a location convenient for you. After you fill in the contact form, we'll reach out as soon as possible.",
+    },
+    {
+      question: "How soon will I hear back after sending a message?",
+      answer: "We typically respond on the same day or by the next business day for messages sent during business hours (09:00–18:00) on weekdays.",
+    },
+    {
+      question: "Which services can I request a quote for?",
+      answer: "You can request a quote for all our services: product photography, promotional video, brand identity, web design and custom software development. Simply indicate the service in the form.",
+    },
+    {
+      question: "Can I send a project from outside Trabzon?",
+      answer: "Yes. We accept clients from across Turkey and internationally. We can start the project with a video conference discovery call.",
+    },
+  ],
+};
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -19,6 +59,17 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
     getManagedContactContent(resolvedLocale),
     getSiteSettings(),
   ]);
+
+  const faqs = faqItems[resolvedLocale];
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
 
   const localBusiness = {
     "@context": "https://schema.org",
@@ -44,8 +95,16 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }}
         type="application/ld+json"
       />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
+      />
       <TopNav active="contact" locale={resolvedLocale} />
       <ContactPageSections content={content} locale={resolvedLocale} />
+      <FaqSection
+        items={faqs}
+        title={resolvedLocale === "tr" ? "İletişim Hakkında Sık Sorulan Sorular" : "Contact FAQ"}
+      />
       <Footer locale={resolvedLocale} />
     </>
   );
