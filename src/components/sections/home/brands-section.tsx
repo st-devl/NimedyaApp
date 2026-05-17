@@ -47,7 +47,7 @@ export function BrandsSection({ brandsTitle, brands }: Props) {
               className="m-0 max-w-lg font-extrabold leading-none"
               style={{
                 fontSize: "clamp(34px, 4.6vw, 58px)",
-                letterSpacing: "-0.065em",
+                letterSpacing: "-0.02em",
                 color: "var(--primary)",
               }}
             >
