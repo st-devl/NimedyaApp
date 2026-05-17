@@ -6,6 +6,7 @@ import { localizedPath } from "@/lib/i18n/routes";
 import { imageManifest, resolveImageMeta } from "@/config/image-manifest";
 import type { PublicSliderItem } from "@/lib/cms/public-content";
 import { HeroSlider } from "@/components/sections/home/hero-slider";
+import { BrandsSection } from "@/components/sections/home/brands-section";
 import { FadeIn } from "@/components/ui/fade-in";
 import { CountUp } from "@/components/ui/count-up";
 
@@ -63,22 +64,8 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
         </div>
       </section>
 
-      {/* Brands grid */}
-      {content.brands.length > 0 && (
-        <section className="border-b border-[color:var(--app-border)]/30 py-14">
-          <div className="nmd-container nmd-page-x">
-            <p className="mb-8 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--app-muted)]">{content.brandsTitle}</p>
-            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
-              {content.brands.map((brand) => (
-                <div className="text-center" key={brand.name}>
-                  <p className="text-sm font-semibold text-[color:var(--primary)]">{brand.name}</p>
-                  <p className="text-[11px] text-[color:var(--app-muted)]">{brand.sector}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Brands */}
+      <BrandsSection brands={content.brands} brandsTitle={content.brandsTitle} />
 
       {/* Services */}
       <section className="nmd-container nmd-page-x py-[120px]">
