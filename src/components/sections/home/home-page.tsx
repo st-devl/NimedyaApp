@@ -7,6 +7,7 @@ import { imageManifest, resolveImageMeta } from "@/config/image-manifest";
 import type { PublicSliderItem } from "@/lib/cms/public-content";
 import { HeroSlider } from "@/components/sections/home/hero-slider";
 import { BrandsSection } from "@/components/sections/home/brands-section";
+import { HowWeWorkSection } from "@/components/sections/home/how-we-work-section";
 import { FadeIn } from "@/components/ui/fade-in";
 import { CountUp } from "@/components/ui/count-up";
 
@@ -236,34 +237,7 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
       </section>
 
       {/* How We Work */}
-      <section className="bg-[color:var(--app-card)] py-[120px]">
-        <div className="nmd-container nmd-page-x">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
-            <span className="nmd-label-sm uppercase tracking-widest text-[color:var(--secondary)]">{howWeWorkContent.pretitle}</span>
-            <h2 className="nmd-headline-xl mt-4 text-[color:var(--primary)]">{howWeWorkContent.title}</h2>
-            <p className="nmd-body-md mt-4 text-[color:var(--app-muted)]">{howWeWorkContent.subtitle}</p>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
-            {howWeWorkContent.steps.map((step, i) => (
-              <FadeIn delay={([0, 100, 200, 300, 400] as const)[i] ?? 0} key={step.number}>
-                <div className="rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-bg)] p-6 shadow-sm">
-                  <p className="mb-3 text-3xl font-bold text-[color:var(--secondary)]/30">{step.number}</p>
-                  <h3 className="mb-2 text-sm font-semibold text-[color:var(--primary)]">{step.title}</h3>
-                  <p className="text-xs leading-relaxed text-[color:var(--app-muted)]">{step.description}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Link
-              className="inline-flex rounded-xl bg-[color:var(--primary)] px-10 py-4 text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
-              href={localizedPath(locale, "contact")}
-            >
-              {howWeWorkContent.ctaLabel}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <HowWeWorkSection content={howWeWorkContent} locale={locale} />
     </main>
   );
 }
