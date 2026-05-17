@@ -42,7 +42,16 @@ type Status =
   | { type: "success"; message: string }
   | { type: "error"; message: string };
 
-function toForm(page: SeoPageItem) {
+const EMPTY_FORM = {
+  id: 0, routeKey: "home", locale: "tr" as const, path: "/tr",
+  metaTitle: "", metaDescription: "", canonicalUrl: "",
+  ogTitle: "", ogDescription: "", ogImageMediaId: null,
+  twitterTitle: "", twitterDescription: "", twitterImageMediaId: null,
+  twitterCard: "SUMMARY_LARGE_IMAGE" as const, noindex: false, nofollow: false,
+};
+
+function toForm(page: SeoPageItem | undefined) {
+  if (!page) return EMPTY_FORM;
   return {
     ...page,
     canonicalUrl: page.canonicalUrl ?? "",
