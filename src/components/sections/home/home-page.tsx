@@ -213,32 +213,30 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
             <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
               {content.references.map((reference, index) => (
                 <article
-                  className={`relative overflow-hidden rounded-2xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] ${
+                  className={`flex flex-col overflow-hidden rounded-2xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] md:flex-row ${
                     index === 0 ? "md:col-span-7" : "md:col-span-5"
                   }`}
                   key={reference.name}
                 >
-                  <div className="relative">
-                    <div className="relative h-56 md:absolute md:inset-y-0 md:left-0 md:h-auto md:w-1/2">
-                      <Image
-                        alt={reference.name}
-                        className="object-cover"
-                        fill
-                        quality={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").quality}
-                        sizes={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").sizes}
-                        src={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").src}
-                      />
+                  <div className="relative h-56 shrink-0 md:h-auto md:w-1/2">
+                    <Image
+                      alt={reference.name}
+                      className="object-cover"
+                      fill
+                      quality={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").quality}
+                      sizes={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").sizes}
+                      src={resolveImageMeta(reference.image, "(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw").src}
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-between p-6 md:p-7">
+                    <div>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[color:var(--secondary)]">{reference.sector}</p>
+                      <h3 className="mt-3 text-xl font-semibold text-[color:var(--primary)]">{reference.name}</h3>
+                      <p className="mt-4 text-sm leading-relaxed text-[color:var(--app-muted)]">&ldquo;{reference.summary}&rdquo;</p>
                     </div>
-                    <div className="flex flex-col justify-between p-6 md:ml-[50%] md:p-7">
-                      <div>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.15em] text-[color:var(--secondary)]">{reference.sector}</p>
-                        <h3 className="mt-3 text-xl font-semibold text-[color:var(--primary)]">{reference.name}</h3>
-                        <p className="mt-4 text-sm leading-relaxed text-[color:var(--app-muted)]">&ldquo;{reference.summary}&rdquo;</p>
-                      </div>
-                      <p className="mt-6 text-xs font-semibold uppercase tracking-[0.13em] text-[color:var(--outline)]">
-                        {locale === "tr" ? "Uzun Dönem İş Ortağı" : "Long-Term Partner"}
-                      </p>
-                    </div>
+                    <p className="mt-6 text-xs font-semibold uppercase tracking-[0.13em] text-[color:var(--outline)]">
+                      {locale === "tr" ? "Uzun Dönem İş Ortağı" : "Long-Term Partner"}
+                    </p>
                   </div>
                 </article>
               ))}
