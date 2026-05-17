@@ -92,19 +92,21 @@ export async function Footer({ locale }: { locale: Locale }) {
               <p className="mb-4 text-2xl font-bold tracking-tight">{settings.siteName}</p>
             )}
             <p className="max-w-xl text-sm leading-relaxed text-white/65">{t.desc}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
-              {settings.socialLinks.filter((item) => item.url).map((item) => (
-                <a
-                  className="rounded-full border border-white/25 px-3 py-1.5 text-white nmd-transition hover:bg-white/10"
-                  href={item.url}
-                  key={item.label}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
+            {settings.socialLinks.filter((item) => item.url).length > 0 && (
+              <div className="mt-6 flex flex-wrap items-center gap-2">
+                {settings.socialLinks.filter((item) => item.url).map((item) => (
+                  <a
+                    className="rounded-full border border-white/40 bg-white/8 px-4 py-1.5 text-sm font-semibold text-white nmd-transition hover:border-white/70 hover:bg-white/15"
+                    href={item.url}
+                    key={item.label}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Sitemap */}
