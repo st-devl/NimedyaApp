@@ -7,7 +7,7 @@ const optionalMediaIdSchema = z.preprocess((value) => {
 
 export const socialLinkSchema = z.object({
   label: z.string().trim().min(1).max(40),
-  url: z.union([z.literal(""), z.string().trim().url().max(255)]),
+  url: z.string().trim().max(500),
 });
 
 export const siteSettingsSchema = z.object({

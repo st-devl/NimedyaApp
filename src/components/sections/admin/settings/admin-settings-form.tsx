@@ -71,14 +71,24 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
     event.preventDefault();
     setSaveState({ type: "saving" });
 
+    const payload = {
+      ...form,
+      socialLinks: form.socialLinks.filter((l) => l.label.trim().length > 0),
+    };
+
     const response = await fetch("/api/admin/settings", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      setSaveState({ type: "error", message: "Ayarlar kaydedilemedi. Alanlari kontrol edin." });
+      let detail = "Alanlari kontrol edin.";
+      try {
+        const data = await response.json() as { error?: { message?: string } };
+        if (data?.error?.message) detail = data.error.message;
+      } catch { /* ignore */ }
+      setSaveState({ type: "error", message: `Ayarlar kaydedilemedi. ${detail}` });
       return;
     }
 
