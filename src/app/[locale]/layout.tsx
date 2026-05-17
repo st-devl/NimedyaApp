@@ -51,7 +51,7 @@ export default async function LocaleLayout({
         type="application/ld+json"
       />
       {children}
-      {settings.contactPhone && <WhatsAppButton phone={settings.contactPhone} />}
+      {settings.whatsappPhone && <WhatsAppButton phone={settings.whatsappPhone} />}
     </div>
   );
 }

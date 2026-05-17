@@ -13,6 +13,7 @@ export type SiteSettingsView = {
   defaultLocale: string;
   contactEmail: string | null;
   contactPhone: string | null;
+  whatsappPhone: string | null;
   contactLocation: string | null;
   socialLinks: SocialLink[];
   robotsAllowIndex: boolean;
@@ -34,6 +35,7 @@ export type SiteSettingsInput = {
   defaultLocale: string;
   contactEmail?: string | null;
   contactPhone?: string | null;
+  whatsappPhone?: string | null;
   contactLocation?: string | null;
   socialLinks?: SocialLink[];
   logoMediaId?: number | null;
@@ -50,6 +52,7 @@ const fallbackSettings: SiteSettingsView = {
   defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE ?? "tr",
   contactEmail: "hello@nimedya.com",
   contactPhone: "+90 462 000 00 00",
+  whatsappPhone: null,
   contactLocation: "Trabzon, Turkiye",
   socialLinks: [
     { label: "Instagram", url: "" },
@@ -96,6 +99,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettingsView> => {
     defaultLocale: settings.defaultLocale,
     contactEmail: settings.contactEmail,
     contactPhone: settings.contactPhone,
+    whatsappPhone: settings.whatsappPhone,
     contactLocation: settings.contactLocation,
     socialLinks: normalizeSocialLinks(settings.socialLinks),
     robotsAllowIndex: settings.robotsAllowIndex,

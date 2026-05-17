@@ -33,6 +33,7 @@ export function AdminSettingsPageSections({ settings, media }: AdminSettingsPage
           defaultLocale: settings.defaultLocale === "en" ? "en" : "tr",
           contactEmail: settings.contactEmail ?? "",
           contactPhone: settings.contactPhone ?? "",
+          whatsappPhone: settings.whatsappPhone ?? "",
           contactLocation: settings.contactLocation ?? "",
           socialLinks: settings.socialLinks,
           logoMediaId: settings.logoMediaId,

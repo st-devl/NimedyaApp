@@ -16,6 +16,7 @@ export const siteSettingsSchema = z.object({
   defaultLocale: z.enum(["tr", "en"]),
   contactEmail: z.union([z.literal(""), z.string().trim().email().max(190)]).transform((value) => value || null),
   contactPhone: z.union([z.literal(""), z.string().trim().min(3).max(60)]).transform((value) => value || null),
+  whatsappPhone: z.union([z.literal(""), z.string().trim().min(3).max(60)]).transform((value) => value || null),
   contactLocation: z.union([z.literal(""), z.string().trim().min(2).max(190)]).transform((value) => value || null),
   socialLinks: z.array(socialLinkSchema).max(8),
   logoMediaId: optionalMediaIdSchema,

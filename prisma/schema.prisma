@@ -102,6 +102,7 @@ model SiteSettings {
   defaultLocale    String   @default("tr") @db.VarChar(8)
   contactEmail     String?  @db.VarChar(190)
   contactPhone     String?  @db.VarChar(60)
+  whatsappPhone    String?  @db.VarChar(60)
   contactLocation  String?  @db.VarChar(190)
   socialLinks      Json?
   logoMediaId      Int?
