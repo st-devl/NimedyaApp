@@ -22,23 +22,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<ThemeMode>("light");
 
   useEffect(() => {
-    // Sync React state with what the inline script already applied to the DOM.
-    // A lazy useState initializer would cause SSR/client hydration mismatch,
-    // so we intentionally read the DOM after hydration and update once.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setThemeState(document.documentElement.classList.contains("dark") ? "dark" : "light");
-
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      const media = window.matchMedia("(prefers-color-scheme: dark)");
-      const onChange = (e: MediaQueryListEvent) => {
-        const next: ThemeMode = e.matches ? "dark" : "light";
-        setThemeState(next);
-        applyTheme(next);
-      };
-      media.addEventListener("change", onChange);
-      return () => media.removeEventListener("change", onChange);
-    }
+    applyTheme("light");
   }, []);
 
   const setTheme = useCallback((nextTheme: ThemeMode) => {

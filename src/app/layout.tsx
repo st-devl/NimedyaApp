@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(() => { try { const s = localStorage.getItem("nimedya-theme"); const d = s ? s === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches; document.documentElement.classList.toggle("dark", d); } catch {} })();`,
+            __html: `(() => { try { localStorage.removeItem("nimedya-theme"); document.documentElement.classList.remove("dark"); } catch {} })();`,
           }}
         />
       </head>
