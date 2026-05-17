@@ -55,17 +55,21 @@ export async function Footer({ locale }: { locale: Locale }) {
   const settings = await getSiteSettings();
   const t = translations[locale];
 
+  // Always-dark footer: prefer white logo, fall back to dark logo, then text
+  const logoSrc = settings.logoWhiteUrl ?? settings.logoUrl;
+
   return (
-    <footer className="mt-0 border-t border-[#001a2b]/10 bg-white text-[#001a2b] dark:border-white/10 dark:bg-[#07111f] dark:text-white">
+    <footer className="mt-0 border-t border-white/10 bg-[#07111f] text-white">
       <div className="nmd-container nmd-page-x py-12">
 
         {/* CTA Banner */}
-        <div className="mb-10 overflow-hidden rounded-2xl border border-[#001a2b]/10 bg-gradient-to-r from-[#001a2b]/5 via-[#001a2b]/[0.03] to-transparent p-6 dark:border-white/20 dark:bg-none dark:bg-gradient-to-r dark:from-white/10 dark:via-white/5 dark:to-transparent md:p-8">
+        <div className="mb-10 overflow-hidden rounded-2xl border border-white/15 bg-gradient-to-r from-white/8 via-white/4 to-transparent p-6 md:p-8">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <p className="text-2xl font-semibold tracking-tight md:text-3xl">{t.ctaTitle}</p>
             <Link
-              className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold nmd-transition hover:-translate-y-0.5 hover:opacity-90 bg-[#d9111e] text-white dark:bg-white dark:text-[#001a2b]"
+              className="inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold text-white nmd-transition hover:-translate-y-0.5 hover:opacity-90"
               href={localizedPath(locale, "contact")}
+              style={{ background: "linear-gradient(135deg,#d9111e,#8b0a12)" }}
             >
               {t.ctaButton}
             </Link>
@@ -76,34 +80,22 @@ export async function Footer({ locale }: { locale: Locale }) {
 
           {/* Brand col */}
           <div className="md:col-span-4">
-            <div className="mb-1">
-              {settings.logoUrl && (
-                <Image
-                  alt={settings.siteName}
-                  className={`h-10 w-auto object-contain ${settings.logoWhiteUrl ? "block dark:hidden" : "block"}`}
-                  height={40}
-                  src={settings.logoUrl}
-                  width={200}
-                />
-              )}
-              {settings.logoWhiteUrl && (
-                <Image
-                  alt={settings.siteName}
-                  className="hidden h-10 w-auto object-contain dark:block"
-                  height={40}
-                  src={settings.logoWhiteUrl}
-                  width={200}
-                />
-              )}
-              {!settings.logoUrl && !settings.logoWhiteUrl && (
-                <p className="text-2xl font-bold tracking-tight">{settings.siteName}</p>
-              )}
-            </div>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#001a2b]/60 dark:text-white/70">{t.desc}</p>
+            {logoSrc ? (
+              <Image
+                alt={settings.siteName}
+                className="mb-4 h-10 w-auto object-contain"
+                height={40}
+                src={logoSrc}
+                width={200}
+              />
+            ) : (
+              <p className="mb-4 text-2xl font-bold tracking-tight">{settings.siteName}</p>
+            )}
+            <p className="max-w-xl text-sm leading-relaxed text-white/65">{t.desc}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
               {settings.socialLinks.filter((item) => item.url).map((item) => (
                 <a
-                  className="rounded-full border border-[#001a2b]/20 px-3 py-1.5 text-[#001a2b] nmd-transition hover:bg-[#001a2b]/5 dark:border-white/30 dark:text-white dark:hover:bg-white/10"
+                  className="rounded-full border border-white/25 px-3 py-1.5 text-white nmd-transition hover:bg-white/10"
                   href={item.url}
                   key={item.label}
                   rel="noreferrer"
@@ -117,20 +109,20 @@ export async function Footer({ locale }: { locale: Locale }) {
 
           {/* Sitemap */}
           <div className="md:col-span-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#b90c17] dark:text-[#cae6ff]">{t.nav}</p>
-            <div className="mt-4 flex flex-col gap-2 text-sm text-[#001a2b]/75 dark:text-white">
-              <Link className="nmd-transition hover:text-[#001a2b] dark:hover:opacity-80" href={localizedPath(locale, "home")}>{t.navLinks.home}</Link>
-              <Link className="nmd-transition hover:text-[#001a2b] dark:hover:opacity-80" href={localizedPath(locale, "services")}>{t.navLinks.services}</Link>
-              <Link className="nmd-transition hover:text-[#001a2b] dark:hover:opacity-80" href={localizedPath(locale, "portfolio")}>{t.navLinks.portfolio}</Link>
-              <Link className="nmd-transition hover:text-[#001a2b] dark:hover:opacity-80" href={localizedPath(locale, "about")}>{t.navLinks.about}</Link>
-              <Link className="nmd-transition hover:text-[#001a2b] dark:hover:opacity-80" href={localizedPath(locale, "contact")}>{t.navLinks.contact}</Link>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#cae6ff]">{t.nav}</p>
+            <div className="mt-4 flex flex-col gap-2 text-sm text-white/70">
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "home")}>{t.navLinks.home}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "services")}>{t.navLinks.services}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "portfolio")}>{t.navLinks.portfolio}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "about")}>{t.navLinks.about}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "contact")}>{t.navLinks.contact}</Link>
             </div>
           </div>
 
           {/* Contact */}
           <div className="md:col-span-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#b90c17] dark:text-[#cae6ff]">{t.contact}</p>
-            <div className="mt-4 space-y-2 text-sm text-[#001a2b]/75 dark:text-white">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#cae6ff]">{t.contact}</p>
+            <div className="mt-4 space-y-2 text-sm text-white/70">
               {settings.contactEmail ? <p>{settings.contactEmail}</p> : null}
               {settings.contactPhone ? <p>{settings.contactPhone}</p> : null}
               {settings.contactLocation ? <p>{settings.contactLocation}</p> : null}
@@ -139,12 +131,12 @@ export async function Footer({ locale }: { locale: Locale }) {
 
           {/* Working hours */}
           <div className="md:col-span-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#b90c17] dark:text-[#cae6ff]">{t.follow}</p>
-            <div className="mt-4 space-y-3 rounded-xl border border-[#001a2b]/8 bg-[#001a2b]/[0.03] p-4 text-sm dark:border-white/15 dark:bg-white/5">
-              <p className="font-semibold text-[#001a2b]/90 dark:text-white/90">{t.newsletterTitle}</p>
-              <p className="text-[#001a2b]/60 dark:text-white/70">{t.newsletterDesc}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#cae6ff]">{t.follow}</p>
+            <div className="mt-4 space-y-3 rounded-xl border border-white/12 bg-white/5 p-4 text-sm">
+              <p className="font-semibold text-white/90">{t.newsletterTitle}</p>
+              <p className="text-white/65">{t.newsletterDesc}</p>
               <a
-                className="inline-flex text-sm font-semibold text-[#d9111e] underline underline-offset-4 nmd-transition hover:opacity-80 dark:text-white"
+                className="inline-flex text-sm font-semibold text-white underline underline-offset-4 nmd-transition hover:opacity-80"
                 href={settings.contactEmail ? `mailto:${settings.contactEmail}` : localizedPath(locale, "contact")}
               >
                 {t.newsletterCta}
@@ -154,12 +146,12 @@ export async function Footer({ locale }: { locale: Locale }) {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col gap-3 border-t border-[#001a2b]/10 pt-6 text-xs text-[#001a2b]/50 dark:border-white/15 dark:text-white/60 md:flex-row md:items-center md:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/12 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {settings.siteName}. {t.rights}</p>
           <div className="flex items-center gap-4">
             <span>{t.legal}</span>
-            <Link className="nmd-transition hover:opacity-80" href={localizedPath(locale, "privacy")}>{t.policy}</Link>
-            <Link className="nmd-transition hover:opacity-80" href={localizedPath(locale, "terms")}>{t.terms}</Link>
+            <Link className="nmd-transition hover:text-white/80" href={localizedPath(locale, "privacy")}>{t.policy}</Link>
+            <Link className="nmd-transition hover:text-white/80" href={localizedPath(locale, "terms")}>{t.terms}</Link>
           </div>
         </div>
       </div>

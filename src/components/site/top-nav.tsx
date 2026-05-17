@@ -37,22 +37,14 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Close menu on route change
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
   }, [pathname, setMenuOpen]);
 
-  // Prevent body scroll when menu open
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
   const localeSwitchItems: Array<{ code: Locale; label: string }> = [
@@ -60,30 +52,17 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
     { code: "en", label: "EN" },
   ];
 
+  // Always-dark navbar: prefer white logo, fall back to dark logo, then text
+  const logoSrc = logoWhiteUrl ?? logoUrl;
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-[color:var(--outline-variant)] bg-[color:var(--surface-container-low)]/80 shadow-sm backdrop-blur-xl">
+    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#07111f] shadow-sm backdrop-blur-xl">
       <div className="nmd-container nmd-page-x flex items-center justify-between py-4">
         {/* Logo */}
-        <Link className="nmd-headline-md flex items-center gap-3 font-bold text-[color:var(--primary)]" href={localizedPath(locale, "home")}>
-          {logoUrl && (
-            <Image
-              alt={siteName}
-              className={`h-10 w-auto object-contain ${logoWhiteUrl ? "block dark:hidden" : "block"}`}
-              height={40}
-              src={logoUrl}
-              width={200}
-            />
-          )}
-          {logoWhiteUrl && (
-            <Image
-              alt={siteName}
-              className="hidden h-10 w-auto object-contain dark:block"
-              height={40}
-              src={logoWhiteUrl}
-              width={200}
-            />
-          )}
-          {!logoUrl && !logoWhiteUrl && <span>{siteName}</span>}
+        <Link className="flex items-center gap-3 text-xl font-bold text-white" href={localizedPath(locale, "home")}>
+          {logoSrc
+            ? <Image alt={siteName} className="h-10 w-auto object-contain" height={40} src={logoSrc} width={200} />
+            : <span>{siteName}</span>}
         </Link>
 
         {/* Desktop nav */}
@@ -91,7 +70,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
           {navKeys.map((key) => (
             <Link
               aria-current={active === key ? "page" : undefined}
-              className={`nmd-body-md nmd-transition ${active === key ? "text-[color:var(--secondary)]" : "text-[color:var(--app-text)] hover:text-[color:var(--secondary)]"}`}
+              className={`text-sm font-medium nmd-transition ${active === key ? "text-[#d9111e]" : "text-white/70 hover:text-white"}`}
               href={localizedPath(locale, keyToRoute[key])}
               key={key}
             >
@@ -105,7 +84,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
           {/* Locale switcher */}
           <div
             aria-label={locale === "tr" ? "Dil secimi" : "Language switch"}
-            className="flex items-center rounded-full border border-[color:var(--outline)] bg-[color:var(--surface-container)] p-1"
+            className="flex items-center rounded-full border border-white/20 bg-white/5 p-1"
             role="group"
           >
             {localeSwitchItems.map((item) => {
@@ -114,9 +93,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
                 <Link
                   aria-current={isActive ? "page" : undefined}
                   className={`rounded-full px-3 py-1 text-xs font-semibold tracking-wide nmd-transition ${
-                    isActive
-                      ? "bg-[color:var(--primary)] text-[color:var(--on-primary)] shadow-sm"
-                      : "text-[color:var(--app-muted)] hover:text-[color:var(--app-text)]"
+                    isActive ? "bg-[#d9111e] text-white shadow-sm" : "text-white/60 hover:text-white"
                   }`}
                   href={localizedPath(item.code, currentRoute)}
                   key={item.code}
@@ -132,13 +109,14 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
 
           {/* CTA — desktop only */}
           <Link
-            className="hidden rounded-xl bg-[color:var(--primary)] px-8 py-3 text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90 md:block"
+            className="hidden rounded-xl px-8 py-3 text-sm font-semibold text-white nmd-transition hover:-translate-y-1 hover:opacity-90 md:block"
             href={localizedPath(locale, "contact")}
+            style={{ background: "linear-gradient(135deg,#d9111e,#8b0a12)" }}
           >
             {t.cta}
           </Link>
 
-          {/* Hamburger button — mobile only */}
+          {/* Hamburger — mobile only */}
           <button
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
@@ -146,24 +124,22 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
             onClick={() => setMenuOpen((prev) => !prev)}
             type="button"
           >
-            <span className={`block h-0.5 w-6 bg-[color:var(--primary)] transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`block h-0.5 w-6 bg-[color:var(--primary)] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 w-6 bg-[color:var(--primary)] transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+            <span className={`block h-0.5 w-6 bg-white transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`block h-0.5 w-6 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 w-6 bg-white transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
           </button>
         </div>
       </div>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile menu */}
       {menuOpen && (
-        <div className="absolute inset-x-0 top-full border-t border-[color:var(--outline-variant)] bg-[color:var(--surface-container-low)] shadow-xl md:hidden">
+        <div className="absolute inset-x-0 top-full border-t border-white/10 bg-[#07111f] shadow-xl md:hidden">
           <div className="nmd-container nmd-page-x flex flex-col gap-1 py-4">
             {navKeys.map((key) => (
               <Link
                 aria-current={active === key ? "page" : undefined}
                 className={`rounded-lg px-4 py-3 text-base font-medium nmd-transition ${
-                  active === key
-                    ? "bg-[color:var(--surface-container)] text-[color:var(--secondary)]"
-                    : "text-[color:var(--app-text)] hover:bg-[color:var(--surface-container)]"
+                  active === key ? "bg-white/10 text-[#d9111e]" : "text-white/70 hover:bg-white/5 hover:text-white"
                 }`}
                 href={localizedPath(locale, keyToRoute[key])}
                 key={key}
@@ -171,10 +147,11 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
                 {t[key]}
               </Link>
             ))}
-            <div className="mt-3 border-t border-[color:var(--outline-variant)] pt-3">
+            <div className="mt-3 border-t border-white/10 pt-3">
               <Link
-                className="block w-full rounded-xl bg-[color:var(--primary)] px-4 py-3 text-center text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:opacity-90"
+                className="block w-full rounded-xl px-4 py-3 text-center text-sm font-semibold text-white nmd-transition hover:opacity-90"
                 href={localizedPath(locale, "contact")}
+                style={{ background: "linear-gradient(135deg,#d9111e,#8b0a12)" }}
               >
                 {t.cta}
               </Link>
