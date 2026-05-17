@@ -133,21 +133,6 @@ export function SliderForm({
           </div>
         </div>
 
-        {/* Play button toggle */}
-        <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-[color:var(--app-border)] bg-[color:var(--surface-container-low)] px-4 py-3">
-          <input
-            checked={form.showPlayButton}
-            className="h-4 w-4 accent-[#d9111e]"
-            id="show-play-button"
-            onChange={(e) => onChange("showPlayButton", e.target.checked)}
-            type="checkbox"
-          />
-          <div>
-            <span className="text-sm font-semibold text-[color:var(--primary)]">Play Butonu Göster</span>
-            <p className="mt-0.5 text-xs text-[color:var(--app-muted)]">Görsel üzerindeki beyaz yuvarlak play ikonunu göster / gizle</p>
-          </div>
-        </label>
-
         <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="image-url">Gorsel URL (opsiyonel)</label>
         <div className="flex gap-2">
           <TextInput id="image-url" placeholder="https://..." value={form.imageUrl} onChange={(e) => onChange("imageUrl", e.target.value)} />
@@ -157,6 +142,21 @@ export function SliderForm({
 
         <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="link-url">Link URL (opsiyonel)</label>
         <TextInput id="link-url" placeholder="https://..." value={form.linkUrl} onChange={(e) => onChange("linkUrl", e.target.value)} />
+
+        {/* Play button toggle */}
+        <label className="flex cursor-pointer items-center gap-3 rounded-lg border-2 border-[color:var(--app-border)] bg-[color:var(--surface-container-low)] px-4 py-3 hover:border-[#d9111e]/40">
+          <input
+            checked={form.showPlayButton}
+            className="h-4 w-4 accent-[#d9111e]"
+            id="show-play-button"
+            onChange={(e) => onChange("showPlayButton", e.target.checked)}
+            type="checkbox"
+          />
+          <div>
+            <span className="text-sm font-semibold text-[color:var(--primary)]">▶ Play Butonu Göster</span>
+            <p className="mt-0.5 text-xs text-[color:var(--app-muted)]">Görselin ortasındaki beyaz yuvarlak play ikonunu göster / gizle</p>
+          </div>
+        </label>
 
         <div>
           <label className="text-sm font-semibold text-[color:var(--app-muted)]" htmlFor="status">Durum</label>
