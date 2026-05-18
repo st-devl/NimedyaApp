@@ -119,6 +119,20 @@ const defaultHomeServices: HomeServicesContent = {
       imageUrl: "/images/portfolio-3.webp",
       cta: "",
     },
+    {
+      title: "Sosyal Medya İçerik Üretimi",
+      description:
+        "Reels, story, statik gönderi ve reklam görseli — tek planlı çekim döngüsünde üretilir, her platforma dağıtılır.",
+      imageUrl: "",
+      cta: "",
+    },
+    {
+      title: "SEO & İçerik Stratejisi",
+      description:
+        "Dönüşüm huninize göre haritalanmış teknik SEO, anahtar kelime mimarisi ve landing page üretimi. Doğru trafik, doğru müşteri.",
+      imageUrl: "",
+      cta: "",
+    },
   ],
 };
 

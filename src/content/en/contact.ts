@@ -12,5 +12,5 @@ export const enContactContent: ContactContent = {
     message: "Tell us about your project",
   },
   hqTitle: "Our Studio",
-  city: "Istanbul / Türkiye",
+  city: "Trabzon / Türkiye",
 };

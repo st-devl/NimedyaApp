@@ -12,5 +12,5 @@ export const trContactContent: ContactContent = {
     message: "Projenizden bahsedin",
   },
   hqTitle: "Stüdyomuz",
-  city: "İstanbul / Türkiye",
+  city: "Trabzon / Türkiye",
 };
