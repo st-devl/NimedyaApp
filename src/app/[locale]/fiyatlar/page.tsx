@@ -47,7 +47,8 @@ export default async function FiyatlarPage({ params }: { params: Promise<{ local
               <span aria-hidden="true" className="text-3xl">{category.icon}</span>
               <h2 className="nmd-headline-md text-[color:var(--primary)]">{category.title}</h2>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="-mx-4 overflow-x-auto px-4 md:overflow-x-visible md:px-0">
+            <div className="grid min-w-[640px] grid-cols-3 gap-6 md:min-w-0">
               {category.packages.map((pkg) => (
                 <article
                   className={`relative flex flex-col rounded-2xl border p-8 ${
@@ -90,6 +91,7 @@ export default async function FiyatlarPage({ params }: { params: Promise<{ local
                   </Link>
                 </article>
               ))}
+            </div>
             </div>
           </section>
         ))}

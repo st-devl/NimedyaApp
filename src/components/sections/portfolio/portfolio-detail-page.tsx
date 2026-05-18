@@ -119,19 +119,36 @@ export function PortfolioDetailSections({ locale, caseStudy, related }: Portfoli
 
       {/* Narrative */}
       <section className="nmd-container nmd-page-x py-[100px] md:py-[120px]">
-        <div className="mx-auto max-w-3xl space-y-16">
-          <div>
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[color:var(--secondary)]">{t.challenge}</p>
-            <p className="text-xl font-semibold leading-relaxed text-[color:var(--primary)] md:text-2xl">{caseStudy.challenge}</p>
-          </div>
-          <div>
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[color:var(--secondary)]">{t.approach}</p>
-            <p className="nmd-body-lg text-[color:var(--app-text)]">{caseStudy.approach}</p>
-          </div>
-          <div>
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[color:var(--secondary)]">{t.result}</p>
-            <p className="nmd-body-lg text-[color:var(--app-text)]">{caseStudy.result}</p>
-          </div>
+        <div className="mx-auto max-w-3xl">
+          {[
+            { num: "01", label: t.challenge, text: caseStudy.challenge, accent: "var(--secondary)" },
+            { num: "02", label: t.approach, text: caseStudy.approach, accent: "var(--primary)" },
+            { num: "03", label: t.result, text: caseStudy.result, accent: "var(--secondary)" },
+          ].map((step, i) => (
+            <div className="relative flex gap-6 pb-16 last:pb-0" key={step.num}>
+              {/* Connector line */}
+              {i < 2 && (
+                <div
+                  aria-hidden="true"
+                  className="absolute left-6 top-14 bottom-0 w-px"
+                  style={{ background: `color-mix(in srgb, ${step.accent} 20%, transparent)` }}
+                />
+              )}
+              {/* Step badge */}
+              <div
+                className="relative z-10 mt-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-xs font-bold tracking-[0.12em]"
+                style={{ background: `color-mix(in srgb, ${step.accent} 12%, transparent)`, color: `var(--secondary)` }}
+              >
+                {step.num}
+              </div>
+              <div className="pt-2">
+                <p className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[color:var(--secondary)]">{step.label}</p>
+                <p className={i === 0 ? "text-xl font-semibold leading-relaxed text-[color:var(--primary)] md:text-2xl" : "nmd-body-lg text-[color:var(--app-text)]"}>
+                  {step.text}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

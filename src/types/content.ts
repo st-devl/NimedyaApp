@@ -237,7 +237,7 @@ export type ServiceCard = {
 export type HomeServicesContent = {
   sectionLabel: string;
   sectionTitle: string;
-  services: [ServiceCard, ServiceCard, ServiceCard, ServiceCard];
+  services: ServiceCard[];
 };
 
 export type HowWeWorkStep = {

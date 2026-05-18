@@ -17,6 +17,8 @@ export const routeMap = {
   trabzonFotografcilik: { tr: "trabzon-fotografcilik", en: "trabzon-photography" },
   trabzonTanitimFilmi: { tr: "trabzon-tanitim-filmi", en: "trabzon-video" },
   trabzonKurumsalKimlik: { tr: "trabzon-kurumsal-kimlik", en: "trabzon-brand-identity" },
+  trabzonSosyalMedya: { tr: "trabzon-sosyal-medya", en: "trabzon-social-media" },
+  serviceGuide: { tr: "hizmet-rehberi", en: "service-guide" },
   admin: { tr: "admin", en: "admin" },
   adminSettings: { tr: "admin/ayarlar", en: "admin/settings" },
   adminMedia: { tr: "admin/medya", en: "admin/media" },

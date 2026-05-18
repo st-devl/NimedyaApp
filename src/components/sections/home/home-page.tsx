@@ -65,6 +65,26 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
         </div>
       </section>
 
+      {/* Free Analysis Banner */}
+      <section className="bg-[color:var(--primary)]">
+        <div className="nmd-container nmd-page-x flex flex-col items-center justify-between gap-4 py-5 text-center md:flex-row md:text-left">
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[color:var(--secondary)] text-sm font-bold text-white">✦</span>
+            <p className="text-sm font-semibold text-white/90">
+              {locale === "tr"
+                ? "Markanız için ücretsiz dijital analiz raporu alın — SEO, hız ve rakip değerlendirmesi."
+                : "Get a free digital analysis report for your brand — SEO, speed and competitor review."}
+            </p>
+          </div>
+          <Link
+            className="shrink-0 rounded-lg border-2 border-white/40 px-6 py-2.5 text-sm font-bold text-white nmd-transition hover:border-white hover:bg-white/10"
+            href={localizedPath(locale, "contact")}
+          >
+            {locale === "tr" ? "Ücretsiz Analiz İste →" : "Request Free Analysis →"}
+          </Link>
+        </div>
+      </section>
+
       {/* Services */}
       <section className="nmd-container nmd-page-x py-[120px]">
         <div className="mb-16">
@@ -114,6 +134,24 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
               </div>
             )}
           </div>
+
+          {servicesContent.services.slice(4).map((service, i) => (
+            <div
+              className="flex flex-col justify-between rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] p-10 shadow-sm nmd-transition hover:-translate-y-1 hover:shadow-2xl"
+              key={service.title || i}
+            >
+              <div>
+                <h3 className="nmd-headline-md mb-4 text-[color:var(--primary)]">{service.title}</h3>
+                <p className="nmd-body-md text-[color:var(--app-muted)]">{service.description}</p>
+              </div>
+              <Link
+                className="mt-8 inline-flex min-h-[44px] items-center rounded-lg border border-[color:var(--primary)] px-5 py-2.5 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)] self-start"
+                href={localizedPath(locale, "services")}
+              >
+                {locale === "tr" ? "Detaylı İncele →" : "Learn More →"}
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
 

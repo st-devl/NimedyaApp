@@ -24,6 +24,8 @@ export const siteSettingsSchema = z.object({
   faviconMediaId: optionalMediaIdSchema,
   defaultOgMediaId: optionalMediaIdSchema,
   robotsAllowIndex: z.boolean(),
+  ga4Id: z.union([z.literal(""), z.string().trim().max(60)]).transform((v) => v || null).optional().default(null),
+  gtmId: z.union([z.literal(""), z.string().trim().max(60)]).transform((v) => v || null).optional().default(null),
 });
 
 export type SiteSettingsPayload = z.infer<typeof siteSettingsSchema>;

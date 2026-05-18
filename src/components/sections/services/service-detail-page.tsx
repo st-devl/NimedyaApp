@@ -88,10 +88,11 @@ export function ServiceDetailSections({ locale, content }: ServiceDetailSections
               {content.heroCta}
             </Link>
             <a
-              className="nmd-label-sm inline-flex min-h-[44px] items-center rounded-xl border-2 border-[color:var(--primary)] px-10 py-4 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]"
+              className="nmd-label-sm inline-flex min-h-[44px] items-center gap-2 rounded-xl border-2 border-[color:var(--primary)] px-10 py-4 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]"
               href="#process"
             >
               {locale === "tr" ? "Süreci İncele" : "See the Process"}
+              <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
@@ -224,7 +225,7 @@ export function ServiceDetailSections({ locale, content }: ServiceDetailSections
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--secondary)] text-[10px] font-bold text-[color:var(--on-secondary)]">✓</span>
-                  {locale === "tr" ? "Ücretsiz keşif görüşmesi" : "Free discovery call"}
+                  {locale === "tr" ? "Ücretsiz dijital analiz raporu" : "Free digital analysis report"}
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--secondary)] text-[10px] font-bold text-[color:var(--on-secondary)]">✓</span>

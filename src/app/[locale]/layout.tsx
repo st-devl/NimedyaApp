@@ -44,6 +44,11 @@ export default async function LocaleLayout({
         },
         areaServed: [
           { "@type": "City", name: "Trabzon" },
+          { "@type": "AdministrativeArea", name: "Ortahisar, Trabzon" },
+          { "@type": "AdministrativeArea", name: "Akçaabat, Trabzon" },
+          { "@type": "AdministrativeArea", name: "Yomra, Trabzon" },
+          { "@type": "AdministrativeArea", name: "Araklı, Trabzon" },
+          { "@type": "AdministrativeArea", name: "Sürmene, Trabzon" },
           { "@type": "Country", name: "Türkiye" },
         ],
         openingHoursSpecification: [
@@ -60,9 +65,11 @@ export default async function LocaleLayout({
           name: locale === "tr" ? "Hizmetlerimiz" : "Our Services",
           itemListElement: [
             { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Ürün Fotoğrafçılığı" : "Product Photography" } },
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Tanıtım Filmi" : "Promotional Video" } },
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Web Tasarım" : "Web Design" } },
-            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Marka Kimliği" : "Brand Identity" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Tanıtım Filmi & Marka Belgeseli" : "Promotional Film & Brand Documentary" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Web Tasarım & E-Ticaret Geliştirme" : "Web Design & E-Commerce Development" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Marka Kimliği & Logo Sistemi" : "Brand Identity & Logo System" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "Sosyal Medya İçerik Üretimi" : "Social Media Content Production" } },
+            { "@type": "Offer", itemOffered: { "@type": "Service", name: locale === "tr" ? "SEO & İçerik Stratejisi" : "SEO & Content Strategy" } },
           ],
         },
         sameAs: settings.socialLinks.map((item) => item.url).filter(Boolean),

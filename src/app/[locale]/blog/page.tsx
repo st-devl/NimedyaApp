@@ -97,6 +97,52 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           </div>
         </section>
       </main>
+
+      {/* Email capture / lead magnet */}
+      <section className="bg-[color:var(--primary)] py-20">
+        <div className="nmd-container nmd-page-x text-center">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[color:var(--secondary)]">
+            {resolvedLocale === "tr" ? "HAFTALIK BÜLTEN" : "WEEKLY NEWSLETTER"}
+          </p>
+          <h2 className="nmd-headline-lg mb-4 text-white">
+            {resolvedLocale === "tr"
+              ? "Ücretsiz dijital pazarlama içerikleri"
+              : "Free digital marketing insights"}
+          </h2>
+          <p className="nmd-body-md mx-auto mb-8 max-w-lg text-white/60">
+            {resolvedLocale === "tr"
+              ? "SEO, içerik stratejisi ve Trabzon işletmeleri için pratik rehberler. Haftada bir, spam yok."
+              : "SEO, content strategy and practical guides for businesses. Once a week, no spam."}
+          </p>
+          <form
+            action={`/api/contact?source=newsletter&locale=${resolvedLocale}`}
+            className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row"
+            method="POST"
+          >
+            <label className="sr-only" htmlFor="newsletter-email">
+              {resolvedLocale === "tr" ? "E-posta adresiniz" : "Your email address"}
+            </label>
+            <input
+              className="flex-1 rounded-xl border border-white/20 bg-white/10 px-5 py-3.5 text-sm text-white placeholder:text-white/40 focus:border-white/50 focus:outline-none"
+              id="newsletter-email"
+              name="email"
+              placeholder={resolvedLocale === "tr" ? "e-posta adresiniz" : "your@email.com"}
+              required
+              type="email"
+            />
+            <button
+              className="rounded-xl bg-[color:var(--secondary)] px-7 py-3.5 text-sm font-semibold text-white nmd-transition hover:-translate-y-0.5 hover:opacity-90"
+              type="submit"
+            >
+              {resolvedLocale === "tr" ? "Abone Ol" : "Subscribe"}
+            </button>
+          </form>
+          <p className="mt-4 text-xs text-white/40">
+            {resolvedLocale === "tr" ? "İstediğiniz zaman abonelikten çıkabilirsiniz." : "Unsubscribe any time."}
+          </p>
+        </div>
+      </section>
+
       <Footer locale={resolvedLocale} />
     </>
   );

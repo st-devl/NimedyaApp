@@ -157,6 +157,16 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
       description: "Corporate promotional video, brand documentary and social media video production in Trabzon. Professional video production from 30-second Reels to full brand films.",
     },
   },
+  trabzonSosyalMedya: {
+    tr: {
+      title: "Trabzon Sosyal Medya Yönetimi & İçerik Üretimi | Nimedya",
+      description: "Trabzon'da profesyonel sosyal medya yönetimi ve içerik üretimi. Reels, story, statik gönderi ve reklam görseli — tek çekimde üretilir, her formata dağıtılır.",
+    },
+    en: {
+      title: "Social Media Management & Content Production in Trabzon | Nimedya",
+      description: "Professional social media management and content production in Trabzon. Reels, stories, static posts and ad creatives — produced in one shoot, distributed to every format.",
+    },
+  },
   trabzonKurumsalKimlik: {
     tr: {
       title: "Trabzon Kurumsal Kimlik & Logo Tasarımı | Nimedya",
@@ -165,6 +175,16 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
     en: {
       title: "Corporate Identity & Logo Design in Trabzon | Nimedya",
       description: "Brand identity and logo system design service in Trabzon. Strengthen your brand with a strategic brand foundation, flexible visual system and living brand guidelines.",
+    },
+  },
+  serviceGuide: {
+    tr: {
+      title: "Hangi Hizmeti Seçmeliyim? | Karar Rehberi — Nimedya",
+      description: "Markanız için doğru hizmeti seçmenize yardımcı olan rehber. Ürün fotoğrafçılığı, video, web tasarım, SEO ve sosyal medya hizmetlerini karşılaştırın.",
+    },
+    en: {
+      title: "Which Service Should I Choose? | Decision Guide — Nimedya",
+      description: "A guide to help you choose the right service for your brand. Compare product photography, video, web design, SEO and social media services.",
     },
   },
   admin: {

@@ -18,6 +18,8 @@ export type SiteSettingsView = {
   socialLinks: SocialLink[];
   robotsAllowIndex: boolean;
   sliderIntervalSeconds: number;
+  ga4Id: string | null;
+  gtmId: string | null;
   logoMediaId: number | null;
   logoWhiteMediaId: number | null;
   faviconMediaId: number | null;
@@ -43,6 +45,8 @@ export type SiteSettingsInput = {
   faviconMediaId?: number | null;
   defaultOgMediaId?: number | null;
   robotsAllowIndex: boolean;
+  ga4Id?: string | null;
+  gtmId?: string | null;
 };
 
 const fallbackSettings: SiteSettingsView = {
@@ -61,6 +65,8 @@ const fallbackSettings: SiteSettingsView = {
   ],
   robotsAllowIndex: true,
   sliderIntervalSeconds: 6,
+  ga4Id: null,
+  gtmId: null,
   logoMediaId: null,
   logoWhiteMediaId: null,
   faviconMediaId: null,
@@ -104,6 +110,8 @@ export const getSiteSettings = cache(async (): Promise<SiteSettingsView> => {
     socialLinks: normalizeSocialLinks(settings.socialLinks),
     robotsAllowIndex: settings.robotsAllowIndex,
     sliderIntervalSeconds: settings.sliderIntervalSeconds,
+    ga4Id: settings.ga4Id ?? null,
+    gtmId: settings.gtmId ?? null,
     logoMediaId: settings.logoMediaId,
     logoWhiteMediaId: settings.logoWhiteMediaId,
     faviconMediaId: settings.faviconMediaId,

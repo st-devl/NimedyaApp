@@ -28,6 +28,8 @@ type SettingsFormState = {
   faviconMediaId: number | null;
   defaultOgMediaId: number | null;
   robotsAllowIndex: boolean;
+  ga4Id: string;
+  gtmId: string;
 };
 
 type AdminSettingsFormProps = {
@@ -235,6 +237,31 @@ export function AdminSettingsForm({ initialSettings, media }: AdminSettingsFormP
               </div>
             </div>
           ))}
+        </div>
+      </Card>
+
+      <Card className="p-6">
+        <h2 className="text-2xl font-semibold text-[color:var(--primary)]">Analytics & Izleme</h2>
+        <p className="mt-1 text-sm text-[color:var(--app-muted)]">ID girilmezse ilgili script sayfaya eklenmez.</p>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <label className="grid gap-2 text-sm font-semibold text-[color:var(--app-muted)]">
+            Google Analytics 4 ID
+            <TextInput
+              placeholder="G-XXXXXXXXXX"
+              value={form.ga4Id}
+              onChange={(e) => setForm((prev) => ({ ...prev, ga4Id: e.target.value }))}
+            />
+            <span className="text-xs font-normal opacity-70">Yalnızca ölçüm ID&apos;si girin (örn. G-ABC1234567)</span>
+          </label>
+          <label className="grid gap-2 text-sm font-semibold text-[color:var(--app-muted)]">
+            Google Tag Manager ID
+            <TextInput
+              placeholder="GTM-XXXXXXX"
+              value={form.gtmId}
+              onChange={(e) => setForm((prev) => ({ ...prev, gtmId: e.target.value }))}
+            />
+            <span className="text-xs font-normal opacity-70">Yalnızca container ID girin (örn. GTM-ABC1234)</span>
+          </label>
         </div>
       </Card>
 

@@ -25,6 +25,7 @@ export function FaqSection({ items, title }: { items: FaqItem[]; title?: string 
             >
               <span>{item.question}</span>
               <svg
+                aria-hidden="true"
                 className={`h-5 w-5 shrink-0 nmd-transition ${open === idx ? "rotate-180" : ""}`}
                 fill="none"
                 stroke="currentColor"

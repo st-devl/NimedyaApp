@@ -116,8 +116,9 @@ export async function generateMetadata({ params }: { params: Promise<RouteParams
     ? (settings.defaultOgImageUrl.startsWith("http") ? settings.defaultOgImageUrl : `${base}${settings.defaultOgImageUrl}`)
     : undefined;
 
+  const titleSuffix = locale === "tr" ? " | Trabzon — Nimedya" : " in Trabzon | Nimedya";
   return {
-    title: service.title,
+    title: `${service.title}${titleSuffix}`,
     description: service.intro,
     metadataBase: new URL(base),
     alternates: {

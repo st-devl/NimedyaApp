@@ -55,7 +55,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
   const logoSrc = logoWhiteUrl ?? logoUrl;
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#07111f] shadow-sm backdrop-blur-xl">
+    <nav aria-label={locale === "tr" ? "Ana gezinme" : "Main navigation"} className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#07111f] shadow-sm backdrop-blur-xl">
       <div className="nmd-container nmd-page-x flex items-center justify-between py-4">
         {/* Logo */}
         <Link className="flex items-center gap-3 text-xl font-bold text-white" href={localizedPath(locale, "home")}>

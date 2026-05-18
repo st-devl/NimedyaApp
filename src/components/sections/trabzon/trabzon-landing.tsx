@@ -131,16 +131,17 @@ export function TrabzonLandingSection({ locale, content, relatedServiceSlug }: P
           <p className="nmd-body-lg mb-10 max-w-xl text-[color:var(--app-muted)]">{content.intro}</p>
           <div className="flex flex-wrap gap-4">
             <Link
-              className="nmd-label-sm min-h-[48px] rounded-xl bg-[color:var(--secondary)] px-10 py-4 text-[color:var(--on-secondary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
+              className="nmd-label-sm inline-flex min-h-[48px] items-center gap-2 rounded-xl bg-[color:var(--secondary)] px-10 py-4 text-[color:var(--on-secondary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
               href={contactHref}
             >
               {content.ctaPrimary}
             </Link>
             <Link
-              className="nmd-label-sm min-h-[48px] rounded-xl border-2 border-[color:var(--primary)] px-10 py-4 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]"
+              className="nmd-label-sm inline-flex min-h-[48px] items-center gap-2 rounded-xl border-2 border-[color:var(--primary)] px-10 py-4 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]"
               href={relatedHref}
             >
-              {locale === "tr" ? "Hizmet Detayları →" : "Service Details →"}
+              {locale === "tr" ? "Hizmet Detayları" : "Service Details"}
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>

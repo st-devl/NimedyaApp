@@ -73,19 +73,21 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
 
           {/* Grid-stack: all slides rendered in same cell, opacity-switched — no height jump */}
           <div className="grid">
-            {items.map((item, i) => (
+            {items.map((item, i) => {
+              const HeadingTag = i === 0 ? "h1" : "h2";
+              return (
               <div
                 key={item.id}
                 aria-hidden={i !== current}
                 className="col-start-1 row-start-1 transition-opacity duration-500"
                 style={{ opacity: i === current ? 1 : 0, pointerEvents: i === current ? "auto" : "none" }}
               >
-                <h1
+                <HeadingTag
                   className="font-extrabold leading-[1.06] text-[#001a2b]"
                   style={{ fontSize: "clamp(2.4rem,4.5vw,4rem)", letterSpacing: "-0.03em" }}
                 >
                   {item.title}
-                </h1>
+                </HeadingTag>
                 <p className="mt-5 max-w-lg text-[15px] font-medium leading-[1.75] text-[#001a2b]/58 md:text-base">
                   {item.description}
                 </p>
@@ -111,7 +113,8 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
                   </Link>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
 
           {/* Navigation dots + arrows */}

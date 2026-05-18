@@ -145,71 +145,80 @@ export function ContactForm({ labels, sendLabel, locale }: ContactFormProps) {
       <div>
         <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="full-name">{labels.fullName}</label>
         <TextInput id="full-name" name="fullName" value={form.fullName} onChange={(e) => setForm((prev) => ({ ...prev, fullName: e.target.value }))} />
-        {errors.fullName ? <p className="mt-1 text-xs text-[color:var(--error)]">{errors.fullName}</p> : null}
+        {errors.fullName ? <p aria-live="assertive" className="mt-1 text-xs text-[color:var(--error)]" role="alert">{errors.fullName}</p> : null}
       </div>
       <div>
         <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="email">{labels.email}</label>
         <TextInput id="email" name="email" type="email" value={form.email} onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))} />
-        {errors.email ? <p className="mt-1 text-xs text-[color:var(--error)]">{errors.email}</p> : null}
+        {errors.email ? <p aria-live="assertive" className="mt-1 text-xs text-[color:var(--error)]" role="alert">{errors.email}</p> : null}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div>
-          <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="service-type">{m.serviceType}</label>
-          <select
-            className={selectClass}
-            id="service-type"
-            name="serviceType"
-            value={form.serviceType}
-            onChange={(e) => setForm((prev) => ({ ...prev, serviceType: e.target.value }))}
-          >
-            <option value="">{m.serviceTypePlaceholder}</option>
-            {m.serviceOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="budget">{m.budget}</label>
-          <select
-            className={selectClass}
-            id="budget"
-            name="budget"
-            value={form.budget}
-            onChange={(e) => setForm((prev) => ({ ...prev, budget: e.target.value }))}
-          >
-            <option value="">{m.budgetPlaceholder}</option>
-            {m.budgetOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="timeline">{m.timeline}</label>
-          <select
-            className={selectClass}
-            id="timeline"
-            name="timeline"
-            value={form.timeline}
-            onChange={(e) => setForm((prev) => ({ ...prev, timeline: e.target.value }))}
-          >
-            <option value="">{m.timelinePlaceholder}</option>
-            {m.timelineOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
-        </div>
+      <div>
+        <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="service-type">{m.serviceType}</label>
+        <select
+          className={selectClass}
+          id="service-type"
+          name="serviceType"
+          value={form.serviceType}
+          onChange={(e) => setForm((prev) => ({ ...prev, serviceType: e.target.value }))}
+        >
+          <option value="">{m.serviceTypePlaceholder}</option>
+          {m.serviceOptions.map((opt) => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
       </div>
+
+      <details className="group rounded-lg border border-[color:var(--app-border)]/50 px-4 py-3">
+        <summary className="flex cursor-pointer list-none items-center justify-between text-xs font-semibold uppercase tracking-wider text-[color:var(--app-muted)] [&::-webkit-details-marker]:hidden">
+          <span>{locale === "tr" ? "Bütçe & Zaman" : "Budget & Timeline"} <span className="ml-1.5 rounded-full bg-[color:var(--app-border)]/60 px-2 py-0.5 text-[10px] font-medium normal-case tracking-normal">{locale === "tr" ? "opsiyonel" : "optional"}</span></span>
+          <span className="text-lg font-light text-[color:var(--app-muted)] nmd-transition group-open:rotate-45">+</span>
+        </summary>
+        <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="budget">{m.budget}</label>
+            <select
+              className={selectClass}
+              id="budget"
+              name="budget"
+              value={form.budget}
+              onChange={(e) => setForm((prev) => ({ ...prev, budget: e.target.value }))}
+            >
+              <option value="">{m.budgetPlaceholder}</option>
+              {m.budgetOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="timeline">{m.timeline}</label>
+            <select
+              className={selectClass}
+              id="timeline"
+              name="timeline"
+              value={form.timeline}
+              onChange={(e) => setForm((prev) => ({ ...prev, timeline: e.target.value }))}
+            >
+              <option value="">{m.timelinePlaceholder}</option>
+              {m.timelineOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </details>
 
       <div>
         <label className="nmd-label-sm mb-2 block text-[color:var(--app-muted)]" htmlFor="message">{labels.message}</label>
         <TextArea className="h-36" id="message" name="message" value={form.message} onChange={(e) => setForm((prev) => ({ ...prev, message: e.target.value }))} />
-        {errors.message ? <p className="mt-1 text-xs text-[color:var(--error)]">{errors.message}</p> : null}
+        {errors.message ? <p aria-live="assertive" className="mt-1 text-xs text-[color:var(--error)]" role="alert">{errors.message}</p> : null}
       </div>
       <Button className="hover:-translate-y-1" disabled={loading} size="lg" type="submit">
         {loading ? m.sending : sendLabel}
       </Button>
-      {success ? <p className="text-sm text-[color:var(--success)]">{success}</p> : null}
+      <div aria-live="polite" aria-atomic="true">
+        {success ? <p className="text-sm text-[color:var(--success)]">{success}</p> : null}
+      </div>
     </form>
   );
 }

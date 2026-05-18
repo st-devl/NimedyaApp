@@ -72,7 +72,9 @@ export async function generateMetadata({ params }: { params: Promise<RouteParams
     ? (settings.defaultOgImageUrl.startsWith("http") ? settings.defaultOgImageUrl : `${base}${settings.defaultOgImageUrl}`)
     : undefined;
 
-  const ogTitle = `${caseStudy.client} — ${caseStudy.sector} | Nimedya`;
+  const ogTitle = locale === "tr"
+    ? `${caseStudy.client} — ${caseStudy.sector} | Nimedya Trabzon`
+    : `${caseStudy.client} — ${caseStudy.sector} | Nimedya`;
 
   return {
     title: ogTitle,

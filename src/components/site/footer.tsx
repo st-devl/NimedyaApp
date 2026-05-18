@@ -28,6 +28,7 @@ const translations = {
       { label: "Trabzon SEO", key: "trabzonSeo" as const },
       { label: "Trabzon Tanıtım Filmi", key: "trabzonTanitimFilmi" as const },
       { label: "Marka Kimliği", key: "trabzonKurumsalKimlik" as const },
+      { label: "Hizmet Rehberi", key: "serviceGuide" as const },
     ],
     contact: "İletişim",
     follow: "Çalışma Bilgileri",
@@ -61,6 +62,7 @@ const translations = {
       { label: "SEO Trabzon", key: "trabzonSeo" as const },
       { label: "Video Production Trabzon", key: "trabzonTanitimFilmi" as const },
       { label: "Brand Identity Trabzon", key: "trabzonKurumsalKimlik" as const },
+      { label: "Service Guide", key: "serviceGuide" as const },
     ],
     contact: "Contact",
     follow: "Working Hours",
@@ -82,7 +84,7 @@ export async function Footer({ locale }: { locale: Locale }) {
   const logoSrc = settings.logoWhiteUrl ?? settings.logoUrl;
 
   return (
-    <footer className="mt-0 border-t border-white/10 bg-[#07111f] text-white">
+    <footer aria-label="Site alt bilgisi" className="mt-0 border-t border-white/10 bg-[#07111f] text-white">
       <div className="nmd-container nmd-page-x py-12">
 
         {/* CTA Banner */}
@@ -187,8 +189,42 @@ export async function Footer({ locale }: { locale: Locale }) {
           </div>
         </div>
 
+        {/* Trust signals */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4 border-t border-white/12 pt-8">
+          {[
+            {
+              icon: "🏆",
+              label: locale === "tr" ? "5+ Yıl Deneyim" : "5+ Years Experience",
+            },
+            {
+              icon: "📍",
+              label: locale === "tr" ? "Trabzon Merkezli" : "Based in Trabzon",
+            },
+            {
+              icon: "✅",
+              label: locale === "tr" ? "50+ Başarılı Proje" : "50+ Completed Projects",
+            },
+            {
+              icon: "🔒",
+              label: locale === "tr" ? "KVKK Uyumlu" : "GDPR Compliant",
+            },
+            {
+              icon: "⚡",
+              label: locale === "tr" ? "48s Yanıt Garantisi" : "48h Response Guarantee",
+            },
+          ].map((badge) => (
+            <div
+              className="flex items-center gap-2 rounded-full border border-white/15 bg-white/6 px-4 py-2 text-xs font-medium text-white/70"
+              key={badge.label}
+            >
+              <span aria-hidden="true">{badge.icon}</span>
+              {badge.label}
+            </div>
+          ))}
+        </div>
+
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/12 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+        <div className="mt-6 flex flex-col gap-3 border-t border-white/12 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} {settings.siteName}. {t.rights}</p>
           <div className="flex items-center gap-4">
             <span>{t.legal}</span>

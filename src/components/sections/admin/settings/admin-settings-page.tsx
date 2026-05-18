@@ -41,6 +41,8 @@ export function AdminSettingsPageSections({ settings, media }: AdminSettingsPage
           faviconMediaId: settings.faviconMediaId,
           defaultOgMediaId: settings.defaultOgMediaId,
           robotsAllowIndex: settings.robotsAllowIndex,
+          ga4Id: settings.ga4Id ?? "",
+          gtmId: settings.gtmId ?? "",
         }}
         media={media}
       />
