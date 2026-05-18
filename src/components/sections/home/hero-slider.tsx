@@ -43,6 +43,11 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
   const prev = useCallback(() => setCurrent((c) => (c - 1 + items.length) % items.length), [items.length]);
 
   useEffect(() => {
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
+  useEffect(() => {
     if (items.length <= 1) return;
     const id = setInterval(next, intervalSeconds * 1000);
     return () => clearInterval(id);
@@ -53,7 +58,7 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
   const activePretitle = items[current].pretitle ?? fb.pretitle;
 
   return (
-    <section className="bg-white py-14 md:py-20 nmd-page-x">
+    <section className="bg-white py-14 md:py-20 nmd-page-x min-h-svh md:min-h-0 flex flex-col justify-center">
       <div className="nmd-container mx-auto grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
 
         {/* Left: Text — order 2 on mobile (below image), order 1 on desktop */}
