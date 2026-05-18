@@ -415,6 +415,107 @@ export const trabzonTanitimFilmiContent: TrabzonLandingContent = {
   },
 };
 
+export const trabzonSosyalMedyaContent: TrabzonLandingContent = {
+  label: "Trabzon Sosyal Medya",
+  h1: "Trabzon Sosyal Medya Yönetimi & İçerik Üretimi",
+  intro:
+    "Trabzon ve Karadeniz bölgesindeki işletmeler için profesyonel sosyal medya içerik üretimi. Reels, story, statik gönderi ve reklam görseli — tek planlı üretim döngüsünde çıkarılır, her platforma dağıtılır.",
+  ctaPrimary: "İçerik Sistemi Kur",
+  heroBadge: "Trabzon'da Sosyal Medya",
+  image: "featuredSocialMedia",
+  serviceKey: "social-media",
+  localContext: {
+    title: "Trabzon işletmeleri için sosyal medya neden fark yaratır?",
+    lead: "Trabzon'daki rekabet sosyal medyaya taşındı. İçerik üretemeyen işletmeler görünmez oluyor.",
+    body:
+      "Trabzon'daki KOBİ'lerden turizm işletmelerine, e-ticaret markalarından yerel hizmet şirketlerine kadar sosyal medya içerik üretimi yapıyoruz. Karadeniz'in görsel zenginliğini, Trabzon iş kültürünü ve yerel tüketici davranışını bilerek içerik kurguluyoruz. Tek çekim gününde çeyreklik içerik takviminizi dolduran modüler üretim sistemi — hem maliyet verimliliği hem tutarlılık sağlıyor.",
+  },
+  benefitsTitle: "Trabzon'da sosyal medya üretiminde ne alırsınız?",
+  benefits: [
+    {
+      title: "Çok Platformlu Üretim",
+      description:
+        "Her çekim günü Instagram Reels, TikTok, hikaye formatı ve reklama hazır kurgular üretiyor. Yeniden çekim yapmadan tüm kanallar besleniyor.",
+    },
+    {
+      title: "Trabzon Lokasyon Avantajı",
+      description:
+        "Karadeniz kıyıları, tarihi mekânlar, doğal peyzaj ve Trabzon şehir dokusu — içeriklerinize özgün görsel kimlik katıyor.",
+    },
+    {
+      title: "Çeyreklik İçerik Takvimleri",
+      description:
+        "Kampanyalarınızı ve lansmanlarınızı 90 günlük plana yayıyoruz. Reaktif değil, proaktif içerik sistemi kuruyoruz.",
+    },
+    {
+      title: "Performans Geri Besleme Döngüsü",
+      description:
+        "Her döngünün sonunda kaydetme, paylaşım ve dönüşüm verilerini inceleyip bir sonraki içerik planına işliyoruz.",
+    },
+  ],
+  processTitle: "Sosyal medya üretimi nasıl ilerler?",
+  process: [
+    {
+      title: "Çeyreklik Planlama",
+      description:
+        "Trabzon'daki hedef kitlenizi, mevsimsel yoğunlukları ve kampanyaları 3 aylık içerik takvimine haritalıyoruz.",
+    },
+    {
+      title: "Çekim Günü Üretimi",
+      description:
+        "1–3 günlük planlı çekim bloğunda çeyreklik içerik üretilir. Trabzon stüdyomuzda veya belirlediğiniz mekânda.",
+    },
+    {
+      title: "Edit & Format Varyantları",
+      description:
+        "Her varlık Instagram, TikTok ve Facebook'a özgü boyut ve kurguyla hazırlanır. Caption ve hook metinleri yazılır.",
+    },
+    {
+      title: "Performans İncelemesi",
+      description:
+        "Aylık veri incelemesi: en iyi performans gösteren içerik evrimleştirilir, düşük performans duraklatılır.",
+    },
+  ],
+  deliverablesTitle: "Çeyrek başına teslim edilenler",
+  deliverables: [
+    "12–18 kısa form video (Reels / TikTok)",
+    "24–36 statik gönderi (marka grid'ine uyumlu)",
+    "Story şablonları + animasyonlu highlight kapakları",
+    "5–8 reklam varyantı (Meta/Instagram)",
+    "Caption + hashtag önerileri",
+    "Aylık performans raporu",
+  ],
+  faqTitle: "Trabzon sosyal medya yönetimine dair sık sorulan sorular",
+  faq: [
+    {
+      question: "Trabzon'da hangi sektörler için içerik üretiyorsunuz?",
+      answer:
+        "Turizm, otelcilik, e-ticaret, gıda, perakende, inşaat ve profesyonel hizmetler dahil pek çok sektörde içerik üretiyor ve yönetiyoruz. Sektöre özgü içerik dili ve estetik anlayışla çalışıyoruz.",
+    },
+    {
+      question: "Topluluk yönetimini (yorum, DM yanıt) de yapıyor musunuz?",
+      answer:
+        "İçerik üretimi ve planlama hizmetimizin içinde. Topluluk yönetimi (yorum/DM yanıtları) ekibinizde kalıyor; ancak ses tonu rehberi ve hazır yanıt şablonları sunuyoruz.",
+    },
+    {
+      question: "Minimum sözleşme süresi var mı?",
+      answer:
+        "Çeyreklik döngülerle çalışıyoruz çünkü varlık başı en düşük maliyet bu yapıda gerçekleşiyor. Belirli kampanyalar için tek seferlik proje paketleri de sunuyoruz.",
+    },
+    {
+      question: "Trabzon'da çekim mekânı bulamıyorsam ne yapıyorsunuz?",
+      answer:
+        "Mekân keşfi prodüksiyon hizmetimizin içinde. Trabzon merkez ve ilçelerinde onlarca lokasyon arşivimiz var; markanıza en uygun mekânı birlikte seçiyoruz.",
+    },
+  ],
+  ctaSection: {
+    title: "Trabzon'da sosyal medya varlığınızı güçlendirelim",
+    subtitle:
+      "Kanal karışımınızı ve içerik hedeflerinizi paylaşın. 48 saat içinde çeyreklik bir içerik planı önerisiyle dönüş yaparız.",
+    button: "İçerik Sistemi Kur",
+  },
+};
+
 export const trabzonKurumsalKimlikContent: TrabzonLandingContent = {
   label: "Trabzon Kurumsal Kimlik",
   h1: "Trabzon Kurumsal Kimlik & Logo Tasarımı",
