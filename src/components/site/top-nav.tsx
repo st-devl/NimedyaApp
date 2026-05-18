@@ -16,8 +16,8 @@ type TopNavProps = {
 };
 
 const labels = {
-  tr: { home: "Anasayfa", services: "Hizmetler", portfolio: "İşlerimiz", about: "Hakkımızda", contact: "İletişim", cta: "İletişime Geç" },
-  en: { home: "Home", services: "Services", portfolio: "Portfolio", about: "About", contact: "Contact", cta: "Let's Talk" },
+  tr: { home: "Anasayfa", services: "Hizmetler", portfolio: "İşlerimiz", about: "Hakkımızda", contact: "İletişim", cta: "Ücretsiz Teklif Al" },
+  en: { home: "Home", services: "Services", portfolio: "Portfolio", about: "About", contact: "Contact", cta: "Get a Free Quote" },
 };
 
 const keyToRoute: Record<NonNullable<TopNavProps["active"]>, RouteKey> = {
@@ -135,7 +135,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
             {navKeys.map((key) => (
               <Link
                 aria-current={active === key ? "page" : undefined}
-                className={`rounded-lg px-4 py-3 text-base font-medium nmd-transition ${
+                className={`flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium nmd-transition ${
                   active === key ? "bg-white/10 text-[#d9111e]" : "text-white/70 hover:bg-white/5 hover:text-white"
                 }`}
                 href={localizedPath(locale, keyToRoute[key])}
@@ -146,7 +146,7 @@ export function TopNav({ locale, active = "home", siteName, logoUrl, logoWhiteUr
             ))}
             <div className="mt-3 border-t border-white/10 pt-3">
               <Link
-                className="block w-full rounded-xl px-4 py-3 text-center text-sm font-semibold text-white nmd-transition hover:opacity-90"
+                className="flex min-h-[44px] w-full items-center justify-center rounded-xl px-4 py-3 text-center text-sm font-semibold text-white nmd-transition hover:opacity-90"
                 href={localizedPath(locale, "contact")}
                 style={{ background: "linear-gradient(135deg,#d9111e,#8b0a12)" }}
               >

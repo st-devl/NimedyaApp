@@ -92,7 +92,7 @@ export default async function LocaleLayout({
         type="application/ld+json"
       />
       {children}
-      {settings.whatsappPhone && <WhatsAppButton phone={settings.whatsappPhone} />}
+      {settings.whatsappPhone && <WhatsAppButton locale={locale} phone={settings.whatsappPhone} />}
     </div>
   );
 }

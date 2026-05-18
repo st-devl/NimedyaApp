@@ -97,6 +97,76 @@ export const seoDefaults: Record<RouteKey, Record<Locale, SeoDefaults>> = {
       description: "Discover Nimedya's transparent, structured workflow from discovery to delivery. Quality creative production process in Trabzon.",
     },
   },
+  pricing: {
+    tr: {
+      title: "Nimedya Hizmet Fiyatları | Trabzon Fotoğraf, Video & Web Tasarım Paketleri",
+      description: "Trabzon'da profesyonel fotoğrafçılık, tanıtım filmi, web tasarım ve marka kimliği hizmetleri için fiyat paketleri. Bütçenize uygun çözümler için teklif alın.",
+    },
+    en: {
+      title: "Nimedya Pricing | Photography, Video & Web Design Packages in Trabzon",
+      description: "Pricing packages for professional photography, promotional video, web design and brand identity in Trabzon. Get a quote for a solution that fits your budget.",
+    },
+  },
+  blog: {
+    tr: {
+      title: "Nimedya Blog | Fotoğraf, Video, Web Tasarım & SEO Rehberleri",
+      description: "Trabzon merkezli Nimedya ajansından fotoğrafçılık, tanıtım filmi üretimi, web tasarım ve dijital pazarlama üzerine uzman içerikler.",
+    },
+    en: {
+      title: "Nimedya Blog | Photography, Video, Web Design & SEO Guides",
+      description: "Expert content on photography, promotional video production, web design and digital marketing from Trabzon-based creative agency Nimedya.",
+    },
+  },
+  trabzonWebTasarim: {
+    tr: {
+      title: "Trabzon Web Tasarım Ajansı | Nimedya — Dönüşüm Odaklı Siteler",
+      description: "Trabzon'da profesyonel web tasarım hizmeti. Next.js, headless CMS ve mobil öncelikli mimarilerle satışlarınızı artıracak kurumsal web siteleri. Ücretsiz keşif görüşmesi için teklif alın.",
+    },
+    en: {
+      title: "Web Design Agency in Trabzon | Nimedya — Conversion-Focused Websites",
+      description: "Professional web design service in Trabzon. Corporate websites built with Next.js, headless CMS and mobile-first architecture to grow your business.",
+    },
+  },
+  trabzonSeo: {
+    tr: {
+      title: "Trabzon SEO Ajansı | Nimedya — Yerel & Ulusal Arama Sıralaması",
+      description: "Trabzon'da SEO ve içerik stratejisi hizmeti. Teknik SEO denetimi, anahtar kelime araştırması ve dönüşüm odaklı landing page'ler ile Google'da öne çıkın.",
+    },
+    en: {
+      title: "SEO Agency in Trabzon | Nimedya — Local & National Rankings",
+      description: "SEO and content strategy service in Trabzon. Technical SEO audit, keyword research and conversion-focused landing pages to rank on Google.",
+    },
+  },
+  trabzonFotografcilik: {
+    tr: {
+      title: "Trabzon Fotoğraf Çekimi & Ürün Fotoğrafçılığı | Nimedya",
+      description: "Trabzon'da profesyonel ürün fotoğrafçılığı, kurumsal fotoğraf çekimi ve kampanya görsel üretimi. E-ticaret ve marka kimliği için stüdyo kalitesinde görseller.",
+    },
+    en: {
+      title: "Photography & Product Photography in Trabzon | Nimedya",
+      description: "Professional product photography, corporate photo shoots and campaign visuals in Trabzon. Studio-quality images for e-commerce and brand identity.",
+    },
+  },
+  trabzonTanitimFilmi: {
+    tr: {
+      title: "Trabzon Tanıtım Filmi & Video Prodüksiyon | Nimedya",
+      description: "Trabzon'da kurumsal tanıtım filmi, marka belgeseli ve sosyal medya video üretimi. 30 saniyelik Reels'ten 3 dakikalık marka filmine kadar profesyonel video prodüksiyon.",
+    },
+    en: {
+      title: "Promotional Video & Video Production in Trabzon | Nimedya",
+      description: "Corporate promotional video, brand documentary and social media video production in Trabzon. Professional video production from 30-second Reels to full brand films.",
+    },
+  },
+  trabzonKurumsalKimlik: {
+    tr: {
+      title: "Trabzon Kurumsal Kimlik & Logo Tasarımı | Nimedya",
+      description: "Trabzon'da marka kimliği ve logo sistemi tasarım hizmeti. Stratejik marka temeli, esnek görsel sistem ve yaşayan marka rehberleri ile markınızı güçlendirin.",
+    },
+    en: {
+      title: "Corporate Identity & Logo Design in Trabzon | Nimedya",
+      description: "Brand identity and logo system design service in Trabzon. Strengthen your brand with a strategic brand foundation, flexible visual system and living brand guidelines.",
+    },
+  },
   admin: {
     tr: { title: "Nimedya Admin | Dashboard", description: "Nimedya admin dashboard." },
     en: { title: "Nimedya Admin | Dashboard", description: "Nimedya admin dashboard." },

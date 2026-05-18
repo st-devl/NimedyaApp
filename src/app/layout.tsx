@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import { getSiteSettings } from "@/lib/cms/settings";
+import { headers } from "next/headers";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Nimedya",
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const locale = headersList.get("x-locale") || "tr";
+
   let faviconUrl: string | null = null;
   try {
     const settings = await getSiteSettings();
@@ -19,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   } catch { /* fallback silently */ }
 
   return (
-    <html lang="tr">
+    <html lang={locale}>
       <head>
         {faviconUrl && (
           <>

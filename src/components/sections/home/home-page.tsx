@@ -35,8 +35,8 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
               </h1>
               <p className="nmd-body-lg mb-10 text-[color:var(--app-muted)]">{content.heroText}</p>
               <div className="flex flex-wrap gap-4">
-                <Link className="nmd-label-sm rounded-xl bg-[color:var(--primary)] px-10 py-5 text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90" href={localizedPath(locale, "contact")}>{content.ctaA}</Link>
-                <Link className="nmd-label-sm rounded-xl border-2 border-[color:var(--primary)] px-10 py-5 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]" href={localizedPath(locale, "portfolio")}>{content.ctaB}</Link>
+                <Link className="nmd-label-sm min-h-[52px] rounded-xl bg-[color:var(--secondary)] px-10 py-5 text-[color:var(--on-secondary)] nmd-transition hover:-translate-y-1 hover:opacity-90" href={localizedPath(locale, "contact")}>{content.ctaA}</Link>
+                <Link className="nmd-label-sm min-h-[52px] rounded-xl border-2 border-[color:var(--primary)] px-10 py-5 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]" href={localizedPath(locale, "portfolio")}>{content.ctaB}</Link>
               </div>
             </div>
           </div>
@@ -90,7 +90,12 @@ export function HomePageSections({ locale, content, sliderItems, sliderIntervalS
               <h3 className="nmd-headline-md mb-4 text-[color:var(--primary)]">{servicesContent.services[1].title}</h3>
               <p className="nmd-body-md text-[color:var(--app-muted)]">{servicesContent.services[1].description}</p>
             </div>
-            {servicesContent.services[1].cta && <span className="nmd-label-sm mt-8 text-[color:var(--secondary)]">{servicesContent.services[1].cta}</span>}
+            <Link
+              className="mt-8 inline-flex min-h-[44px] items-center rounded-lg bg-[color:var(--secondary)] px-5 py-2.5 text-sm font-semibold text-[color:var(--on-secondary)] nmd-transition hover:-translate-y-0.5 hover:opacity-90 self-start"
+              href={localizedPath(locale, "contact")}
+            >
+              {servicesContent.services[1].cta ?? (locale === "tr" ? "Teklif Al" : "Get a Quote")}
+            </Link>
           </div>
 
           <div className="rounded-xl bg-[color:var(--primary)] p-10 text-[color:var(--on-primary)] shadow-sm nmd-transition hover:-translate-y-1 hover:shadow-2xl">

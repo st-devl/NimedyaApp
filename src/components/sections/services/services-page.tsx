@@ -37,7 +37,7 @@ export function ServicesPageSections({ locale, content, serviceDetails }: Servic
   }
 
   return (
-    <main>
+    <>
       <section className="nmd-container nmd-page-x py-[120px]">
         <div className="mb-16 text-center">
           <h1 className="nmd-headline-xl text-[color:var(--primary)]">{content.title}</h1>
@@ -58,6 +58,7 @@ export function ServicesPageSections({ locale, content, serviceDetails }: Servic
                         alt={service.title || "Service"}
                         className="object-cover nmd-transition group-hover:scale-105"
                         fill
+                        priority={index === 0}
                         quality={img.quality}
                         sizes={img.sizes}
                         src={img.src}
@@ -68,21 +69,21 @@ export function ServicesPageSections({ locale, content, serviceDetails }: Servic
                 <div className="flex flex-col gap-4 p-8">
                   <h2 className="text-xl font-semibold text-[color:var(--primary)]">{service.title}</h2>
                   <p className="nmd-body-md flex-1 text-[color:var(--app-muted)]">{service.description}</p>
-                  <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-2">
-                    {detailHref && (
-                      <Link
-                        className="inline-flex items-center gap-1 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:gap-2"
-                        href={detailHref}
-                      >
-                        {locale === "tr" ? "Detayları Gör →" : "View Details →"}
-                      </Link>
-                    )}
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
                     <Link
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[color:var(--secondary)] nmd-transition hover:gap-2"
+                      className="inline-flex min-h-[44px] items-center rounded-lg bg-[color:var(--secondary)] px-5 py-2.5 text-sm font-semibold text-[color:var(--on-secondary)] nmd-transition hover:-translate-y-0.5 hover:opacity-90"
                       href={`${localizedPath(locale, "contact")}?hizmet=${encodeURIComponent(service.title)}`}
                     >
-                      {locale === "tr" ? "Teklif Al →" : "Get a Quote →"}
+                      {locale === "tr" ? "Teklif Al" : "Get a Quote"}
                     </Link>
+                    {detailHref && (
+                      <Link
+                        className="inline-flex min-h-[44px] items-center gap-1 text-sm font-medium text-[color:var(--app-muted)] underline-offset-4 nmd-transition hover:text-[color:var(--primary)] hover:underline"
+                        href={detailHref}
+                      >
+                        {locale === "tr" ? "Hizmet Detayları →" : "Service Details →"}
+                      </Link>
+                    )}
                   </div>
                 </div>
               </article>
@@ -94,6 +95,6 @@ export function ServicesPageSections({ locale, content, serviceDetails }: Servic
           <Link className="inline-flex rounded-xl bg-[color:var(--primary)] px-10 py-4 text-sm font-semibold text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90" href={productPhotographyHref}>{content.cta}</Link>
         </div>
       </section>
-    </main>
+    </>
   );
 }

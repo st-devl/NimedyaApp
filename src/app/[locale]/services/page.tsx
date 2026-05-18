@@ -79,18 +79,33 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: resolvedLocale === "tr" ? "Ana Sayfa" : "Home", item: `https://nimedya.com/${resolvedLocale}` },
+      { "@type": "ListItem", position: 2, name: resolvedLocale === "tr" ? "Hizmetler" : "Services", item: `https://nimedya.com/${resolvedLocale}/${resolvedLocale === "tr" ? "hizmetler" : "services"}` },
+    ],
+  };
+
   return (
     <>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
         type="application/ld+json"
       />
-      <TopNav active="services" locale={resolvedLocale} />
-      <ServicesPageSections content={content} locale={resolvedLocale} serviceDetails={serviceDetails} />
-      <FaqSection
-        items={faqs}
-        title={resolvedLocale === "tr" ? "Sık Sorulan Sorular" : "Frequently Asked Questions"}
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
       />
+      <TopNav active="services" locale={resolvedLocale} />
+      <main>
+        <ServicesPageSections content={content} locale={resolvedLocale} serviceDetails={serviceDetails} />
+        <FaqSection
+          items={faqs}
+          title={resolvedLocale === "tr" ? "Sık Sorulan Sorular" : "Frequently Asked Questions"}
+        />
+      </main>
       <Footer locale={resolvedLocale} />
     </>
   );

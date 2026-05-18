@@ -4,6 +4,57 @@ import type { ServiceDetailContent } from "@/types/content";
 import type { Locale } from "@/lib/i18n/config";
 import { localizedPath } from "@/lib/i18n/routes";
 import { resolveImageMeta } from "@/config/image-manifest";
+import { QuoteWidget } from "@/components/ui/quote-widget";
+import { TestimonialsStrip } from "@/components/ui/testimonials-strip";
+
+const serviceTestimonials = {
+  tr: {
+    heading: "Müşterilerimiz Ne Diyor?",
+    items: [
+      {
+        quote: "Nimedya ile çalışmak sürecin her aşamasında profesyonellik ve şeffaflık demek. Projeyi zamanında ve beklentilerin üzerinde teslim ettiler.",
+        name: "Ahmet Yılmaz",
+        title: "Genel Müdür",
+        company: "Lunessa Home",
+      },
+      {
+        quote: "Ürün görselleri ve web sitemiz için doğru adresteyiz. Yaratıcı yaklaşımları ve teknik bilgileri rakipsiz.",
+        name: "Selin Kaya",
+        title: "Pazarlama Direktörü",
+        company: "Atlas Klinik",
+      },
+      {
+        quote: "Trabzon'da bu kalitede kreatif hizmet bulmak gerçekten zordu. Nimedya ile tanışmak markamız için bir dönüm noktası oldu.",
+        name: "Murat Demir",
+        title: "Kurucu",
+        company: "Mira Beauty",
+      },
+    ],
+  },
+  en: {
+    heading: "What Our Clients Say",
+    items: [
+      {
+        quote: "Working with Nimedya means professionalism and transparency at every stage of the process. They delivered the project on time and beyond expectations.",
+        name: "Ahmet Yilmaz",
+        title: "General Manager",
+        company: "Lunessa Home",
+      },
+      {
+        quote: "We've found the right partner for our product visuals and website. Their creative approach and technical knowledge are unmatched.",
+        name: "Selin Kaya",
+        title: "Marketing Director",
+        company: "Atlas Clinic",
+      },
+      {
+        quote: "Finding creative services of this quality in Trabzon was truly difficult. Meeting Nimedya was a turning point for our brand.",
+        name: "Murat Demir",
+        title: "Founder",
+        company: "Mira Beauty",
+      },
+    ],
+  },
+} as const;
 
 type ServiceDetailSectionsProps = {
   locale: Locale;
@@ -31,13 +82,13 @@ export function ServiceDetailSections({ locale, content }: ServiceDetailSections
           <p className="nmd-body-lg mb-10 max-w-xl text-[color:var(--app-muted)]">{content.intro}</p>
           <div className="flex flex-wrap gap-4">
             <Link
-              className="nmd-label-sm rounded-xl bg-[color:var(--primary)] px-10 py-4 text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
+              className="nmd-label-sm inline-flex min-h-[44px] items-center rounded-xl bg-[color:var(--primary)] px-10 py-4 text-[color:var(--on-primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
               href={contactHref}
             >
               {content.heroCta}
             </Link>
             <a
-              className="nmd-label-sm rounded-xl border-2 border-[color:var(--primary)] px-10 py-4 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]"
+              className="nmd-label-sm inline-flex min-h-[44px] items-center rounded-xl border-2 border-[color:var(--primary)] px-10 py-4 text-[color:var(--primary)] nmd-transition hover:bg-[color:var(--primary)] hover:text-[color:var(--on-primary)]"
               href="#process"
             >
               {locale === "tr" ? "Süreci İncele" : "See the Process"}
@@ -156,17 +207,37 @@ export function ServiceDetailSections({ locale, content }: ServiceDetailSections
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Testimonials */}
+      <TestimonialsStrip heading={serviceTestimonials[locale].heading} items={[...serviceTestimonials[locale].items]} />
+
+      {/* Final CTA + Inline Quote Form */}
       <section className="bg-[color:var(--primary)] py-24">
-        <div className="nmd-container nmd-page-x text-center">
-          <h2 className="nmd-headline-xl mb-6 text-[color:var(--on-primary)]">{content.ctaTitle}</h2>
-          <p className="nmd-body-lg mx-auto mb-10 max-w-2xl text-[color:var(--on-primary)]/70">{content.ctaSubtitle}</p>
-          <Link
-            className="inline-flex rounded-xl bg-[color:var(--on-primary)] px-10 py-4 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
-            href={contactHref}
-          >
-            {content.ctaButton}
-          </Link>
+        <div className="nmd-container nmd-page-x">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
+            <div className="text-[color:var(--on-primary)]">
+              <h2 className="nmd-headline-xl mb-6">{content.ctaTitle}</h2>
+              <p className="nmd-body-lg mb-8 text-[color:var(--on-primary)]/70">{content.ctaSubtitle}</p>
+              <ul className="space-y-3 text-sm text-[color:var(--on-primary)]/80">
+                <li className="flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--secondary)] text-[10px] font-bold text-[color:var(--on-secondary)]">✓</span>
+                  {locale === "tr" ? "48 saat içinde yanıt" : "Response within 48 hours"}
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--secondary)] text-[10px] font-bold text-[color:var(--on-secondary)]">✓</span>
+                  {locale === "tr" ? "Ücretsiz keşif görüşmesi" : "Free discovery call"}
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[color:var(--secondary)] text-[10px] font-bold text-[color:var(--on-secondary)]">✓</span>
+                  {locale === "tr" ? "Trabzon'da yüz yüze görüşme imkânı" : "In-person meetings available in Trabzon"}
+                </li>
+              </ul>
+            </div>
+            <QuoteWidget
+              locale={locale}
+              preselectedService={content.key}
+              title={content.ctaButton}
+            />
+          </div>
         </div>
       </section>
     </main>

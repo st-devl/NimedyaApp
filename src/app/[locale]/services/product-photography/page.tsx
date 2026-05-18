@@ -59,6 +59,35 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
   const t = await getManagedProductPhotographyContent(resolvedLocale);
 
   const faqs = faqItems[resolvedLocale];
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: resolvedLocale === "tr" ? "Ürün Fotoğrafçılığı" : "Product Photography",
+    description: resolvedLocale === "tr"
+      ? "Trabzon'da profesyonel ürün fotoğrafçılığı — e-ticaret ve katalog için yüksek kaliteli görüntü paketi."
+      : "Professional product photography in Trabzon — high-quality image packages for e-commerce and catalogues.",
+    provider: {
+      "@type": "LocalBusiness",
+      "@id": "https://nimedya.com/#organization",
+      name: "Nimedya",
+    },
+    areaServed: [
+      { "@type": "City", name: "Trabzon" },
+      { "@type": "Country", name: "Türkiye" },
+    ],
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: resolvedLocale === "tr" ? "Ana Sayfa" : "Home", item: `https://nimedya.com/${resolvedLocale}` },
+      { "@type": "ListItem", position: 2, name: resolvedLocale === "tr" ? "Hizmetler" : "Services", item: `https://nimedya.com/${resolvedLocale}/${resolvedLocale === "tr" ? "hizmetler" : "services"}` },
+      { "@type": "ListItem", position: 3, name: resolvedLocale === "tr" ? "Ürün Fotoğrafçılığı" : "Product Photography", item: `https://nimedya.com/${resolvedLocale}/${resolvedLocale === "tr" ? "hizmetler" : "services"}/product-photography` },
+    ],
+  };
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -75,6 +104,14 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
 
   return (
     <>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
+      />
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }}
         type="application/ld+json"
@@ -143,11 +180,11 @@ export default async function ProductPhotographyPage({ params }: { params: Promi
             </div>
           </div>
         </section>
+        <FaqSection
+          items={faqs}
+          title={resolvedLocale === "tr" ? "Ürün Fotoğrafçılığı Hakkında SSS" : "Product Photography FAQ"}
+        />
       </main>
-      <FaqSection
-        items={faqs}
-        title={resolvedLocale === "tr" ? "Ürün Fotoğrafçılığı Hakkında SSS" : "Product Photography FAQ"}
-      />
       <Footer locale={resolvedLocale} />
     </>
   );

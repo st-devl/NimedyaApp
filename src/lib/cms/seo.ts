@@ -85,21 +85,34 @@ export async function listIndexedSeoPages() {
   });
 }
 
+function toAbsoluteUrl(url: string | null | undefined, baseUrl: string): string | undefined {
+  if (!url) return undefined;
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  const base = baseUrl.replace(/\/$/, "");
+  return `${base}${url.startsWith("/") ? url : `/${url}`}`;
+}
+
 export async function buildManagedMetadata(locale: Locale, routeKey: RouteKey): Promise<Metadata> {
   const [settings, seo] = await Promise.all([getSiteSettings(), getSeoPage(locale, routeKey)]);
+  const base = settings.baseUrl.replace(/\/$/, "");
   const canonical = seo.canonicalUrl || seo.path;
-  const ogImage = seo.ogImageUrl || settings.defaultOgImageUrl || undefined;
-  const twitterImage = seo.twitterImageUrl || ogImage;
+
+  const ogImageRaw = seo.ogImageUrl || settings.defaultOgImageUrl;
+  const ogImageUrl = toAbsoluteUrl(ogImageRaw, base);
+  const twitterImageUrl = toAbsoluteUrl(seo.twitterImageUrl, base) || ogImageUrl;
+
+  const ogTitle = seo.ogTitle || seo.metaTitle;
 
   return {
     title: seo.metaTitle,
     description: seo.metaDescription,
-    metadataBase: new URL(settings.baseUrl),
+    metadataBase: new URL(base),
     alternates: {
       canonical,
       languages: {
         tr: localizedPath("tr", routeKey),
         en: localizedPath("en", routeKey),
+        "x-default": localizedPath("tr", routeKey),
       },
     },
     robots: {
@@ -107,19 +120,23 @@ export async function buildManagedMetadata(locale: Locale, routeKey: RouteKey): 
       follow: !seo.nofollow && settings.robotsAllowIndex,
     },
     openGraph: {
-      title: seo.ogTitle || seo.metaTitle,
+      title: ogTitle,
       description: seo.ogDescription || seo.metaDescription,
-      url: canonical,
+      url: `${base}${canonical.startsWith("/") ? canonical : `/${canonical}`}`,
       siteName: settings.siteName,
       locale: locale === "tr" ? "tr_TR" : "en_US",
       type: "website",
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      images: ogImageUrl
+        ? [{ url: ogImageUrl, width: 1200, height: 630, alt: ogTitle }]
+        : undefined,
     },
     twitter: {
       card: seo.twitterCard,
-      title: seo.twitterTitle || seo.ogTitle || seo.metaTitle,
+      title: seo.twitterTitle || ogTitle,
       description: seo.twitterDescription || seo.ogDescription || seo.metaDescription,
-      images: twitterImage ? [twitterImage] : undefined,
+      images: twitterImageUrl
+        ? [{ url: twitterImageUrl, width: 1200, height: 630, alt: ogTitle }]
+        : undefined,
     },
   };
 }

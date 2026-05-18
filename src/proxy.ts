@@ -10,6 +10,7 @@ export function proxy(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", pathname);
+  requestHeaders.set("x-locale", pathname.startsWith("/en") ? "en" : "tr");
 
   if (pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.startsWith("/favicon.ico") || PUBLIC_FILE.test(pathname)) {
     return NextResponse.next({ request: { headers: requestHeaders } });

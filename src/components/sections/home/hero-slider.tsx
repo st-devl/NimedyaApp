@@ -89,7 +89,7 @@ export function HeroSlider({ items, locale, intervalSeconds = 6 }: HeroSliderPro
                 <div className="mt-9 flex flex-wrap items-center gap-4">
                   {item.linkUrl && (
                     <Link
-                      className="rounded-xl bg-[#001a2b] px-7 py-3.5 text-sm font-semibold text-white nmd-transition hover:-translate-y-0.5 hover:opacity-90"
+                      className="min-h-[48px] rounded-xl bg-[#d9111e] px-7 py-3.5 text-sm font-semibold text-white nmd-transition hover:-translate-y-0.5 hover:opacity-90"
                       href={item.linkUrl}
                       tabIndex={i !== current ? -1 : 0}
                     >

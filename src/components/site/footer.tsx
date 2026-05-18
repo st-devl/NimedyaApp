@@ -10,14 +10,25 @@ const translations = {
     desc: "Markalar için fotoğraf, video ve web odaklı stratejik kreatif çözümler.",
     ctaTitle: "Yeni dijital hikayenizi birlikte kuralım",
     ctaButton: "Proje Başlatalım",
-    nav: "Site Haritası",
+    nav: "Sayfalar",
     navLinks: {
       home: "Ana Sayfa",
       services: "Hizmetler",
       portfolio: "Portfolyo",
       about: "Hakkımızda",
       contact: "İletişim",
+      blog: "Blog",
+      pricing: "Fiyatlar",
+      howWeWork: "Nasıl Çalışıyoruz",
     },
+    serviceLinks: "Hizmetler",
+    serviceItems: [
+      { label: "Ürün Fotoğrafçılığı", key: "productPhotography" as const },
+      { label: "Trabzon Web Tasarım", key: "trabzonWebTasarim" as const },
+      { label: "Trabzon SEO", key: "trabzonSeo" as const },
+      { label: "Trabzon Tanıtım Filmi", key: "trabzonTanitimFilmi" as const },
+      { label: "Marka Kimliği", key: "trabzonKurumsalKimlik" as const },
+    ],
     contact: "İletişim",
     follow: "Çalışma Bilgileri",
     newsletterTitle: "Pazartesi – Cuma",
@@ -32,14 +43,25 @@ const translations = {
     desc: "Strategic creative solutions focused on photography, video, and web for modern brands.",
     ctaTitle: "Ready to build your next digital story?",
     ctaButton: "Start a Project",
-    nav: "Sitemap",
+    nav: "Pages",
     navLinks: {
       home: "Home",
       services: "Services",
       portfolio: "Portfolio",
       about: "About",
       contact: "Contact",
+      blog: "Blog",
+      pricing: "Pricing",
+      howWeWork: "How We Work",
     },
+    serviceLinks: "Services",
+    serviceItems: [
+      { label: "Product Photography", key: "productPhotography" as const },
+      { label: "Web Design Trabzon", key: "trabzonWebTasarim" as const },
+      { label: "SEO Trabzon", key: "trabzonSeo" as const },
+      { label: "Video Production Trabzon", key: "trabzonTanitimFilmi" as const },
+      { label: "Brand Identity Trabzon", key: "trabzonKurumsalKimlik" as const },
+    ],
     contact: "Contact",
     follow: "Working Hours",
     newsletterTitle: "Monday – Friday",
@@ -80,7 +102,7 @@ export async function Footer({ locale }: { locale: Locale }) {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-x-12">
 
           {/* Brand col */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-3">
             {logoSrc ? (
               <Image
                 alt={settings.siteName}
@@ -120,7 +142,22 @@ export async function Footer({ locale }: { locale: Locale }) {
               <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "services")}>{t.navLinks.services}</Link>
               <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "portfolio")}>{t.navLinks.portfolio}</Link>
               <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "about")}>{t.navLinks.about}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "howWeWork")}>{t.navLinks.howWeWork}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "blog")}>{t.navLinks.blog}</Link>
+              <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "pricing")}>{t.navLinks.pricing}</Link>
               <Link className="nmd-transition hover:text-white" href={localizedPath(locale, "contact")}>{t.navLinks.contact}</Link>
+            </div>
+          </div>
+
+          {/* Service links */}
+          <div className="md:col-span-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#cae6ff]">{t.serviceLinks}</p>
+            <div className="mt-4 flex flex-col gap-2 text-sm text-white/70">
+              {t.serviceItems.map((item) => (
+                <Link className="nmd-transition hover:text-white" href={localizedPath(locale, item.key)} key={item.key}>
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -135,7 +172,7 @@ export async function Footer({ locale }: { locale: Locale }) {
           </div>
 
           {/* Working hours */}
-          <div className="md:col-span-4">
+          <div className="md:col-span-2">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#cae6ff]">{t.follow}</p>
             <div className="mt-4 space-y-3 rounded-xl border border-white/12 bg-white/5 p-4 text-sm">
               <p className="font-semibold text-white/90">{t.newsletterTitle}</p>

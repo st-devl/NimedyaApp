@@ -14,8 +14,8 @@ export async function ContactPageSections({ content, locale }: ContactPageSectio
   const settings = await getSiteSettings();
 
   return (
-    <main className="nmd-container nmd-page-x py-[120px]">
-      <SectionHeader align="center" description={content.text} title={content.title} />
+    <section className="nmd-container nmd-page-x py-[120px]">
+      <SectionHeader align="center" as="h1" description={content.text} title={content.title} />
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <Card className="p-8">
@@ -30,6 +30,6 @@ export async function ContactPageSections({ content, locale }: ContactPageSectio
           {settings.contactPhone && <p className="nmd-body-md text-[color:var(--app-muted)]">{settings.contactPhone}</p>}
         </Card>
       </div>
-    </main>
+    </section>
   );
 }

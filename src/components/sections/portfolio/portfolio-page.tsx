@@ -70,7 +70,7 @@ export function PortfolioPageSections({ content, locale }: PortfolioPageSections
 
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((project) => {
+            {filtered.map((project, index) => {
               const detailSlug = projectDetailSlug(project);
               const img = resolveImageMeta(project.image, imageManifest.portfolio1.sizes);
               const card = (
@@ -80,6 +80,7 @@ export function PortfolioPageSections({ content, locale }: PortfolioPageSections
                       alt={project.title}
                       className="object-cover nmd-transition group-hover:scale-105"
                       fill
+                      priority={index === 0}
                       quality={img.quality}
                       sizes={img.sizes}
                       src={img.src}
@@ -89,7 +90,7 @@ export function PortfolioPageSections({ content, locale }: PortfolioPageSections
                     {project.category && (
                       <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--secondary)]">{project.category}</p>
                     )}
-                    <h2 className="text-xl font-semibold text-[color:var(--primary)]">{project.title}</h2>
+                    <h3 className="text-xl font-semibold text-[color:var(--primary)]">{project.title}</h3>
                     <p className="mt-2 text-sm text-[color:var(--app-muted)]">{project.description}</p>
                     {detailSlug && (
                       <p className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[color:var(--secondary)] nmd-transition group-hover:gap-2">
@@ -102,6 +103,7 @@ export function PortfolioPageSections({ content, locale }: PortfolioPageSections
 
               return detailSlug ? (
                 <Link
+                  aria-label={`${project.title} ${locale === "tr" ? "vaka çalışmasını oku" : "case study"}`}
                   className="group block overflow-hidden rounded-xl border border-[color:var(--app-border)]/30 bg-[color:var(--app-card)] shadow-sm nmd-transition hover:-translate-y-1 hover:shadow-2xl"
                   href={caseStudyHref(locale, detailSlug)}
                   key={project.title}
@@ -221,7 +223,7 @@ export function PortfolioPageSections({ content, locale }: PortfolioPageSections
                         className="inline-flex items-center gap-1 text-sm font-semibold text-[color:var(--secondary)] nmd-transition hover:gap-2"
                         href={caseStudyHref(locale, cs.slug)}
                       >
-                        {t.readCase}
+                        {locale === "tr" ? `${cs.client} Vaka Çalışmasını Oku →` : `Read ${cs.client} Case Study →`}
                       </Link>
                     </div>
                   </div>

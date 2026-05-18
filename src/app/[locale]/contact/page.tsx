@@ -2,6 +2,7 @@ import { Footer } from "@/components/site/footer";
 import { TopNavServer as TopNav } from "@/components/site/top-nav-server";
 import { ContactPageSections } from "@/components/sections/contact/contact-page";
 import { FaqSection } from "@/components/ui/faq-section";
+import { CalendlyWidget } from "@/components/ui/calendly-widget";
 import { getManagedContactContent } from "@/lib/cms/public-content";
 import { isLocale, type Locale } from "@/lib/i18n/config";
 import { buildManagedMetadata } from "@/lib/cms/seo";
@@ -61,6 +62,15 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   ]);
 
   const faqs = faqItems[resolvedLocale];
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: resolvedLocale === "tr" ? "Ana Sayfa" : "Home", item: `https://nimedya.com/${resolvedLocale}` },
+      { "@type": "ListItem", position: 2, name: resolvedLocale === "tr" ? "İletişim" : "Contact", item: `https://nimedya.com/${resolvedLocale}/${resolvedLocale === "tr" ? "iletisim" : "contact"}` },
+    ],
+  };
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -92,6 +102,10 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   return (
     <>
       <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }}
+        type="application/ld+json"
+      />
+      <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }}
         type="application/ld+json"
       />
@@ -100,11 +114,16 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         type="application/ld+json"
       />
       <TopNav active="contact" locale={resolvedLocale} />
-      <ContactPageSections content={content} locale={resolvedLocale} />
-      <FaqSection
-        items={faqs}
-        title={resolvedLocale === "tr" ? "İletişim Hakkında Sık Sorulan Sorular" : "Contact FAQ"}
-      />
+      <main>
+        <ContactPageSections content={content} locale={resolvedLocale} />
+        {process.env.NEXT_PUBLIC_CALENDLY_URL && (
+          <CalendlyWidget locale={resolvedLocale} url={process.env.NEXT_PUBLIC_CALENDLY_URL} />
+        )}
+        <FaqSection
+          items={faqs}
+          title={resolvedLocale === "tr" ? "İletişim Hakkında Sık Sorulan Sorular" : "Contact FAQ"}
+        />
+      </main>
       <Footer locale={resolvedLocale} />
     </>
   );

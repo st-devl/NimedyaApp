@@ -244,7 +244,7 @@ export function PortfolioDetailSections({ locale, caseStudy, related }: Portfoli
           <h2 className="nmd-headline-xl mb-6 text-[color:var(--on-primary)]">{t.ctaTitle}</h2>
           <p className="nmd-body-lg mx-auto mb-10 max-w-2xl text-[color:var(--on-primary)]/70">{t.ctaSubtitle}</p>
           <Link
-            className="inline-flex rounded-xl bg-[color:var(--on-primary)] px-10 py-4 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
+            className="inline-flex min-h-[44px] items-center rounded-xl bg-[color:var(--on-primary)] px-10 py-4 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
             href={localizedPath(locale, "contact")}
           >
             {t.ctaButton}

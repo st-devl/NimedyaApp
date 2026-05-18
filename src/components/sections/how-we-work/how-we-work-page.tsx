@@ -48,7 +48,7 @@ export function HowWeWorkPageSections({ locale, content }: HowWeWorkPageProps) {
               : "The first consultation is free. Let's determine the right step for your brand together."}
           </p>
           <Link
-            className="inline-flex rounded-lg bg-[color:var(--on-primary)] px-10 py-4 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
+            className="inline-flex min-h-[44px] items-center rounded-lg bg-[color:var(--on-primary)] px-10 py-4 text-sm font-semibold text-[color:var(--primary)] nmd-transition hover:-translate-y-1 hover:opacity-90"
             href={localizedPath(locale, "contact")}
           >
             {content.ctaLabel}
